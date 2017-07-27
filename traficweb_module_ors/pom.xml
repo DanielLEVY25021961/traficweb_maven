@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- GAV (identifiant du projet) PERE -->
+	<!-- Projet parent dont le présent POM est un module -->
+	<parent>
+		<!-- Groupe = domaine (espace de nom) -->
+		<groupId>levy.daniel.application</groupId>
+		<!-- Artefact = Nom du projet -->
+		<artifactId>traficweb_maven</artifactId>
+		<!-- Version Bêta (SNAPSHOT) -->
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<!-- Artefact = Nom du projet MODULE -->
+	<artifactId>traficweb_module_ors</artifactId>
+	<name>Objets Routiers Simples</name>
+	<description>Contient toutes les classes définissant les sections de trafic</description>
+
+</project>
