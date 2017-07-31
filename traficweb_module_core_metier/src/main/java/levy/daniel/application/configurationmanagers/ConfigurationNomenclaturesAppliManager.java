@@ -1228,7 +1228,9 @@ public final class ConfigurationNomenclaturesAppliManager {
 				try {
 					pIsr.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					if (LOG.isErrorEnabled()) {
+						LOG.error("Impossible de fermer le InputStreamReader", e);
+					}
 				}
 			}
 			
@@ -1236,7 +1238,9 @@ public final class ConfigurationNomenclaturesAppliManager {
 				try {
 					pFis.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					if (LOG.isErrorEnabled()) {
+						LOG.error("Impossible de fermer le FileInputStream", e);
+					}
 				}
 			}
 
