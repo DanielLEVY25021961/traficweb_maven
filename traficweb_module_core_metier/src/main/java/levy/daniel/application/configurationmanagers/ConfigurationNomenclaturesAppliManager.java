@@ -1218,7 +1218,9 @@ public final class ConfigurationNomenclaturesAppliManager {
 				try {
 					pBfr.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					if (LOG.isErrorEnabled()) {
+						LOG.error("Impossible de fermer le BufferedReader", e);
+					}
 				}
 			}
 			

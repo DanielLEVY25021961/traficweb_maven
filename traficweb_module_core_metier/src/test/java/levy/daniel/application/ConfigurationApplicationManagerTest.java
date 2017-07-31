@@ -43,6 +43,17 @@ public class ConfigurationApplicationManagerTest {
 
 	
 	
+	 /**
+	 * method CONSTRUCTEUR ConfigurationApplicationManagerTest() :<br/>
+	 * CONSTRUCTEUR D'ARITE NULLE.<br/>
+	 * <br/>
+	 */
+	public ConfigurationApplicationManagerTest() {
+		super();
+	} // Fin de  CONSTRUCTEUR D'ARITE NULLE._______________________________
+
+	
+	
 	/**
 	 * method testGetBundleApplication() :<br/>
 	 * .<br/>
