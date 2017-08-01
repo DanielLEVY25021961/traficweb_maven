@@ -1,14 +1,16 @@
 package levy.daniel.application;
 
-import static org.junit.Assert.fail;
+import java.util.ResourceBundle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+import static org.junit.Assert.*;
+
 
 /**
  * class ConfigurationApplicationManagerTest :<br/>
- * .<br/>
+ * Test JUnit de la classe ConfigurationApplicationManager.<br/>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>
@@ -56,15 +58,46 @@ public class ConfigurationApplicationManagerTest {
 	
 	/**
 	 * method testGetBundleApplication() :<br/>
-	 * .<br/>
+	 * Teste la méthode getBundleApplication().<br/>
+	 * Garantit que : <ul>
+	 * <li>getBundleApplication() retourne 
+	 * un Singleton de ResourceBundle.</li>
+	 * <li>le rapport fourni par getRapportConfigurationCsv() 
+	 * est null si pas de problème d'import.</li>
+	 * </ul>
 	 * <br/>
-	 * : void :  .<br/>
 	 */
 	@Test
 	public void testGetBundleApplication() {
 		
-		fail("Not yet implemented");
-	}
+		/* Récupère le ResourceBundle encapsulant 
+		 * application.properties. */
+		final ResourceBundle bundleApplication 
+			= ConfigurationApplicationManager.getBundleApplication();
+		
+		final ResourceBundle bundleApplication2 
+		= ConfigurationApplicationManager.getBundleApplication();
+		
+		/* Garantit que getBundleApplication() retourne 
+		 * un Singleton de ResourceBundle. */
+		assertEquals("Une seule instance de ResourceBundle : "
+				, bundleApplication
+					, bundleApplication2);
+		
+		assertTrue("Une seule instance de ResourceBundle : "
+				, bundleApplication == bundleApplication2);
+		
+		/* Récupère le rapport de chargement de la configuration. */
+		final String rapportCsv 
+			= ConfigurationApplicationManager.getRapportConfigurationCsv();
+		
+		/* Garantit que le rapport fourni par getRapportConfigurationCsv() 
+		 * est null si pas de problème d'import. */
+		assertNull("Le rapport est null si pas de pb d'import : "
+				, rapportCsv);
+		
+	} // Fin de testGetBundleApplication().________________________________
+	
 
 
-}
+} // FIN DE LA CLASSE ConfigurationApplicationManagerTest.-------------------

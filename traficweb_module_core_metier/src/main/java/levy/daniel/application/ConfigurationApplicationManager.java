@@ -23,24 +23,24 @@ import org.apache.commons.logging.LogFactory;
  * des Singletons pour 
  * les fichiers .properties et tout ce dont l'application 
  * a besoin pour fonctionner.<br/>
- * - Délègue à des ConfigurationCCCManagers.<br/>
+ * - Délègue à des ConfigurationCCCManagers.
  * <br/>
  * <ul>
  * <li>Les méthodes getBundleZZZ fournissent 
- * un singleton de BundleZZZ.</li><br/>
+ * un singleton de BundleZZZ.</li>
  * <li>La méthode getCheminDescriptions fournit un Singleton 
  * du chemin vers les descriptions des fichiers 
- * (HIT, HISTO_F07, Darwin.csv, ...).</li><br/>
+ * (HIT, HISTO_F07, Darwin.csv, ...).</li>
  * <li>Les méthodes getNomDescriptionXXX fournissent un singleton  
  * du nom du fichier de description du fichierXXX 
- * (HIT, HISTO_F07, Darwin.csv, ...).</li><br/>
+ * (HIT, HISTO_F07, Darwin.csv, ...).</li>
  * <li>Les méthodes getFichierDescriptionXXX fournissent un singleton  
  * du fichier de description du fichierXXX 
- * (HIT, HISTO_F07, Darwin.csv, ...).</li><br/>
+ * (HIT, HISTO_F07, Darwin.csv, ...).</li>
  * <li>Les méthodes getNomNomenclatureXXXChampYYY fournissent un singleton  
  * du nom du fichier de la nomenclature du champ YYY 
  * dans le fichierXXX 
- * (HIT, HISTO_F07, Darwin.csv, ...).</li><br/>
+ * (HIT, HISTO_F07, Darwin.csv, ...).</li>
  * </ul>
  *
  * - Exemple d'utilisation :<br/>
@@ -184,15 +184,17 @@ public final class ConfigurationApplicationManager {
 	/**
 	 * method getBundleApplication() :<br/>
 	 * <ul>
-	 * <li>Fournit un singleton de bundleApplication.</li><br/>
+	 * <li>Fournit un singleton de bundleApplication 
+	 * (application_fr_FR.properties).</li>
 	 * <li>bundleApplication encapsule 
-	 * .\src\application_fr_FR.properties.</li><br/>
+	 * .\src\application_fr_FR.properties.</li>
 	 * <li>bundleApplication contient les paramétrages généraux 
 	 * de l'application (chemins vers les ressources
-	 * , titre de l'application, ...).</li><br/>
+	 * , titre de l'application, ...).</li>
 	 * <br/>
 	 * - retourne null, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
+	 * <br/>
 	 * Exemple de message :<br/>
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleApplication() 
