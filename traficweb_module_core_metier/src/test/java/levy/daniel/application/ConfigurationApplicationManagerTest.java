@@ -59,6 +59,9 @@ public class ConfigurationApplicationManagerTest {
 	/**
 	 * method testGetBundleApplication() :<br/>
 	 * Teste la méthode getBundleApplication().<br/>
+	 * Pré-requis : application_fr_FR.properties doit avoir été 
+	 * incorporé sous src/main/resources.<br/>
+	 * <br/>
 	 * Garantit que : <ul>
 	 * <li>getBundleApplication() retourne 
 	 * un Singleton de ResourceBundle.</li>
