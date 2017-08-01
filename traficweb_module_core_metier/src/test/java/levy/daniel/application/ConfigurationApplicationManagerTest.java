@@ -68,7 +68,6 @@ public class ConfigurationApplicationManagerTest {
 	 * <li>le rapport fourni par getRapportConfigurationCsv() 
 	 * est null si pas de problème d'import.</li>
 	 * </ul>
-	 * <br/>
 	 */
 	@Test
 	public void testGetBundleApplication() {
@@ -76,10 +75,12 @@ public class ConfigurationApplicationManagerTest {
 		/* Récupère le ResourceBundle encapsulant 
 		 * application.properties. */
 		final ResourceBundle bundleApplication 
-			= ConfigurationApplicationManager.getBundleApplication();
+			= ConfigurationApplicationManager
+				.getBundleApplication();
 		
 		final ResourceBundle bundleApplication2 
-		= ConfigurationApplicationManager.getBundleApplication();
+			= ConfigurationApplicationManager
+				.getBundleApplication();
 		
 		/* Garantit que getBundleApplication() retourne 
 		 * un Singleton de ResourceBundle. */
@@ -92,7 +93,8 @@ public class ConfigurationApplicationManagerTest {
 		
 		/* Récupère le rapport de chargement de la configuration. */
 		final String rapportCsv 
-			= ConfigurationApplicationManager.getRapportConfigurationCsv();
+			= ConfigurationApplicationManager
+				.getRapportConfigurationCsv();
 		
 		/* Garantit que le rapport fourni par getRapportConfigurationCsv() 
 		 * est null si pas de problème d'import. */
@@ -100,6 +102,106 @@ public class ConfigurationApplicationManagerTest {
 				, rapportCsv);
 		
 	} // Fin de testGetBundleApplication().________________________________
+	
+	
+	
+	/**
+	 * method testGetBundleMessagesControles() :<br/>
+	 * Teste la méthode getBundleMessagesControles().<br/>
+	 * Pré-requis : messagescontroles_fr_FR.properties doit avoir été 
+	 * incorporé sous src/main/resources.<br/>
+	 * <br/>
+	 * Garantit que : <ul>
+	 * <li>getBundleMessagesControles() retourne 
+	 * un Singleton de ResourceBundle.</li>
+	 * <li>le rapport fourni par getRapportConfigurationCsv() 
+	 * est null si pas de problème d'import.</li>
+	 * </ul>
+	 */
+	@Test
+	public void testGetBundleMessagesControles() {
+		
+		/* Récupère le ResourceBundle encapsulant 
+		 * messagescontroles.properties. */
+		final ResourceBundle bundleMessagesControle 
+			= ConfigurationApplicationManager
+				.getBundleMessagesControles();
+		
+		final ResourceBundle bundleMessagesControle2 
+			= ConfigurationApplicationManager
+				.getBundleMessagesControles();
+		
+		/* Garantit que getBundleMessagesControles() retourne 
+		 * un Singleton de ResourceBundle. */
+		assertEquals("Une seule instance de ResourceBundle : "
+				, bundleMessagesControle
+					, bundleMessagesControle2);
+		
+		assertTrue("Une seule instance de ResourceBundle : "
+				, bundleMessagesControle == bundleMessagesControle2);
+		
+		/* Récupère le rapport de chargement de la configuration. */
+		final String rapportCsv 
+			= ConfigurationApplicationManager
+				.getRapportConfigurationCsv();
+		
+		/* Garantit que le rapport fourni par getRapportConfigurationCsv() 
+		 * est null si pas de problème d'import. */
+		assertNull("Le rapport est null si pas de pb d'import : "
+				, rapportCsv);
+		
+	} // Fin de testGetBundleMessagesControles().__________________________
+
+	
+	
+	
+	/**
+	 * method testGetBundleMessagesTechniques() :<br/>
+	 * Teste la méthode getBundleMessagesTechniques().<br/>
+	 * Pré-requis : messagesTechniques_fr_FR.properties doit avoir été 
+	 * incorporé sous src/main/resources.<br/>
+	 * <br/>
+	 * Garantit que : <ul>
+	 * <li>getBundleMessagesTechniques() retourne 
+	 * un Singleton de ResourceBundle.</li>
+	 * <li>le rapport fourni par getRapportConfigurationCsv() 
+	 * est null si pas de problème d'import.</li>
+	 * </ul>
+	 */
+	@Test
+	public void testGetBundleMessagesTechniques() {
+		
+		/* Récupère le ResourceBundle encapsulant 
+		 * messagestechniques.properties. */
+		final ResourceBundle bundleMessagesTechnique 
+			= ConfigurationApplicationManager
+				.getBundleMessagesTechniques();
+		
+		final ResourceBundle bundleMessagesTechnique2 
+		= ConfigurationApplicationManager
+			.getBundleMessagesTechniques();
+		
+		/* Garantit que getBundleMessagesTechniques() retourne 
+		 * un Singleton de ResourceBundle. */
+		assertEquals("Une seule instance de ResourceBundle : "
+				, bundleMessagesTechnique
+					, bundleMessagesTechnique2);
+		
+		assertTrue("Une seule instance de ResourceBundle : "
+				, bundleMessagesTechnique == bundleMessagesTechnique2);
+		
+		/* Récupère le rapport de chargement de la configuration. */
+		final String rapportCsv 
+			= ConfigurationApplicationManager
+				.getRapportConfigurationCsv();
+		
+		/* Garantit que le rapport fourni par getRapportConfigurationCsv() 
+		 * est null si pas de problème d'import. */
+		assertNull("Le rapport est null si pas de pb d'import : "
+				, rapportCsv);
+		
+	} // Fin de testGetBundleMessagesTechniques().__________________________
+	
 	
 
 

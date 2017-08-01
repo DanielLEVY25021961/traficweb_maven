@@ -195,7 +195,7 @@ public final class ConfigurationApplicationManager {
 	 * - retourne null, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
 	 * <br/>
-	 * Exemple de message :<br/>
+	 * Exemple de message d'erreur :<br/>
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleApplication() 
 	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
@@ -235,15 +235,17 @@ public final class ConfigurationApplicationManager {
 	/**
 	 * method getBundleMessagesControles() :<br/>
 	 * <ul>
-	 * <li>Fournit un singleton de bundleMessagesControles.</li><br/>
+	 * <li>Fournit un singleton de bundleMessagesControles 
+	 * (messagescontroles_fr_FR.properties).</li>
 	 * <li>bundleMessagesControles encapsule 
-	 * .\src\messagescontroles_fr_FR.properties.</li><br/>
+	 * .\src\messagescontroles_fr_FR.properties.</li>
 	 * <li>bundleMessagesControles contient les paramétrages des contrôles 
-	 * de l'application.</li><br/>
+	 * de l'application.</li>
 	 * <br/>
 	 * - retourne null, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
-	 * Exemple de message :<br/>
+	 * <br/>
+	 * Exemple de message d'erreur :<br/>
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleMessagesControles() 
 	 * - Le fichier 'messagescontroles_fr_FR.properties' est introuvable. 
@@ -283,16 +285,18 @@ public final class ConfigurationApplicationManager {
 	/**
 	 * method getBundleMessagesTechniques() :<br/>
 	 * <ul>
-	 * <li>Fournit un singleton de bundleMessagesTechniques.</li><br/>
+	 * <li>Fournit un singleton de bundleMessagesTechniques 
+	 * (messagestechniques_fr_FR.properties).</li>
 	 * <li>bundleMessagesTechniques encapsule 
-	 * .\src\messagestechniques_fr_FR.properties.</li><br/>
+	 * .\src\messagestechniques_fr_FR.properties.</li>
 	 * <li>bundleMessagesTechniques contient les paramétrages 
 	 * des messages techniques 
-	 * de l'application.</li><br/>
+	 * de l'application.</li>
 	 * <br/>
 	 * - retourne null, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
-	 * Exemple de message :<br/>
+	 * <br/>
+	 * Exemple de message d'erreur :<br/>
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleMessagesTechniques() 
 	 * - Le fichier 'messagestechniques_fr_FR.properties' est introuvable. 
