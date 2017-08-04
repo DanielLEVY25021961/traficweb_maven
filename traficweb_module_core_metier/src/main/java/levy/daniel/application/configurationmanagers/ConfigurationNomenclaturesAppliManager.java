@@ -235,8 +235,8 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * Chemin des nomenclatures en UTF-8 des attributs à nomenclature 
 	 * de l'application
 	 * stocké dans application.properties.<br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\".<br/>
-	 * Clé = "application.repertoire.ressources.nomenclatures.chemin.appli.utf8".<br/>
+	 * ".\\resources\\Nomenclatures\\appli\\".<br/>
+	 * Clé = "application.repertoire.resources.nomenclatures.chemin.appli.utf8".<br/>
 	 */
 	private static transient String cheminNomenclaturesAppliUtf8;
 	
@@ -247,7 +247,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * Nom du fichier de nomenclature en UTF-8 pour typeErreur
 	 * stocké dans application.properties.<br/>
 	 * "Nomenclature_Type_Erreur_UTF8.csv".<br/>
-	 * Clé = "application.repertoire.ressources.nomenclature.appli.typeerreur".<br/>
+	 * Clé = "application.repertoire.resources.nomenclature.appli.typeerreur".<br/>
 	 */
 	private static transient String nomNomenclatureAppliTypeErreur;
 
@@ -259,7 +259,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * le typeErreur
 	 * dans les contrôles de l'application.<br/>
 	 * <br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\
+	 * ".\\resources\\Nomenclatures\\appli\\
 	 * Nomenclature_Type_Erreur_UTF8.csv".<br/>
 	 */
 	private static transient File fichierNomenclatureAppliTypeErreurUtf8;
@@ -286,7 +286,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * Nom du fichier de nomenclature en UTF-8 pour suiteDonnee
 	 * stocké dans application.properties.<br/>
 	 * "Nomenclature_Suite_Donnee_UTF8.csv".<br/>
-	 * Clé = "application.repertoire.ressources.nomenclature.appli.suitedonnee".<br/>
+	 * Clé = "application.repertoire.resources.nomenclature.appli.suitedonnee".<br/>
 	 */
 	private static transient String nomNomenclatureAppliSuiteDonnee;
 
@@ -298,7 +298,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * le suiteDonnee
 	 * dans les contrôles de l'application.<br/>
 	 * <br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\
+	 * ".\\resources\\Nomenclatures\\appli\\
 	 * Nomenclature_Suite_Donnee_UTF8.csv".<br/>
 	 */
 	private static transient File fichierNomenclatureAppliSuiteDonneeUtf8;
@@ -364,7 +364,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * Getter du Chemin des nomenclatures en UTF-8 
 	 * des attributs pour l'application
 	 * stocké dans application.properties.<br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\".<br/>
+	 * ".\\resources\\Nomenclatures\\appli\\".<br/>
 	 * <br/>
 	 * <ul>
 	 * <li>Essaie de fournir la valeur stockée dans 
@@ -373,7 +373,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * fournie par fournirCheminNomenclaturesAppliUtf8EnDur().</li><br/>
 	 * <li>Nettoie la valeur lue dans le .properties avec trim().</li><br/>
 	 * </ul>
-	 * Clé : "application.repertoire.ressources.nomenclatures.chemin.appli.utf8".<br/>
+	 * Clé : "application.repertoire.resources.nomenclatures.chemin.appli.utf8".<br/>
 	 * <br/>
 	 * - retourne la valeur en dur fournie par 
 	 * fournirCheminNomenclaturesAppliUtf8EnDur()
@@ -503,15 +503,15 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * clé du chemin des chemins des nomenclatures en UTF-8 
 	 * des attributs de l'application dans 
 	 * application_fr_FR.properties.<br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\".<br/>
-	 * Clé = "application.repertoire.ressources.nomenclatures.chemin.appli.utf8".<br/>
+	 * ".\\resources\\Nomenclatures\\appli\\".<br/>
+	 * Clé = "application.repertoire.resources.nomenclatures.chemin.appli.utf8".<br/>
 	 * <br/>
 	 *
 	 * @return : String : 
-	 * "application.repertoire.ressources.nomenclatures.chemin.appli.utf8".<br/>
+	 * "application.repertoire.resources.nomenclatures.chemin.appli.utf8".<br/>
 	 */
 	private static String fournirCleCheminNomenclaturesAppliUtf8() {
-		return "application.repertoire.ressources.nomenclatures.chemin.appli.utf8";
+		return "application.repertoire.resources.nomenclatures.chemin.appli.utf8";
 	} // Fin de fournirCleCheminNomenclaturesAppliUtf8().__________________
 	
 
@@ -522,14 +522,14 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * dans la classe pour chemins des nomenclatures en UTF-8 
 	 * des HIT.<br/>
 	 * <br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\".<br/>
+	 * ".\\resources\\Nomenclatures\\appli\\".<br/>
 	 * <br/>
 	 *
 	 * @return : String : 
-	 * ".\\ressources\\Nomenclatures\\appli\\".<br/>
+	 * ".\\resources\\Nomenclatures\\appli\\".<br/>
 	 */
 	private static String fournirCheminNomenclaturesAppliUtf8EnDur() {
-		return ".\\ressources\\Nomenclatures\\appli\\";
+		return ".\\resources\\Nomenclatures\\appli\\";
 	} // Fin de fournirCheminNomenclaturesAppliUtf8EnDur().__________________
 	
 
@@ -550,7 +550,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * fournie par fournirNomNomenclatureAppliTypeErreurEnDur().</li><br/>
 	 * <li>Nettoie la valeur lue dans le .properties avec trim().</li><br/>
 	 * </ul>
-	 * Clé : "application.repertoire.ressources.nomenclature.appli.typeerreur".<br/>
+	 * Clé : "application.repertoire.resources.nomenclature.appli.typeerreur".<br/>
 	 * <br/>
 	 * - retourne la valeur en dur fournie par 
 	 * fournirNomNomenclatureAppliTypeErreurEnDur()
@@ -682,14 +682,14 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * dans l'application
 	 * stockée dans application_fr_FR.properties.<br/>
 	 * "Nomenclature_Type_Erreur_UTF8.csv".<br/>
-	 * Clé = "application.repertoire.ressources.nomenclature.appli.typeerreur".<br/>
+	 * Clé = "application.repertoire.resources.nomenclature.appli.typeerreur".<br/>
 	 * <br/>
 	 *
 	 * @return : String : 
-	 * "application.repertoire.ressources.nomenclature.appli.typeerreur".<br/>
+	 * "application.repertoire.resources.nomenclature.appli.typeerreur".<br/>
 	 */
 	private static String fournirCleNomNomenclatureAppliTypeErreur() {
-		return "application.repertoire.ressources.nomenclature.appli.typeerreur";
+		return "application.repertoire.resources.nomenclature.appli.typeerreur";
 	} // Fin de fournirCleNomNomenclatureAppliTypeErreur().________________________
 	
 
@@ -717,7 +717,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * l'attribut typeErreur
 	 * dans l'application.<br/>
 	 * <br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\
+	 * ".\\resources\\Nomenclatures\\appli\\
 	 * Nomenclature_Type_Erreur_UTF8.csv".<br/>
 	 * <br/>
 	 * - LOG.FATAL, rapporte 
@@ -774,7 +774,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * fournie par fournirNomNomenclatureAppliSuiteDonneeEnDur().</li><br/>
 	 * <li>Nettoie la valeur lue dans le .properties avec trim().</li><br/>
 	 * </ul>
-	 * Clé : "application.repertoire.ressources.nomenclature.appli.suitedonnee".<br/>
+	 * Clé : "application.repertoire.resources.nomenclature.appli.suitedonnee".<br/>
 	 * <br/>
 	 * - retourne la valeur en dur fournie par 
 	 * fournirNomNomenclatureAppliSuiteDonneeEnDur()
@@ -906,14 +906,14 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * dans l'application
 	 * stockée dans application_fr_FR.properties.<br/>
 	 * "Nomenclature_Suite_Donnee_UTF8.csv".<br/>
-	 * Clé = "application.repertoire.ressources.nomenclature.appli.suitedonnee".<br/>
+	 * Clé = "application.repertoire.resources.nomenclature.appli.suitedonnee".<br/>
 	 * <br/>
 	 *
 	 * @return : String : 
-	 * "application.repertoire.ressources.nomenclature.appli.suitedonnee".<br/>
+	 * "application.repertoire.resources.nomenclature.appli.suitedonnee".<br/>
 	 */
 	private static String fournirCleNomNomenclatureAppliSuiteDonnee() {
-		return "application.repertoire.ressources.nomenclature.appli.suitedonnee";
+		return "application.repertoire.resources.nomenclature.appli.suitedonnee";
 	} // Fin de fournirCleNomNomenclatureAppliSuiteDonnee()._______________
 	
 
@@ -941,7 +941,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * l'attribut suiteDonnee
 	 * dans l'application.<br/>
 	 * <br/>
-	 * ".\\ressources\\Nomenclatures\\appli\\
+	 * ".\\resources\\Nomenclatures\\appli\\
 	 * Nomenclature_Suite_Donnee_UTF8.csv".<br/>
 	 * <br/>
 	 * - LOG.FATAL, rapporte 
@@ -1794,7 +1794,7 @@ public final class ConfigurationNomenclaturesAppliManager {
 	 * String pMethode
 	 * , String pMessage) :<br/>
 	 * Crée un message pour le LOG et le rapport de configuration csv 
-	 * si un Fichier de ressources (Description de fichier, nomenclature, ...) 
+	 * si un Fichier de resources (Description de fichier, nomenclature, ...) 
 	 * est introuvable.<br/>
 	 * <br/>
 	 *
