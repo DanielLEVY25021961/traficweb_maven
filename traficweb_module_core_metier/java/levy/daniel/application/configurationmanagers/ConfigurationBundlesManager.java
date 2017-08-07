@@ -76,6 +76,12 @@ public final class ConfigurationBundlesManager {
 	public static final String METHODE_GET_BUNDLEMESSAGESCONTROLES 
 		= "Méthode getBundleMessagesControles()";
 	
+	/**
+	 * METHODE_GET_BUNDLERESSOURCES : String :<br/>
+	 * "Méthode getBundleRessources()".<br/>
+	 */
+	public static final String METHODE_GET_BUNDLERESSOURCES
+		= "Méthode getBundleRessources()";
 	
 	/**
 	 * METHODE_GET_BUNDLEMESSAGESTECHNIQUES : String :<br/>
@@ -154,12 +160,25 @@ public final class ConfigurationBundlesManager {
 	//*****************************************************************/
 	/**
 	 * bundleApplication : ResourceBundle : <br/>
-	 * .\src\application_fr_FR.properties.<br/>
+	 * racine_binaires/application_fr_FR.properties.<br/>
 	 * Contient les paramétrages généraux 
 	 * de l'application.<br/>
 	 */
-	private static ResourceBundle bundleApplication;
+	private static transient ResourceBundle bundleApplication;
 
+	
+	
+	/**
+	 * bundleRessources : ResourceBundle : <br/>
+	 * configuration_ressources_parametrables_fr_FR.properties.<br/>
+	 * Contient les chemins vers les fichiers PARAMETRABLES PAR LA MOA
+	 * (donc, hors classpath) de l'application.<br/>
+	 * encapsule racine_binaires/configuration_ressources_
+	 * parametrables.properties.
+	 */
+	private static transient ResourceBundle bundleRessources;
+
+	
 	
 	/**
 	 * bundleMessagesControles : ResourceBundle : <br/>
@@ -167,7 +186,8 @@ public final class ConfigurationBundlesManager {
 	 * Contient les paramétrages des contrôles 
 	 * de l'application.<br/>
 	 */
-	private static ResourceBundle bundleMessagesControles;
+	private static transient ResourceBundle bundleMessagesControles;
+
 
 	
 	/**
@@ -176,7 +196,7 @@ public final class ConfigurationBundlesManager {
 	 * Contient les paramétrages des messages techniques 
 	 * de l'application.<br/>
 	 */
-	private static ResourceBundle bundleMessagesTechniques ;
+	private static transient ResourceBundle bundleMessagesTechniques ;
 
 	
 	/**
@@ -186,7 +206,7 @@ public final class ConfigurationBundlesManager {
 	 * pour les différences entre objets métier 
 	 * de l'application.<br/>
 	 */
-	private static ResourceBundle bundleMessagesDiff;
+	private static transient ResourceBundle bundleMessagesDiff;
 	
 
 	/**
@@ -195,7 +215,7 @@ public final class ConfigurationBundlesManager {
 	 * Le rapport est null si il n'y a eu aucun 
 	 * problème d'initialisation de l'application.<br/>
 	 */
-	private static String rapportConfigurationCsv;
+	private static transient String rapportConfigurationCsv;
 
 	
 	/**
@@ -203,7 +223,7 @@ public final class ConfigurationBundlesManager {
 	 * Message pour le Rapport du chargement de la configuration au format csv 
 	 * généré par chaque méthode individuellement.<br/>
 	 */
-	private static String messageIndividuelRapport;
+	private static transient String messageIndividuelRapport;
 	
 	
 	/**
@@ -232,9 +252,9 @@ public final class ConfigurationBundlesManager {
 	/**
 	 * method getBundleApplication() :<br/>
 	 * <ul>
-	 * <li>Fournit un singleton de bundleApplication.</li><br/>
+	 * <li>Fournit un singleton de bundleApplication.</li>
 	 * <li>bundleApplication encapsule 
-	 * .\src\application_fr_FR.properties.</li><br/>
+	 * ./classpath/application_fr_FR.properties.</li><br/>
 	 * <li>bundleApplication contient les paramétrages généraux 
 	 * de l'application (chemins vers les ressources
 	 * , titre de l'application, ...).</li><br/>
@@ -245,7 +265,8 @@ public final class ConfigurationBundlesManager {
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleApplication() 
 	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
-	 * Il devrait se trouver juste sous la racine des binaires \bin".<br/>
+	 * Il devrait se trouver juste sous la racine des binaires 
+	 * ./classpath".<br/>
 	 * </ul>
 	 * <br/>
 	 *
@@ -297,6 +318,81 @@ public final class ConfigurationBundlesManager {
 	} // Fin de getBundleApplication().____________________________________
 	
 
+		
+	/**
+	 * method getBundleRessources() :<br/>
+	 * <ul>
+	 * <li>Fournit un singleton de bundleRessources 
+	 * (configuration_ressources_parametrables.properties).</li>
+	 * <li>bundleRessources encapsule 
+	 * racine_binaires/
+	 * configuration_ressources_parametrables.properties</li>
+	 * <li>bundleRessources contient les paramétrages généraux 
+	 * des Ressources PARAMETRABLES PAR LA MOA 
+	 * (chemins vers les ressources externes au classpath).</li>
+	 * <br/>
+	 * - retourne null, LOG.FATAL et rapporte 
+	 * si le properties est introuvable.<br/>
+	 * <br/>
+	 * Exemple de message d'erreur :<br/>
+	 * "Classe ConfigurationRessourcesManager 
+	 * - Méthode getBundleRessources() 
+	 * - Le fichier 'configuration_ressources_parametrables.properties' 
+	 * est introuvable. 
+	 * Il devrait se trouver juste sous la racine des binaires.".<br/>
+	 * </ul>
+	 * <br/>
+	 *
+	 * @return : ResourceBundle : bundleRessources.<br/>
+	 */
+	public static ResourceBundle getBundleRessources() {
+		
+		/* Bloc synchronized. */
+		synchronized (ConfigurationRessourcesManager.class) {
+			
+			/* Reset du messageIndividuelRapport. */
+			messageIndividuelRapport = null;
+			
+			if (bundleRessources == null) {
+								
+				try {
+					
+					bundleRessources 
+						= ResourceBundle.getBundle(
+								"configuration_ressources_parametrables"
+									, LOCALE_FR);
+					
+				} catch (MissingResourceException mre) {
+										
+					/* Création du message. */
+					messageIndividuelRapport 
+					= creerMessageRessourcesClassPath(
+							METHODE_GET_BUNDLERESSOURCES
+				, "configuration_ressources_parametrables.properties");
+					
+					/* LOG.FATAL. */
+					if (LOG.isFatalEnabled()) {
+						LOG.fatal(messageIndividuelRapport, mre);
+					}
+					
+					/* Rapport. */
+					/* Ajout du message au rapport. */
+					ajouterMessageAuRapportConfigurationCsv(
+							messageIndividuelRapport);
+					
+					/* retourne null. */
+					return null;
+				}
+				
+			} // Fin de if (bundleRessources == null)._________________
+			
+			return bundleRessources;
+			
+		} // Fin de synchronized.________________________________________
+				
+	} // Fin de getBundleRessources()._____________________________________
+	
+		
 	
 	/**
 	 * method getBundleMessagesControles() :<br/>
@@ -562,7 +658,8 @@ public final class ConfigurationBundlesManager {
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleApplication() 
 	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
-	 * Il devrait se trouver juste sous la racine des binaires \bin".<br/>
+	 * Il devrait se trouver juste sous la racine des binaires 
+	 * ./classpath/".<br/>
 	 * <br/>
 	 *
 	 * @param pMethode : String : Nom de la méthode appelante.<br/>
@@ -588,7 +685,7 @@ public final class ConfigurationBundlesManager {
 			stb.append(pFichier);
 			stb.append("' est introuvable. "
 					+ "Il devrait se trouver juste "
-					+ "sous la racine des binaires \\bin");
+					+ "sous la racine des binaires ./classpath/");
 			
 			return stb.toString();
 			

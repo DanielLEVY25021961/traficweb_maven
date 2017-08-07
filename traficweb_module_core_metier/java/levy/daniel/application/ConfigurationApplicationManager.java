@@ -56,6 +56,7 @@ import org.apache.commons.logging.LogFactory;
  * pattern délégation, DELEGATION, <br/>
  * pattern Singleton, singleton, Singleton,<br/>
  * Rapport du chargement de la configuration au format csv,<br/>
+ * classpath,<br/>
  * <br/>
  *
  * - Dépendances :<br/>
@@ -201,7 +202,7 @@ public final class ConfigurationApplicationManager {
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleApplication() 
 	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
-	 * Il devrait se trouver juste sous la racine des binaires \bin".<br/>
+	 * Il devrait se trouver juste sous la racine des binaires.".<br/>
 	 * </ul>
 	 * <br/>
 	 *
@@ -234,6 +235,60 @@ public final class ConfigurationApplicationManager {
 	} // Fin de getBundleApplication().____________________________________
 	
 
+	
+	/**
+	 * method getBundleRessources() :<br/>
+	 * <ul>
+	 * <li>Fournit un singleton de bundleRessources 
+	 * (configuration_ressources_parametrables.properties).</li>
+	 * <li>bundleRessources encapsule 
+	 * racine_binaires/
+	 * configuration_ressources_parametrables.properties</li>
+	 * <li>bundleRessources contient les paramétrages généraux 
+	 * des Ressources PARAMETRABLES PAR LA MOA 
+	 * (chemins vers les ressources externes au classpath).</li>
+	 * <br/>
+	 * - retourne null, LOG.FATAL et rapporte 
+	 * si le properties est introuvable.<br/>
+	 * <br/>
+	 * Exemple de message d'erreur :<br/>
+	 * "Classe ConfigurationRessourcesManager 
+	 * - Méthode getBundleRessources() 
+	 * - Le fichier 'configuration_ressources_parametrables.properties' 
+	 * est introuvable. 
+	 * Il devrait se trouver juste sous la racine des binaires.".<br/>
+	 * </ul>
+	 * <br/>
+	 *
+	 * @return : ResourceBundle : bundleRessources.<br/>
+	 */
+	public static ResourceBundle getBundleRessources() {
+		
+		/* Bloc synchronized. */
+		synchronized (ConfigurationApplicationManager.class) {
+			
+			/* Récupération du Bundle. */
+			/* DELEGATION auprès du ConfigurationBundlesManager. */
+			final ResourceBundle bundleRessources 
+				= ConfigurationBundlesManager.getBundleRessources();
+			
+			/* Récupération du message de rapport éventuel. */
+			final String messageRapport 
+				= ConfigurationBundlesManager.getMessageIndividuelRapport();
+			
+			/* Ajout du message de rapport éventuel 
+			 * au rapportConfigurationCsv. */
+			if (!StringUtils.isBlank(messageRapport)) {
+				ajouterMessageAuRapportConfigurationCsv(messageRapport);
+			}
+			
+			return bundleRessources;
+			
+		} // Fin de synchronized.________________________________________
+				
+	}
+	
+	
 	
 	/**
 	 * method getBundleMessagesControles() :<br/>
@@ -384,6 +439,40 @@ public final class ConfigurationApplicationManager {
 	} // Fin de getBundleMessagesDiff().___________________________________
 	
 
+		
+	/**
+	 * method getClassPath() :<br/>
+	 * Retourne le classpath de l'application.<br/>
+	 * Le classpath est l'ensemble des chemins utilisé par le compilateur 
+	 * et le machine virtuelle java pour retrouver les classes 
+	 * (répertoires de classes et jar)
+	 * dont a besoin une application pour fonctionner.<br/>
+	 * <br/>
+	 * Par exemple :<br/>
+	 * C:\Users\dan\git\traficweb_maven\traficweb_module_core_metier\
+	 * target\test-classes;C:\Users\dan\git\traficweb_maven
+	 * \traficweb_module_core_metier\target\classes;
+	 * C:\Users\dan\.m2\repository\commons-lang\commons-lang
+	 * \2.6\commons-lang-2.6.jar;.....
+	 * <br/>
+	 *
+	 * @return : String : classpath de l'application.<br/>
+	 */
+	public static String getClassPath() {
+		
+		/* Bloc synchronized. */
+		synchronized (ConfigurationApplicationManager.class) {
+			
+			final String classPath 
+				= System.getProperty("java.class.path");
+			
+			return classPath;
+			
+		} // Fin de synchronized.________________________________________
+		
+	} // Fin de getClassPath().____________________________________________
+	
+	
 	
 	/**
 	 * method getStatsActivees() :<br/>

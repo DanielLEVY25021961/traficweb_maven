@@ -361,6 +361,7 @@ public final class ConfigurationDescriptionsFichiersManager {
 			
 			if (cheminDescriptions == null) {
 				
+				/* Si le properties n'est pas manquant. */
 				if (ConfigurationApplicationManager
 						.getBundleApplication() != null) {
 					
@@ -413,7 +414,8 @@ public final class ConfigurationDescriptionsFichiersManager {
 								= valeurNettoyee; 
 							
 						} // Fin de Valeur remplie dans le properties.____
-												
+					
+					/* Cas de la clé manquante dans le properties. */
 					} catch (MissingResourceException mre) {
 						
 						/* Création du message. */

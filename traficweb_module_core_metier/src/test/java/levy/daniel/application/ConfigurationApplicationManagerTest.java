@@ -60,7 +60,7 @@ public class ConfigurationApplicationManagerTest {
 	 * method testGetBundleApplication() :<br/>
 	 * Teste la méthode getBundleApplication().<br/>
 	 * Pré-requis : application_fr_FR.properties doit avoir été 
-	 * incorporé sous src/main/resources.<br/>
+	 * incorporé sous la racine des binaires.<br/>
 	 * <br/>
 	 * Garantit que : <ul>
 	 * <li>getBundleApplication() retourne 
@@ -90,6 +90,56 @@ public class ConfigurationApplicationManagerTest {
 		
 		assertTrue("Une seule instance de ResourceBundle : "
 				, bundleApplication == bundleApplication2);
+		
+		/* Récupère le rapport de chargement de la configuration. */
+		final String rapportCsv 
+			= ConfigurationApplicationManager
+				.getRapportConfigurationCsv();
+		
+		/* Garantit que le rapport fourni par getRapportConfigurationCsv() 
+		 * est null si pas de problème d'import. */
+		assertNull("Le rapport est null si pas de pb d'import : "
+				, rapportCsv);
+		
+	} // Fin de testGetBundleApplication().________________________________
+	
+	
+
+	/**
+	 * method testGetBundleRessources() :<br/>
+	 * Teste la méthode getBundleRessources()().<br/>
+	 * Pré-requis : configuration_ressources_parametrables.properties 
+	 * doit avoir été 
+	 * incorporé sous sous la racine des binaires.<br/>
+	 * <br/>
+	 * Garantit que : <ul>
+	 * <li>getBundleRessources() retourne 
+	 * un Singleton de ResourceBundle.</li>
+	 * <li>le rapport fourni par getRapportConfigurationCsv() 
+	 * est null si pas de problème d'import.</li>
+	 * </ul>
+	 */
+	@Test
+	public void testGetBundleRessources() {
+		
+		/* Récupère le ResourceBundle encapsulant 
+		 * application.properties. */
+		final ResourceBundle bundleRessources 
+			= ConfigurationApplicationManager
+				.getBundleRessources();
+		
+		final ResourceBundle bundleRessources2 
+			= ConfigurationApplicationManager
+				.getBundleRessources();
+		
+		/* Garantit que getBundleRessources() retourne 
+		 * un Singleton de ResourceBundle. */
+		assertEquals("Une seule instance de ResourceBundle : "
+				, bundleRessources
+					, bundleRessources2);
+		
+		assertTrue("Une seule instance de ResourceBundle : "
+				, bundleRessources == bundleRessources2);
 		
 		/* Récupère le rapport de chargement de la configuration. */
 		final String rapportCsv 
@@ -151,8 +201,6 @@ public class ConfigurationApplicationManagerTest {
 		assertNull("Le rapport est null si pas de pb d'import : "
 				, rapportCsv);
 		
-		System.out.println(bundleMessagesControle.getString("label.niveau3"));
-		
 	} // Fin de testGetBundleMessagesControles().__________________________
 
 	
@@ -205,7 +253,24 @@ public class ConfigurationApplicationManagerTest {
 		
 	} // Fin de testGetBundleMessagesTechniques().__________________________
 	
-	
 
+	
+	
+	/**
+	 * method testGetClassPath() :<br/>
+	 * Teste la méthode getClassPath().<br/>
+	 * <br/>
+	 */
+	@Test
+	public void testGetClassPath() {
+		
+		final String classPath 
+			= ConfigurationApplicationManager.getClassPath();
+		
+		System.out.println(classPath);
+		
+	} // Fin de testGetClassPath().________________________________________
+	
+	
 
 } // FIN DE LA CLASSE ConfigurationApplicationManagerTest.-------------------
