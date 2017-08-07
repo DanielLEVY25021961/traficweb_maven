@@ -1,5 +1,9 @@
 package levy.daniel.application.configurationmanagers;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -266,7 +270,7 @@ public final class ConfigurationBundlesManager {
 										
 					/* Création du message. */
 					messageIndividuelRapport 
-					= creerMessage(
+					= creerMessageRessourcesClassPath(
 							METHODE_GET_BUNDLEAPPLICATION
 								, "application_fr_FR.properties");
 					
@@ -328,14 +332,14 @@ public final class ConfigurationBundlesManager {
 				try {
 					
 					bundleMessagesControles 
-						= ResourceBundle.getBundle(
-								"messagescontroles", LOCALE_FR);
+						= getBundleExterne(
+								"messagescontroles", new Locale("en", "US"));
 					
 				} catch (MissingResourceException mre) {
 										
 					/* Création du message. */
 					messageIndividuelRapport 
-					= creerMessage(
+					= creerMessageRessourcesClassPath(
 							METHODE_GET_BUNDLEMESSAGESCONTROLES
 								, "messagescontroles_fr_FR.properties");
 					
@@ -405,7 +409,7 @@ public final class ConfigurationBundlesManager {
 										
 					/* Création du message. */
 					messageIndividuelRapport 
-					= creerMessage(
+					= creerMessageRessourcesClassPath(
 							METHODE_GET_BUNDLEMESSAGESTECHNIQUES
 								, "messagestechniques_fr_FR.properties");
 					
@@ -475,7 +479,7 @@ public final class ConfigurationBundlesManager {
 										
 					/* Création du message. */
 					messageIndividuelRapport 
-					= creerMessage(
+					= creerMessageRessourcesClassPath(
 							METHODE_GET_BUNDLEMESSAGESDIFF
 								, "messagesdiff_fr_FR.properties");
 					
@@ -547,11 +551,12 @@ public final class ConfigurationBundlesManager {
 
 
 	/**
-	 * method creerMessage(
+	 * method creerMessageRessourcesClassPath(
 	 * String pMethode
 	 * , String pFichier) :<br/>
 	 * Crée un message pour le LOG et le rapport de configuration csv 
-	 * si problème lors du chargement des ResourceBundle.<br/>
+	 * si problème lors du chargement des ResourceBundle 
+	 * sous le classpath (.properties techniques).<br/>
 	 * <br/>
 	 * Par exemple :<br/>
 	 * "Classe ConfigurationApplicationManager 
@@ -566,7 +571,7 @@ public final class ConfigurationBundlesManager {
 	 * @return : String : message pour le LOG 
 	 * et le rapport de configuration csv.<br/>
 	 */
-	private static String creerMessage(
+	private static String creerMessageRessourcesClassPath(
 			final String pMethode
 				, final String pFichier) {
 		
@@ -589,11 +594,63 @@ public final class ConfigurationBundlesManager {
 			
 		} // Fin de synchronized.________________________________________
 		
-	} // Fin de creerMessage(
+	} // Fin de creerMessageRessourcesClassPath(
 	 // String pMethode
 	 // , String pFichier).________________________________________________
 
 
+	
+	
+	/**
+	 * method creerMessageRessourcesParametrables(
+	 * String pMethode
+	 * , String pFichier) :<br/>
+	 * Crée un message pour le LOG et le rapport de configuration csv 
+	 * si problème lors du chargement des ResourceBundle 
+	 * sous le répertoire des ressources paramétrables 
+	 * (.properties paramétrables par la Maîtrise d'Ouvrage (MOA)).<br/>
+	 * <br/>
+	 * Par exemple :<br/>
+	 * "Classe ConfigurationApplicationManager 
+	 * - Méthode getBundleApplication() 
+	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
+	 * Il devrait se trouver juste sous la racine des binaires \bin".<br/>
+	 * <br/>
+	 *
+	 * @param pMethode : String : Nom de la méthode appelante.<br/>
+	 * @param pFichier : String : Nom du .properties à charger.<br/>
+	 * 
+	 * @return : String : message pour le LOG 
+	 * et le rapport de configuration csv.<br/>
+	 */
+	private static String creerMessageRessourcesParametrables(
+			final String pMethode
+				, final String pFichier) {
+		
+		/* Bloc synchronized. */
+		synchronized (ConfigurationBundlesManager.class) {
+			
+			final StringBuilder stb = new StringBuilder();
+			
+			stb.append(CLASSE_CONFIGURATIONBUNDLESMANAGER);
+			stb.append(SEPARATEUR_MOINS_AERE);
+			stb.append(pMethode);
+			stb.append(SEPARATEUR_MOINS_AERE);
+			stb.append("Le fichier '");
+			stb.append(pFichier);
+			stb.append("' est introuvable. "
+					+ "Il devrait se trouver juste "
+					+ "sous la racine des binaires \\bin");
+			
+			return stb.toString();
+			
+		} // Fin de synchronized.________________________________________
+		
+	} // Fin de creerMessageRessourcesParametrables(
+	 // String pMethode
+	 // , String pFichier).________________________________________________
+	
+	
 	
 	/**
 	 * method ajouterMessageAuRapportConfigurationCsv(
@@ -640,5 +697,61 @@ public final class ConfigurationBundlesManager {
 	 // String pMessage).__________________________________________________
 	
 
+
+	
+	
+	/**
+	 * method getBundleExterne(
+	 * String pBaseName
+	 * , Locale pLocale) :<br/>
+	 * .<br/>
+	 * <br/>
+	 *
+	 * @param pBaseName : String : Nom de base du .properties.
+	 * @param pLocale : java.util.Locale.
+	 * 
+	 * @return :  :  .<br/>
+	 */
+	private static ResourceBundle getBundleExterne(
+			final String pBaseName
+				, final Locale pLocale) {
+		
+		ResourceBundle resourceBundle = null;
+		
+		try {
+			
+			final File repertoireRessourcesParametrables 
+			= new File("D:/Donnees/Traficweb_ressources_parametrables");
+			
+			final URL[] urlsRessourcesParametrables 
+				= {repertoireRessourcesParametrables.toURI().toURL()};
+			
+			final ClassLoader loaderRessourcesParametrables 
+				= new URLClassLoader(urlsRessourcesParametrables);
+			
+			resourceBundle 
+				= ResourceBundle
+					.getBundle(pBaseName
+							, pLocale
+								, loaderRessourcesParametrables);
+			
+			
+			
+		} catch (MalformedURLException malformedURLEx) {
+			
+			malformedURLEx.printStackTrace();
+			
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+		}
+		
+		return resourceBundle;
+		
+	} // Fin de getBundleExterne(
+	 // String pBaseName
+	 // , Locale pLocale)._________________________________________________
+	
+	
 
 } // FIN DE LA CLASSE ConfigurationBundlesManager.---------------------------

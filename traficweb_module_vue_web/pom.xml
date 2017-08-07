@@ -18,5 +18,23 @@
 	<artifactId>traficweb_module_vue_web</artifactId>
 	<name>Pages Web</name>
 	<description>jsp, Web-Inf, ...</description>
+	
+	  <!-- DEFINITION DE L'ARTEFACT -->
+  <!-- Binaire à produire -->
+    <packaging>war</packaging>
+    
+    <!-- ================================ -->
+  	<!-- PROPERTIEs -->
+  	<!-- Préciser ici les propriétés générales du projet. -->
+  	<!-- ================================ -->  
+	<properties>
+		<!-- Force l'encoding des sources du projet en UTF-8 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Vérifie la conformité des classes Java (.java) avec le JDK 1.8 -->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<!-- Vérifie la conformité des classes Java (.class) avec le JDK 1.8 -->
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>  
+	
 
 </project>

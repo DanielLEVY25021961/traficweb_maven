@@ -109,7 +109,8 @@ public class ConfigurationApplicationManagerTest {
 	 * method testGetBundleMessagesControles() :<br/>
 	 * Teste la méthode getBundleMessagesControles().<br/>
 	 * Pré-requis : messagescontroles_fr_FR.properties doit avoir été 
-	 * incorporé sous src/main/resources.<br/>
+	 * incorporé sous 
+	 * chemin_ressources_externes/Traficweb_ressources_parametrables/.<br/>
 	 * <br/>
 	 * Garantit que : <ul>
 	 * <li>getBundleMessagesControles() retourne 
@@ -149,6 +150,8 @@ public class ConfigurationApplicationManagerTest {
 		 * est null si pas de problème d'import. */
 		assertNull("Le rapport est null si pas de pb d'import : "
 				, rapportCsv);
+		
+		System.out.println(bundleMessagesControle.getString("label.niveau3"));
 		
 	} // Fin de testGetBundleMessagesControles().__________________________
 

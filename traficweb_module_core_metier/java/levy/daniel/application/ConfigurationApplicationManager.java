@@ -44,6 +44,8 @@ import org.apache.commons.logging.LogFactory;
  * </ul>
  *
  * - Exemple d'utilisation :<br/>
+ * <code> // Récupération du bundleApplication qui encapsule 
+ * application_fr_FR.properties</code><br/>
  * <code>final ResourceBundle bundleApplication 
  * = ConfigurationApplicationManager.getBundleApplication();<br/>
  * // RAPPORT AU FORMAT CSV si problème (le rapport est alors non null).<br/>
@@ -52,7 +54,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * - Mots-clé :<br/>
  * pattern délégation, DELEGATION, <br/>
- * pattern Singleton, singleton, <br/>
+ * pattern Singleton, singleton, Singleton,<br/>
  * Rapport du chargement de la configuration au format csv,<br/>
  * <br/>
  *
@@ -211,6 +213,7 @@ public final class ConfigurationApplicationManager {
 		synchronized (ConfigurationApplicationManager.class) {
 			
 			/* Récupération du Bundle. */
+			/* DELEGATION auprès du ConfigurationBundlesManager. */
 			final ResourceBundle bundleApplication 
 				= ConfigurationBundlesManager.getBundleApplication();
 			
