@@ -19,10 +19,13 @@ import org.apache.commons.logging.LogFactory;
  * class ConfigurationApplicationManager :<br/>
  * Classe UTILITAIRE (méthodes statiques)
  * Chargée de gérer la configuration de l'application.<br/>
- * Met à disposition de l'ensemble de l'application 
+ * Met à disposition de l'ensemble de l'application et des développeurs 
  * des Singletons pour 
  * les fichiers .properties et tout ce dont l'application 
- * a besoin pour fonctionner.<br/>
+ * a besoin pour fonctionner 
+ * (Descriptions de fichiers, nomenclatures, ...).<br/>
+ * Permet aux développeurs de ne connaitre que cette classe 
+ * lorsqu'ils ont besoin d'un élément de configuration.<br/>
  * - Délègue à des ConfigurationCCCManagers.
  * <br/>
  * <ul>
