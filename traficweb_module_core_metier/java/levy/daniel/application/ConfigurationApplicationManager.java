@@ -191,21 +191,23 @@ public final class ConfigurationApplicationManager {
 	 * method getBundleApplication() :<br/>
 	 * <ul>
 	 * <li>Fournit un singleton de bundleApplication 
-	 * (application_fr_FR.properties).</li>
+	 * (application.properties).</li>
 	 * <li>bundleApplication encapsule 
-	 * .\src\application_fr_FR.properties.</li>
+	 * racine_binaires/application.properties.</li>
 	 * <li>bundleApplication contient les paramétrages généraux 
-	 * de l'application (chemins vers les ressources
-	 * , titre de l'application, ...).</li>
+	 * de l'application (...).</li>
+	 * <li>Situé sous la racine des binaires
+	 * , et donc présent dans les jar/war.</li>
+	 * <li>NON PARAMETRABLE PAR LA MOA. Uniquement pour le centre serveur.</li>
 	 * <br/>
 	 * - retourne null, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
 	 * <br/>
-	 * Exemple de message d'erreur :<br/>
+	 * Exemple de message :<br/>
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleApplication() 
 	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
-	 * Il devrait se trouver juste sous la racine des binaires.".<br/>
+	 * Il devrait se trouver juste sous la racine des binaires.<br/>
 	 * </ul>
 	 * <br/>
 	 *
@@ -289,7 +291,7 @@ public final class ConfigurationApplicationManager {
 			
 		} // Fin de synchronized.________________________________________
 				
-	}
+	} // Fin de getBundleRessources()._____________________________________
 	
 	
 	

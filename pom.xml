@@ -1,45 +1,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
+
 	<!-- Version du POM. -->
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- ========================================================== -->
-	<!-- GAV (identifiant du projet) -->
-	<!-- G : groupId : nom de domaine -->
-	<!-- A : artifactId : nom du projet -->
-	<!-- V : version : version du projet -->
+	<!-- GAV (identifiant du projet)                                -->
+	<!-- G : groupId : nom de domaine                               -->
+	<!-- A : artifactId : nom du projet                             -->
+	<!-- V : version : version du projet                            -->
 	<!-- ========================================================== -->
 	<!-- domaine (espace de nom) appelé GROUPE (G) dans Maven -->
 	<groupId>levy.daniel.application</groupId>
 	<!-- Nom du projet appelé artifactId (A) dans Maven -->
 	<artifactId>traficweb_maven</artifactId>
-	<!-- Version Bêta de développement (SNAPSHOT) non incrémentée dans Maven  -->
+	<!-- Version Bêta de développement (SNAPSHOT) -->
+	<!--non incrémentée dans Maven -->
 	<version>0.0.1-SNAPSHOT</version>
-	
-	<!-- ================================ -->
-  	<!-- PACKAGING -->
-  	<!-- Préciser ici la forme du livrable que Maven doit produire (war, jar, POM, ...). -->
-  	<!-- ================================ -->  	
+
+
+	<!-- ========================================================== -->
+	<!--                       PACKAGING                            -->
+	<!-- Préciser ici la forme du livrable                          -->
+	<!-- que le module parent Maven doit produire (war, jar,        -->
+	<!--	POM, ...).                                              -->
+	<!-- ========================================================== -->
 	<!-- Résultat du Packaging (forme du livrable). Ici POM -->
 	<packaging>pom</packaging>
 
-	<!-- ================================ -->
-  	<!-- NOM DU LIVRABLE GENERE PAR MAVEN -->
-  	<!-- Préciser le nom du livrable que Maven doit produire (monapplication.war, monapplication.jar, monapplication.POM, ...). -->
-  	<!-- ================================ -->  		
+
+	<!-- ========================================================== -->
+	<!-- NOM DU LIVRABLE GENERE PAR MAVEN                           -->
+	<!-- Préciser le nom du livrable que Maven doit produire        -->
+	<!-- (monapplication.war,                                       -->
+	<!-- monapplication.jar, monapplication.POM, ...).              -->
+	<!-- ========================================================== -->
 	<!-- Nom de l'application générée par le projet Maven -->
-	<name>traficweb</name>
+	<name>traficweb_maven</name>
 	<!-- Description de l'application générée par le projet Maven -->
 	<description>Gestion des trafics routiers annuels</description>
-	<!--  URL éventuelle permettant de se connecter à l'application -->
+	<!-- URL éventuelle permettant de se connecter à l'application -->
 	<url></url>
 
 
-	<!-- ================================ -->
-  	<!-- PROPERTIEs -->
-  	<!-- Préciser ici les propriétés générales du projet. -->
-  	<!-- ================================ -->  
+	<!-- ================================================ -->
+	<!--                    PROPERTIEs                    -->
+	<!-- Préciser ici les propriétés générales du projet. -->
+	<!-- ================================================ -->
 	<properties>
 		<!-- Force l'encoding des sources du projet en UTF-8 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -110,7 +117,7 @@
 	</dependencies>
 
 	<!-- ============================================ -->
-	<!-- DECOMPOSITION DU PROJET EN MODULES.          -->
+	<!-- DECOMPOSITION DU PROJET EN MODULES. -->
 	<!-- ============================================ -->
 	<modules>
 		<module>traficweb_module_localisation</module>
@@ -119,5 +126,5 @@
 		<module>traficweb_module_vue_desktop</module>
 		<module>traficweb_module_vue_web</module>
 	</modules>
-	
+
 </project>

@@ -160,9 +160,12 @@ public final class ConfigurationBundlesManager {
 	//*****************************************************************/
 	/**
 	 * bundleApplication : ResourceBundle : <br/>
-	 * racine_binaires/application_fr_FR.properties.<br/>
+	 * racine_binaires/application.properties.<br/>
 	 * Contient les paramétrages généraux 
 	 * de l'application.<br/>
+	 * Situé sous la racine des binaires
+	 * , et donc présent dans les jar/war.<br/>
+	 * NON PARAMETRABLE PAR LA MOA. Uniquement pour le centre serveur.<br/>
 	 */
 	private static transient ResourceBundle bundleApplication;
 
@@ -252,21 +255,24 @@ public final class ConfigurationBundlesManager {
 	/**
 	 * method getBundleApplication() :<br/>
 	 * <ul>
-	 * <li>Fournit un singleton de bundleApplication.</li>
+	 * <li>Fournit un singleton de bundleApplication 
+	 * (application.properties).</li>
 	 * <li>bundleApplication encapsule 
-	 * ./classpath/application_fr_FR.properties.</li><br/>
+	 * racine_binaires/application.properties.</li>
 	 * <li>bundleApplication contient les paramétrages généraux 
-	 * de l'application (chemins vers les ressources
-	 * , titre de l'application, ...).</li><br/>
+	 * de l'application (...).</li>
+	 * <li>Situé sous la racine des binaires
+	 * , et donc présent dans les jar/war.</li>
+	 * <li>NON PARAMETRABLE PAR LA MOA. Uniquement pour le centre serveur.</li>
 	 * <br/>
 	 * - retourne null, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
+	 * <br/>
 	 * Exemple de message :<br/>
 	 * "Classe ConfigurationApplicationManager 
 	 * - Méthode getBundleApplication() 
 	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
-	 * Il devrait se trouver juste sous la racine des binaires 
-	 * ./classpath".<br/>
+	 * Il devrait se trouver juste sous la racine des binaires.<br/>
 	 * </ul>
 	 * <br/>
 	 *
@@ -285,7 +291,8 @@ public final class ConfigurationBundlesManager {
 				try {
 					
 					bundleApplication 
-						= ResourceBundle.getBundle("application", LOCALE_FR);
+						= ResourceBundle
+							.getBundle("application", LOCALE_FR);
 					
 				} catch (MissingResourceException mre) {
 										

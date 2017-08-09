@@ -2,31 +2,48 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- GAV (identifiant du projet) PERE -->
+	<!-- ========================================================== -->
+	<!-- GAV (identifiant du projet PERE = PARENT) 	                -->
+	<!-- G : groupId : nom de domaine                               -->
+	<!-- A : artifactId : nom du projet                             -->
+	<!-- V : version : version du projet                            -->
+	<!-- ========================================================== -->
 	<!-- Projet parent dont le présent POM est un module -->
 	<parent>
-		<!-- Groupe = domaine (espace de nom) -->
+		<!-- domaine (espace de nom) appelé GROUPE (G) dans Maven -->
 		<groupId>levy.daniel.application</groupId>
-		<!-- Artefact = Nom du projet -->
+		<!-- Nom du projet appelé artifactId (A) dans Maven -->
 		<artifactId>traficweb_maven</artifactId>
-		<!-- Version Bêta (SNAPSHOT) -->
+		<!-- Version Bêta de développement (SNAPSHOT) -->
+		<!--non incrémentée dans Maven -->
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 
-	<!-- Artefact = Nom du projet MODULE -->
+	<!-- ========================================================== -->
+	<!-- 					IDENTIFIANT DU MODULE                   -->
+	<!-- Artefact = Nom du projet MODULE                            -->
+	<!-- ========================================================== -->
 	<artifactId>traficweb_module_vue_web</artifactId>
-	<name>Pages Web</name>
-	<description>jsp, Web-Inf, ...</description>
-	
-	  <!-- DEFINITION DE L'ARTEFACT -->
-  <!-- Binaire à produire -->
-    <packaging>war</packaging>
-    
-    <!-- ================================ -->
-  	<!-- PROPERTIEs -->
-  	<!-- Préciser ici les propriétés générales du projet. -->
-  	<!-- ================================ -->  
+	<!-- name est utilisé par Eclipse pour générer le projet module -->
+	<name>traficweb_module_vue_web</name>
+	<description>Vues client léger (Pages Web, jsp, Web-Inf, ...)</description>
+
+
+	<!-- ========================================================== -->
+	<!--                       PACKAGING                            -->
+	<!-- Préciser ici la forme du livrable                          -->
+	<!-- que le présent module Maven doit produire (war, jar,       -->
+	<!--	POM, ...).                                              -->
+	<!-- ========================================================== -->
+	<!-- Résultat du Packaging (forme du livrable). Ici jar         -->
+	<packaging>war</packaging>
+
+
+	<!-- ================================================ -->
+	<!--                    PROPERTIEs                    -->
+	<!-- Préciser ici les propriétés générales du projet. -->
+	<!-- ================================================ -->
 	<properties>
 		<!-- Force l'encoding des sources du projet en UTF-8 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +51,24 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<!-- Vérifie la conformité des classes Java (.class) avec le JDK 1.8 -->
 		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>  
-	
+	</properties>
+
+
+	<!-- ================================ -->
+	<!-- DEPENDANCEs -->
+	<!-- Gestion des dépendances utilisées par le projet -->
+	<!-- ================================ -->
+	<dependencies>
+
+		<!-- SPRING WEB MVC -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.10.RELEASE</version>
+		</dependency>
+
+	</dependencies>
+
 
 </project>
