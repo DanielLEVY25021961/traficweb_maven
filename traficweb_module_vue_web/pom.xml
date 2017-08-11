@@ -36,7 +36,7 @@
 	<!-- que le présent module Maven doit produire (war, jar,       -->
 	<!--	POM, ...).                                              -->
 	<!-- ========================================================== -->
-	<!-- Résultat du Packaging (forme du livrable). Ici jar         -->
+	<!-- Résultat du Packaging (forme du livrable). Ici war         -->
 	<packaging>war</packaging>
 
 
@@ -59,6 +59,10 @@
 	<!-- Gestion des dépendances utilisées par le projet -->
 	<!-- ================================ -->
 	<dependencies>
+
+		<!-- ========================================================== -->
+		<!--           DEPENDANCES POUR SPRING  						-->
+		<!-- ========================================================== -->
 
 		<!-- SPRING WEB MVC -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->

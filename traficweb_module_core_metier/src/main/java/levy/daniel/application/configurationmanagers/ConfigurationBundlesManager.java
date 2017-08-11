@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * class ConfigurationBundlesManager :<br/>
- * Classe UTILITAIRE 
+ * Classe UTILITAIRE (finale avec des méthodes statiques)
  * Chargée de gérer la configuration des BUNDLES de l'application.<br/>
  * Met à disposition de l'ensemble de l'application 
  * des Singletons pour 
@@ -160,9 +160,9 @@ public final class ConfigurationBundlesManager {
 	//*****************************************************************/
 	/**
 	 * bundleApplication : ResourceBundle : <br/>
-	 * racine_binaires/application.properties.<br/>
+	 * (racine_binaires/application.properties).<br/>
 	 * Contient les paramétrages généraux 
-	 * de l'application.<br/>
+	 * de l'application (....).<br/>
 	 * Situé sous la racine des binaires
 	 * , et donc présent dans les jar/war.<br/>
 	 * NON PARAMETRABLE PAR LA MOA. Uniquement pour le centre serveur.<br/>
