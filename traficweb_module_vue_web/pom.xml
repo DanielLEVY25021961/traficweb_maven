@@ -71,6 +71,21 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.3.10.RELEASE</version>
 		</dependency>
+		
+		<!-- =================================================== -->
+		<!--    dépendances pour servlet-api                     -->
+		<!-- provided car ne sert qu'à la compilation.           -->
+		<!-- Le serveur doit être compatible servlet-api 3.1.0   -->
+		<!-- Le serveur applicatif (Tomcat) fournira cette bibli -->
+		<!-- =================================================== -->		
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		
 
 	</dependencies>
 
