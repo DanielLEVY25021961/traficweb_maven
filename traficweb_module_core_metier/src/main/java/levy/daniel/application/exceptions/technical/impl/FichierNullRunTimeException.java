@@ -42,12 +42,12 @@ public class FichierNullRunTimeException extends
 	 * .<br/>
 	 */
 	private static final long serialVersionUID = 1L;
+
 	
 	/**
 	 * LOG : Log : 
 	 * Logger pour Log4j (utilisant commons-logging).
 	 */
-	@SuppressWarnings("unused")
 	private static final Log LOG = LogFactory
 			.getLog(FichierNullRunTimeException.class);
 

@@ -52,7 +52,6 @@ public final class LocaleManager {
 	 * LOG : Log : 
 	 * Logger pour Log4j (utilisant commons-logging).
 	 */
-	@SuppressWarnings("unused")
 	private static final Log LOG = LogFactory.getLog(LocaleManager.class);
 
 	// *************************METHODES************************************/

@@ -404,7 +404,6 @@ public final class ConfigurationNomenclaturesHistoF07Manager {
 	 * LOG : Log : 
 	 * Logger pour Log4j (utilisant commons-logging).
 	 */
-	@SuppressWarnings("unused")
 	private static final Log LOG = LogFactory
 			.getLog(ConfigurationNomenclaturesHistoF07Manager.class);
 
