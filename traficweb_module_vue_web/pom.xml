@@ -40,7 +40,7 @@
 	<packaging>war</packaging>
 
 
-	<!-- ================================================ -->
+    <!-- ================================================ -->
 	<!--                    PROPERTIEs                    -->
 	<!-- Préciser ici les propriétés générales du projet. -->
 	<!-- ================================================ -->
@@ -51,6 +51,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<!-- Vérifie la conformité des classes Java (.class) avec le JDK 1.8 -->
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- Encodage pourle Reporting (site web) -->
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 
