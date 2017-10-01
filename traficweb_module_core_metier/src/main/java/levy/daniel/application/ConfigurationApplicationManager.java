@@ -17,38 +17,37 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * class ConfigurationApplicationManager :<br/>
- * Classe UTILITAIRE (méthodes statiques)
- * Chargée de gérer la configuration de l'application.<br/>
- * Met à disposition de l'ensemble de l'application et des développeurs 
- * des Singletons pour 
+ * <ul>
+ * <li>Classe UTILITAIRE (méthodes statiques)
+ * Chargée de gérer la configuration de l'application.</li>
+ * <li>DISPONIBLE POUR TOUTE L'APPLICATION.</li>
+ * <li>Met à disposition de l'ensemble de l'application 
+ * des <b>Singletons</b> pour 
  * les fichiers .properties et tout ce dont l'application 
  * a besoin pour fonctionner 
- * (Descriptions de fichiers, nomenclatures, ...).<br/>
- * Permet aux développeurs de ne connaitre que cette classe 
- * lorsqu'ils ont besoin d'un élément de configuration.<br/>
- * - Délègue à des ConfigurationCCCManagers.
+ * (Descriptions de fichiers, nomenclatures, ...).</li>
+ * <li>DELEGUE à des ConfigurationCCCManagers.</li>
  * <br/>
- * <ul>
+ * <img src="../../../../../../ressources_externes/images/configuration_bundles.JPG" 
+ * alt="diagramme de classes des ConfigurationManagers" border="1" align="center" />
+ * <br/>
+ * </li>
+ * <br/>
  * <li>Les méthodes getBundleZZZ fournissent 
- * un singleton de BundleZZZ.</li>
- * <li>La méthode getCheminDescriptions fournit un Singleton 
- * du chemin vers les descriptions des fichiers 
- * (HIT, HISTO_F07, Darwin.csv, ...).</li>
- * <li>Les méthodes getNomDescriptionXXX fournissent un singleton  
- * du nom du fichier de description du fichierXXX 
- * (HIT, HISTO_F07, Darwin.csv, ...).</li>
- * <li>Les méthodes getFichierDescriptionXXX fournissent un singleton  
- * du fichier de description du fichierXXX 
- * (HIT, HISTO_F07, Darwin.csv, ...).</li>
+ * un singleton de BundleZZZ.<br/> 
+ * Par exemple : getBundleApplication() fournit un Singleton 
+ * de bundleApplication qui est le ResourceBundle encapsulant 
+ * 'application_fr_FR.properties'.</li>
  * <li>Les méthodes getNomNomenclatureXXXChampYYY fournissent un singleton  
  * du nom du fichier de la nomenclature du champ YYY 
  * dans le fichierXXX 
  * (HIT, HISTO_F07, Darwin.csv, ...).</li>
  * </ul>
+ * </ul>
  *
  * - Exemple d'utilisation :<br/>
- * <code> // Récupération du bundleApplication qui encapsule 
- * application_fr_FR.properties</code><br/>
+ * <code> // Récupération du ResourceBundle encapsulant 
+ * 'application.properties'.<br/></code>
  * <code>final ResourceBundle bundleApplication 
  * = ConfigurationApplicationManager.getBundleApplication();<br/>
  * // RAPPORT AU FORMAT CSV si problème (le rapport est alors non null).<br/>
@@ -149,7 +148,7 @@ public final class ConfigurationApplicationManager {
 	//*****************************************************************/
 	/**
 	 * LOCALE_FR : Locale : <br/>
-	 * Locale France.<br/>
+	 * Locale France new Locale("fr", "FR").<br/>
 	 */
 	public static final Locale LOCALE_FR = new Locale("fr", "FR");
 	
@@ -189,42 +188,48 @@ public final class ConfigurationApplicationManager {
 	/**
 	 * method getBundleApplication() :<br/>
 	 * <ul>
-	 * <li>Fournit un singleton de bundleApplication 
-	 * (application.properties).</li>
-	 * <li>bundleApplication encapsule 
-	 * racine_binaires/application.properties.</li>
+	 * <li>Fournit un <b>SINGLETON</b> de bundleApplication.</li>
+	 * <li>DELEGUE au ConfigurationBundlesManager.</li>
+	 * <li>bundleApplication encapsule le properties INTERNE (dans le classpath)
+	 * './src/application_fr_FR.properties'.</li>
 	 * <li>bundleApplication contient les paramétrages généraux 
-	 * de l'application (...).</li>
+	 * de l'application (chemins vers les ressources
+	 * , titre de l'application, ...).</li>
 	 * <li>Situé sous la racine des binaires
 	 * , et donc présent dans les jar/war.</li>
 	 * <li>NON PARAMETRABLE PAR LA MOA. Uniquement pour le centre serveur.</li>
 	 * <br/>
-	 * - retourne null, LOG.FATAL et rapporte 
+	 * - Jette une BundleManquantRunTimeException, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
-	 * <br/>
 	 * Exemple de message :<br/>
-	 * "Classe ConfigurationApplicationManager 
+	 * "Classe ConfigurationBundlesManager 
 	 * - Méthode getBundleApplication() 
 	 * - Le fichier 'application_fr_FR.properties' est introuvable. 
-	 * Il devrait se trouver juste sous la racine des binaires.<br/>
+	 * Il devrait se trouver juste sous la racine des binaires /bin".<br/>
 	 * </ul>
 	 * <br/>
 	 *
 	 * @return : ResourceBundle : bundleApplication.<br/>
+	 * 
+	 *  @throws Exception : BundleManquantRunTimeException 
+	 * si le properties est introuvable.<br/>
 	 */
-	public static ResourceBundle getBundleApplication() {
+	public static ResourceBundle getBundleApplication() 
+											throws Exception {
 		
 		/* Bloc synchronized. */
 		synchronized (ConfigurationApplicationManager.class) {
 			
+			/* DELEGATION au ConfigurationBundlesManager. */
 			/* Récupération du Bundle. */
-			/* DELEGATION auprès du ConfigurationBundlesManager. */
 			final ResourceBundle bundleApplication 
-				= ConfigurationBundlesManager.getBundleApplication();
+				= ConfigurationBundlesManager
+					.getBundleApplication();
 			
 			/* Récupération du message de rapport éventuel. */
 			final String messageRapport 
-				= ConfigurationBundlesManager.getMessageIndividuelRapport();
+				= ConfigurationBundlesManager
+					.getMessageIndividuelRapport();
 			
 			/* Ajout du message de rapport éventuel 
 			 * au rapportConfigurationCsv. */
@@ -234,7 +239,7 @@ public final class ConfigurationApplicationManager {
 			
 			return bundleApplication;
 			
-		} // Fin de synchronized.________________________________________
+		} // Fin de synchronized.________________________________
 				
 	} // Fin de getBundleApplication().____________________________________
 	
@@ -243,7 +248,7 @@ public final class ConfigurationApplicationManager {
 	/**
 	 * method getBundleRessources() :<br/>
 	 * <ul>
-	 * <li>Fournit un singleton de bundleRessources 
+	 * <li>Fournit un <b>singleton</b> de bundleRessources 
 	 * (configuration_ressources_parametrables.properties).</li>
 	 * <li>bundleRessources encapsule 
 	 * racine_binaires/
@@ -274,7 +279,7 @@ public final class ConfigurationApplicationManager {
 			/* Récupération du Bundle. */
 			/* DELEGATION auprès du ConfigurationBundlesManager. */
 			final ResourceBundle bundleRessources 
-				= ConfigurationBundlesManager.getBundleRessources();
+				= ConfigurationBundlesManager.getBundleRessourcesExternes();
 			
 			/* Récupération du message de rapport éventuel. */
 			final String messageRapport 
