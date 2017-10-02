@@ -1,4 +1,4 @@
-package levy.daniel.application.configurationmanagers;
+package levy.daniel.application.apptechnic.configurationmanagers;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

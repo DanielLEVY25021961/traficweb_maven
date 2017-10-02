@@ -1,4 +1,4 @@
-package levy.daniel.application.configurationmanagers;
+package levy.daniel.application.apptechnic.configurationmanagers;
 
 import static org.junit.Assert.*;
 
