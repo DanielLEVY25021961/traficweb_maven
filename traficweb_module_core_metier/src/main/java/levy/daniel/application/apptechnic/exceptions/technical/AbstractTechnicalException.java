@@ -8,20 +8,28 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * class AbstractTechnicalException :
- * Classe abstraite de base commune a toutes les exceptions 
- * techniques.<br>
- * Les exceptions techniques doivent provoquer l'affichage 
+ * <ul>
+ * <li>Classe <b>abstraite</b> de base commune a toutes les exceptions 
+ * techniques <b>VERIFIEES</b> susceptibles d'être catchées dans le code 
+ * de l'application par les développeurs.</li>
+ * <li>Les exceptions techniques concrètes doivent provoquer l'affichage 
  * d'un message stocké dans une liste commune à toutes les
- * Exceptions Techniques héritant de AbstractTechnicalException,<br>
- * ainsi que l'enregistrement dans le journal (log4j) 
- * du detail des exceptions reelles.
+ * Exceptions Techniques VERIFIEES héritant de AbstractTechnicalException 
+ * (SINGLETON 'listeExceptions').</li>
+ * <li>Les exceptions techniques concrètes doivent provoquer 
+ * l'enregistrement dans le journal (log4j) du detail 
+ * des exceptions reelles.</li>
+ * </ul>
  *
  *
- * - Exemple d'utilisation :
+ * - Exemple d'utilisation : <br/>
+ * <br/>
  *
- * - Mots-clé :
+ * - Mots-clé :<br/>
+ * <br/>
  *
- * - Dépendances :
+ * - Dépendances :<br/>
+ * <br/>
  *
  *
  * @author Levy Lévy
@@ -42,9 +50,14 @@ public abstract class AbstractTechnicalException extends Exception {
 	
 	
 	/**
-	 * listeExceptions : List<String> : 
-	 * Liste de messages de violation de règles techniques.<br />
-	 * Utile pour afficher en une seule fois l'ensemble des règles violées.
+	 * listeExceptions : List&lt;String&gt; : 
+	 * <ul>
+	 * <li>SINGLETON.</li>
+	 * <li>Liste de messages de violation des règles techniques.</li>
+	 * <li>Utile pour afficher en une seule fois l'ensemble des 
+	 * messages des Exceptions Techniques VERIFIEES 
+	 * jetées par l'application.</li>
+	 * </ul>
 	 */
 	protected static List<String> listeExceptions;
 	
@@ -62,10 +75,15 @@ public abstract class AbstractTechnicalException extends Exception {
 
 	/**
 	 * method CONSTRUCTEUR AbstractTechnicalException() :<br/>
-	 * CONSTRUCTEUR D'ARITE NULLE.<br/>
-	 * Permet de construire une AbstractTechnicalException
-	 * sans message ni propagation d'exception cause.<br/>
-	 *
+	 * <ul>
+	 * <li>CONSTRUCTEUR D'ARITE NULLE.</li>
+	 * <li>Permet de construire une AbstractTechnicalException
+	 * sans message ni propagation d'exception cause.</li>
+	 * <li>Instancie le singleton 'listeExceptions' 
+	 * si ce n'est déjà fait.</li>
+	 * <li>Ajoute le message de la présente Exception 
+	 * à 'listeExceptions'.</li>
+	 * </ul>
 	 */
 	public AbstractTechnicalException() {
 		
@@ -87,9 +105,15 @@ public abstract class AbstractTechnicalException extends Exception {
 
 	/**
 	 * method CONSTRUCTEUR AbstractTechnicalException(String pMessage) :<br/>
-	 * Constructeur d'arité 1.<br/>
-	 * Permet de construire une AbstractTechnicalException
-	 * qui propage un message.<br/>
+	 * <ul>
+	 * <li>CONSTRUCTEUR D'ARITE 1.</li>
+	 * <li>Permet de construire une AbstractTechnicalException
+	 * qui propage un message.</li>
+	 * <li>Instancie le singleton 'listeExceptions' 
+	 * si ce n'est déjà fait.</li>
+	 * <li>Ajoute le message de la présente Exception 
+	 * à 'listeExceptions'.</li>
+	 * </ul>
 	 *
 	 * @param pMessage : String : le message à propager.<br/>
 	 */
@@ -114,10 +138,16 @@ public abstract class AbstractTechnicalException extends Exception {
 	
 	/**
 	 * method CONSTRUCTEUR AbstractTechnicalException(Throwable pCause) :<br/>
-	 * Constructeur d'arité 1.<br/>
-	 * Permet de construire une AbstractTechnicalException
+	 * <ul>
+	 * <li>CONSTRUCTEUR D'ARITE 1.</li>
+	 * <li>Permet de construire une AbstractTechnicalException
 	 * qui propage un Throwable qui a causé la présente
-	 * exception.<br/>
+	 * exception.</li>
+	 * <li>Instancie le singleton 'listeExceptions' 
+	 * si ce n'est déjà fait.</li>
+	 * <li>Ajoute le message de la présente Exception 
+	 * à 'listeExceptions'.</li>
+	 * </ul>
 	 *
 	 * @param pCause : Throwable : l'exception qui a
 	 * causé la présente et que l'on veut propager.<br/>
@@ -145,12 +175,18 @@ public abstract class AbstractTechnicalException extends Exception {
 	 * method CONSTRUCTEUR AbstractTechnicalException(
 	 * String pMessage
 	 * , Throwable pCause) :<br/>
-	 * Constructeur d'arité 2.<br/>
-	 * Permet de construire une AbstractTechnicalException
+	 * <ul>
+	 * <li>CONSTRUCTEUR D'ARITE 2.</li>
+	 * <li>Permet de construire une AbstractTechnicalException
 	 * qui propage :<br/>
 	 * - un message,<br/>
 	 * - un Throwable qui a causé la présente
-	 * exception.<br/>
+	 * exception.</li>
+	 * <li>Instancie le singleton 'listeExceptions' 
+	 * si ce n'est déjà fait.</li>
+	 * <li>Ajoute le message de la présente Exception 
+	 * à 'listeExceptions'.</li>
+	 * </ul>
 	 *
 	 * @param pMessage : String : le message à propager.<br/>
 	 * @param pCause : Throwable : l'exception qui a
@@ -180,20 +216,27 @@ public abstract class AbstractTechnicalException extends Exception {
 	 * method CONSTRUCTEUR AbstractTechnicalException(
 	 * String pMessage
 	 * , Throwable pCause
-	 * , List<String> pListeExceptions) :<br/>
-	 * Constructeur d'arité 3.<br/>
-	 * Permet de construire une AbstractTechnicalException
+	 * , List&lt;String&gt; pListeExceptions) :<br/>
+	 * <ul>
+	 * <li>CONSTRUCTEUR COMPLET D'ARITE 3.</li>
+	 * <li>Permet de construire une AbstractTechnicalException
 	 * qui propage :<br/>
 	 * - un message,<br/>
 	 * - un Throwable qui a causé la présente
 	 * exception.<br/>
 	 * - Une liste de String susceptible d'encapsuler
-	 * le message de la présente Exception.<br/>
+	 * le message de la présente Exception et des 
+	 * AbstractTechnicalExceptions suivantes.</li>
+	 * <li>Passe le singleton 'listeExceptions'.</li>
+	 * <li>Ajoute le message de la présente Exception 
+	 * à 'listeExceptions'.</li>
+	 * </ul>
 	 *
 	 * @param pMessage : String : le message à propager.<br/>
 	 * @param pCause : Throwable : l'exception qui a
 	 * causé la présente et que l'on veut propager.<br/>
-	 * @param pListeExceptions : Liste dans laquelle on veut
+	 * @param pListeExceptions : List&lt;String&gt; : 
+	 * Liste dans laquelle on veut
 	 * insérer le message de la présente Exception.<br/>
 	 */
 	public AbstractTechnicalException(
@@ -201,7 +244,7 @@ public abstract class AbstractTechnicalException extends Exception {
 				, final Throwable pCause
 					, final List<String> pListeExceptions) {
 		
-		this(pMessage, pCause);
+		super(pMessage, pCause);
 		
 		/* Ne passe la pListeExceptions en paramètre que
 		 * si listeExceptions n'existait pas déjà en attribut. */
@@ -221,10 +264,11 @@ public abstract class AbstractTechnicalException extends Exception {
 	
 	
 	/**
-	 * method addException() :<br/>
-	 * Ajoute le message de la présente Exception
-	 * à la liste des Exceptions.<br/>
-	 * 
+	 * method addException() :
+	 * <ul>
+	 * <li>Ajoute le message de la présente Exception
+	 * à la liste des Exceptions (SINGLETON 'listeExceptions').</li>
+	 * </ul>
 	 */
 	public final void addException() {
 		
@@ -250,7 +294,13 @@ public abstract class AbstractTechnicalException extends Exception {
 	
 	/**
 	 * method getListeExceptions() :<br/>
-	 * Retourne la liste des Exceptions.<br/>
+	 * <ul>
+	 * <li>getter du SINGLETON 'listeExceptions'.</li>
+	 * <li>Liste de messages de violation des règles techniques.</li>
+	 * <li>Utile pour afficher en une seule fois l'ensemble des 
+	 * messages des Exceptions Techniques VERIFIEES 
+	 * jetées par l'application.</li>
+	 * </ul>
 	 * 
 	 * @return listeExceptions : List&lt;String&gt;<br/>
 	 */
@@ -262,16 +312,20 @@ public abstract class AbstractTechnicalException extends Exception {
 	
 	/**
 	 * method listeExceptionsToString() :<br/>
-	 * Construit une String pour l'affichage de
+	 * <ul>
+	 * <li>Construit et retourne une String pour l'affichage de
 	 * la liste des messages des Exceptions avec
-	 * passages à la ligne.<br/>
-	 * - Retourne une String vide si la liste est null
+	 * passages à la ligne.</li>
+	 * </ul>
+	 * - Retourne une String <b>vide</b> si la liste est null
 	 * ou vide.<br/>
+	 * <br/>
 	 * 
-	 * @return String
+	 * @return String.<br/>
 	 */
 	public final String listeExceptionsToString() {
 		
+		/* Retourne une String vide si la liste est null ou vide. */
 		if (listeExceptions == null 
 				|| listeExceptions.isEmpty()) {
 			return "";

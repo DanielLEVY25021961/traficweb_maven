@@ -79,7 +79,7 @@ public final class ConfigurationRessourcesManager {
 	
 	
 	/**
-	 * METHODE_GET_BUNDLERESSOURCES : String :<br/>
+	 * METHODE_GET_BUNDLERESSOURCESEXTERNES : String :<br/>
 	 * "Méthode getBundleRessources()".<br/>
 	 */
 	public static final String METHODE_GET_BUNDLERESSOURCES
@@ -175,7 +175,7 @@ public final class ConfigurationRessourcesManager {
 	 * Par exemple "D:/Donnees/Traficweb_ressources_parametrables/".<br/>
 	 * Ce chemin est déterminé par le centre serveur qui désippera 
 	 * le jar ou le war pour l'implémenter.<br/>
-	 * Clé = "application.repertoire.resources".<br/>
+	 * Clé = "ressourcesexternes".<br/>
 	 */
 	private static transient String cheminRepertoireRessources;
 
@@ -228,7 +228,7 @@ public final class ConfigurationRessourcesManager {
 	 * Par exemple "D:/Donnees/Traficweb_ressources_parametrables/".<br/>
 	 * Ce chemin est déterminé par le centre serveur qui désippera 
 	 * le jar ou le war pour l'implémenter.<br/>
-	 * Clé = "application.repertoire.resources".<br/>
+	 * Clé = "ressourcesexternes".<br/>
 	 * <br/>
 	 *
 	 * @return cheminRepertoireRessources : String.<br/>
@@ -353,14 +353,14 @@ public final class ConfigurationRessourcesManager {
 	 * PARAMETRABLES PAR LA MOA stocké dans 
 	 * configuration_ressources_parametrables.properties 
 	 * sous la racine des binaires.<br/>
-	 * Clé = "application.repertoire.resources".
+	 * Clé = "ressourcesexternes".
 	 * <br/>
 	 *
 	 * @return : String : 
-	 * "application.repertoire.resources".<br/>
+	 * "ressourcesexternes".<br/>
 	 */
 	private static String fournirCleCheminRepertoireRessources() {
-		return "application.repertoire.resources";
+		return "ressourcesexternes";
 	} // Fin de fournirCleCheminRepertoireRessources().____________________________
 	
 

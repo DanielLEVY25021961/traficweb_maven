@@ -4,16 +4,17 @@ import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import levy.daniel.application.configurationmanagers.ConfigurationBundlesManager;
-import levy.daniel.application.configurationmanagers.ConfigurationDescriptionsFichiersManager;
-import levy.daniel.application.configurationmanagers.ConfigurationNomenclaturesDarwinManager;
-import levy.daniel.application.configurationmanagers.ConfigurationNomenclaturesHistoF07Manager;
-import levy.daniel.application.configurationmanagers.ConfigurationNomenclaturesHitManager;
-import levy.daniel.application.configurationmanagers.ConfigurationPersistenceManager;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import levy.daniel.application.apptechnic.configurationmanagers.ConfigurationBundlesManager;
+import levy.daniel.application.apptechnic.configurationmanagers.ConfigurationDescriptionsFichiersManager;
+import levy.daniel.application.apptechnic.configurationmanagers.ConfigurationNomenclaturesDarwinManager;
+import levy.daniel.application.apptechnic.configurationmanagers.ConfigurationNomenclaturesHistoF07Manager;
+import levy.daniel.application.apptechnic.configurationmanagers.ConfigurationNomenclaturesHitManager;
+import levy.daniel.application.apptechnic.configurationmanagers.ConfigurationPersistenceManager;
+import levy.daniel.application.apptechnic.exceptions.technical.impl.BundleManquantRunTimeException;
 
 /**
  * class ConfigurationApplicationManager :<br/>
@@ -161,7 +162,25 @@ public final class ConfigurationApplicationManager {
 	 */
 	private static transient String rapportConfigurationCsv;
 	
-	
+		
+	/**
+	 * rapportUtilisateurCsv : String :<br/>
+	 * <ul>
+	 * <li>Rapport NON Technique (pour les utilisateurs) 
+	 * du chargement de la configuration au format csv.</li>
+	 * <li>Rapport AVEC en-tête 
+	 * [messages de chargement de la configuration;].</li>
+	 * <li>Le rapport est <b>null</b> si il n'y a eu aucun 
+	 * problème d'initialisation de l'application.</li>
+	 * </ul>
+	 * exemple : <br/>
+	 * messages de chargement de la configuration;<br/>
+	 * Le fichier 'applicatio_fr_FR.properties' est introuvable. 
+	 * Il devrait se trouver juste sous la racine des binaires /bin
+	 *  - veuillez prévenir le centre-serveur svp.;<br/>
+	 */
+	private static String rapportUtilisateurCsv;
+
 
 	/**
 	 * LOG : Log : 
@@ -190,14 +209,15 @@ public final class ConfigurationApplicationManager {
 	 * <ul>
 	 * <li>Fournit un <b>SINGLETON</b> de bundleApplication.</li>
 	 * <li>DELEGUE au ConfigurationBundlesManager.</li>
-	 * <li>bundleApplication encapsule le properties INTERNE (dans le classpath)
-	 * './src/application_fr_FR.properties'.</li>
+	 * <li>bundleApplication encapsule le properties INTERNE 
+	 * (dans le classpath) './src/application_fr_FR.properties'.</li>
 	 * <li>bundleApplication contient les paramétrages généraux 
-	 * de l'application (chemins vers les ressources
+	 * de l'application (chemins vers les menus
 	 * , titre de l'application, ...).</li>
-	 * <li>Situé sous la racine des binaires
+	 * <li>Situé sous la racine des binaires, donc dans le classpath
 	 * , et donc présent dans les jar/war.</li>
-	 * <li>NON PARAMETRABLE PAR LA MOA. Uniquement pour le centre serveur.</li>
+	 * <li>NON PARAMETRABLE PAR LA MOA. 
+	 * <li>Uniquement accessible pour le centre serveur.</li>
 	 * <br/>
 	 * - Jette une BundleManquantRunTimeException, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
@@ -220,21 +240,24 @@ public final class ConfigurationApplicationManager {
 		/* Bloc synchronized. */
 		synchronized (ConfigurationApplicationManager.class) {
 			
-			/* DELEGATION au ConfigurationBundlesManager. */
-			/* Récupération du Bundle. */
-			final ResourceBundle bundleApplication 
-				= ConfigurationBundlesManager
+			ResourceBundle bundleApplication = null;
+			
+			try {
+				
+				/* DELEGATION au ConfigurationBundlesManager. */
+				/* Récupération du Bundle. */
+				bundleApplication = ConfigurationBundlesManager
 					.getBundleApplication();
+			}
 			
-			/* Récupération du message de rapport éventuel. */
-			final String messageRapport 
-				= ConfigurationBundlesManager
-					.getMessageIndividuelRapport();
-			
-			/* Ajout du message de rapport éventuel 
-			 * au rapportConfigurationCsv. */
-			if (!StringUtils.isBlank(messageRapport)) {
-				ajouterMessageAuRapportConfigurationCsv(messageRapport);
+			catch (Exception e) {
+				
+				/* constitue rapportConfigurationCsv 
+				 * et rapportUtilisateurCsv. 
+				 * Jette une BundleManquantRunTimeException 
+				 * qui encapsule e. */
+				traiterException(e);
+				
 			}
 			
 			return bundleApplication;
@@ -246,56 +269,67 @@ public final class ConfigurationApplicationManager {
 
 	
 	/**
-	 * method getBundleRessources() :<br/>
+	 * method getBundleRessourcesExternes() :<br/>
 	 * <ul>
-	 * <li>Fournit un <b>singleton</b> de bundleRessources 
-	 * (configuration_ressources_parametrables.properties).</li>
-	 * <li>bundleRessources encapsule 
-	 * racine_binaires/
-	 * configuration_ressources_parametrables.properties</li>
-	 * <li>bundleRessources contient les paramétrages généraux 
-	 * des Ressources PARAMETRABLES PAR LA MOA 
-	 * (chemins vers les ressources externes au classpath).</li>
+	 * <ul>
+	 * <li>Getter de bundleRessourcesExternes.</li>
+	 * <li>Fournit un <b>singleton</b> de bundleRessourcesExternes 
+	 * (configuration_ressources_externes.properties).</li>
+	 * <li>bundleRessourcesExternes encapsule 
+	 * racine_binaires/<b>configuration_ressources_externes.properties</b>.</li>
+	 * <li>bundleRessourcesExternes contient les <b>chemins</b> 
+	 * vers les fichiers <b>EXTERNES PARAMETRABLES PAR LA MOA</b>
+	 * (donc, hors classpath) de l'application.</li>
+	 * <li>Situé sous la racine des binaires, donc dans le classpath
+	 * , et donc présent dans les jar/war.</li>
+	 * <li>NON PARAMETRABLE PAR LA MOA.</li> 
+	 * <li>Uniquement accessible pour le centre serveur.</li>
 	 * <br/>
-	 * - retourne null, LOG.FATAL et rapporte 
+	 * - Jette une BundleManquantRunTimeException, LOG.FATAL et rapporte 
 	 * si le properties est introuvable.<br/>
-	 * <br/>
-	 * Exemple de message d'erreur :<br/>
-	 * "Classe ConfigurationRessourcesManager 
-	 * - Méthode getBundleRessources() 
-	 * - Le fichier 'configuration_ressources_parametrables.properties' 
-	 * est introuvable. 
-	 * Il devrait se trouver juste sous la racine des binaires.".<br/>
+	 * Exemple de message :<br/>
+	 * "Classe ConfigurationBundlesManager 
+	 * - Méthode getBundleRessourcesExternes() 
+	 * - Le fichier 'configuration_ressources_externes_fr_FR.properties' est introuvable. 
+	 * Il devrait se trouver juste sous la racine des binaires /bin".<br/>
 	 * </ul>
 	 * <br/>
 	 *
-	 * @return : ResourceBundle : bundleRessources.<br/>
+	 * @return : ResourceBundle : bundleRessourcesExternes.<br/>
+	 * 
+	 *  @throws Exception : BundleManquantRunTimeException 
+	 * si le properties est introuvable.<br/>
 	 */
-	public static ResourceBundle getBundleRessources() {
+	public static ResourceBundle getBundleRessourcesExternes() 
+											throws Exception {
 		
 		/* Bloc synchronized. */
 		synchronized (ConfigurationApplicationManager.class) {
 			
-			/* Récupération du Bundle. */
-			/* DELEGATION auprès du ConfigurationBundlesManager. */
-			final ResourceBundle bundleRessources 
-				= ConfigurationBundlesManager.getBundleRessourcesExternes();
+			ResourceBundle bundleRessourcesExternes = null;
 			
-			/* Récupération du message de rapport éventuel. */
-			final String messageRapport 
-				= ConfigurationBundlesManager.getMessageIndividuelRapport();
-			
-			/* Ajout du message de rapport éventuel 
-			 * au rapportConfigurationCsv. */
-			if (!StringUtils.isBlank(messageRapport)) {
-				ajouterMessageAuRapportConfigurationCsv(messageRapport);
+			try {
+				
+				/* DELEGATION au ConfigurationBundlesManager. */
+				/* Récupération du Bundle. */
+				bundleRessourcesExternes = ConfigurationBundlesManager
+					.getBundleRessourcesExternes();
 			}
 			
-			return bundleRessources;
-			
-		} // Fin de synchronized.________________________________________
+			catch (Exception e) {
 				
-	} // Fin de getBundleRessources()._____________________________________
+				/* constitue rapportConfigurationCsv 
+				 * et rapportUtilisateurCsv. 
+				 * Jette une BundleManquantRunTimeException 
+				 * qui encapsule e. */
+				traiterException(e);
+			}
+			
+			return bundleRessourcesExternes;
+			
+		} // Fin de synchronized.________________________________
+								
+	} // Fin de getBundleRessourcesExternes().____________________________________
 	
 	
 	
@@ -3255,6 +3289,38 @@ public final class ConfigurationApplicationManager {
 
 	
 	/**
+	 * method getRapportUtilisateurCsv() :<br/>
+	 * <ul>
+	 * <li>Getter du Rapport NON Technique (pour les utilisateurs) 
+	 * du chargement de la configuration au format csv.</li>
+	 * <li>Rapport AVEC en-tête 
+	 * [messages de chargement de la configuration;].</li>
+	 * <li>Le rapport est <b>null</b> si il n'y a eu aucun 
+	 * problème d'initialisation de l'application.</li>
+	 * </ul>
+	 * exemple : <br/>
+	 * messages de chargement de la configuration;<br/>
+	 * Le fichier 'applicatio_fr_FR.properties' est introuvable. 
+	 * Il devrait se trouver juste sous la racine des binaires /bin
+	 *  - veuillez prévenir le centre serveur svp.;<br/>
+	 * <br/>
+	 *
+	 * @return rapportUtilisateurCsv : String.<br/>
+	 */
+	public static String getRapportUtilisateurCsv() {
+		
+		/* Bloc synchronized. */
+		synchronized (ConfigurationApplicationManager.class) {
+			
+			return rapportUtilisateurCsv;
+			
+		} // Fin de synchronized.________________________________________
+		
+	} // Fin de getRapportUtilisateurCsv().________________________________
+
+
+	
+	/**
 	 * method ajouterMessageAuRapportConfigurationCsv(
 	 * String pMessage) :<br/>
 	 * Rajoute le message pMessage au rapport 
@@ -3306,6 +3372,57 @@ public final class ConfigurationApplicationManager {
 
 	
 	/**
+	 * method ajouterMessageAuRapportUtilisateurCsv(
+	 * String pMessage) :<br/>
+	 * <ul>
+	 * Rajoute le message pMessage au rapport 
+	 * utilisateur de la configuration au format csv (à la ligne).<br/>
+	 * </ul>
+	 * - Ne fait rien si pMessage est blank.<br/>
+	 * - Rajoute l'en-tête (avec BOM_UTF-8) 
+	 * pour le rapport utilisateur si nécessaire.<br/>
+	 * <br/>
+	 *
+	 * @param pMessage : String : Message à rajouter 
+	 * au rapport utilisateur.<br/>
+	 */
+	private static void ajouterMessageAuRapportUtilisateurCsv(
+			final String pMessage) {
+		
+		/* Bloc synchronized. */
+		synchronized (ConfigurationApplicationManager.class) {
+			
+			/* Ne fait rien si pMessage est blank. */
+			if (StringUtils.isBlank(pMessage)) {
+				return;
+			}
+			
+			final StringBuilder stb = new StringBuilder();
+			
+			/* Rajoute l'en-tête (avec BOM_UTF-8) 
+			 * pour le rapport utilisateur 
+			 * si nécessaire. */
+			if (StringUtils.isBlank(rapportUtilisateurCsv)) {
+				rapportUtilisateurCsv 
+					= fournirEnTeteRapportConfigurationCsv();
+			}
+			
+			/* Rajoute le message au rapport 
+			 * utilisateur au format csv (à la ligne). */			
+			stb.append(rapportUtilisateurCsv);
+			stb.append(NEWLINE);
+			stb.append(pMessage);
+			
+			rapportUtilisateurCsv = stb.toString();
+			
+		} // Fin de synchronized.________________________________________
+			
+	} // Fin de ajouterMessageAuRapportUtilisateurCsv(
+	 // String pMessage).__________________________________________________
+
+
+	
+	/**
 	 * method fournirEnTeteRapportConfigurationCsv() :<br/>
 	 * Fournit l'en-tête pour le rapport de chargement de la configuration 
 	 * au format csv 'rapportConfigurationCsv'.<br/>
@@ -3336,6 +3453,62 @@ public final class ConfigurationApplicationManager {
 				
 	} // Fin de fournirEnTeteRapportConfigurationCsv().____________________
 
+
+		
+	/**
+	 * method traiterException(
+	 * Exception pE) :<br/>
+	 * <ul>
+	 * <li>récupère le rapport de configuration csv produit 
+	 * par le ConfigurationBundlesManager en cas d'Exception.</li>
+	 * <li>ajoute ce rapport à 'rapportConfigutrationCsv'.</li>
+	 * <li>récupère le rapport utilisateur csv produit 
+	 * par le ConfigurationBundlesManager en cas d'Exception.</li>
+	 * <li>ajoute ce rapport à 'rapportUtilisateurCsv'.</li>
+	 * <li>Jette une BundleManquantRunTimeException 
+	 * qui encapsule PE.</li>
+	 * </ul>
+	 *
+	 * @param pE : Exception.<br/>
+	 * 
+	 * @throws BundleManquantRunTimeException
+	 */
+	private static void traiterException(
+			final Exception pE) 
+					throws BundleManquantRunTimeException {
+		
+		/* Récupération du message de rapport 
+		 * de configuration éventuel. */
+		final String messageRapport 
+			= ConfigurationBundlesManager
+				.getMessageIndividuelRapport();
+		
+		/* Récupération du message de rapport 
+		 * utilisateur éventuel. */
+		final String messageUtilisateur 
+		= ConfigurationBundlesManager.getRapportUtilisateurCsv();
+		
+		/* Ajout du message de rapport éventuel 
+		 * au rapportConfigurationCsv. */
+		if (!StringUtils.isBlank(messageRapport)) {
+			ajouterMessageAuRapportConfigurationCsv(
+					messageRapport);
+		}
+		
+		/* Ajout du message de rapport éventuel 
+		 * au rapportUtilisateurCsv. */
+		if (!StringUtils.isBlank(messageUtilisateur)) {
+			ajouterMessageAuRapportUtilisateurCsv(
+					messageUtilisateur);
+		}
+					
+		/* Jette une BundleManquantRunTimeException 
+		 * si le properties est manquant. */
+		throw new BundleManquantRunTimeException(
+				messageRapport, pE);
+		
+	} // Fin de traiterException(...)._____________________________________
+	
 	
 	
 } // FIN DE LA CLASSE ConfigurationApplicationManager.-----------------------

@@ -2,10 +2,10 @@ package levy.daniel.application.apptechnic.exceptions.technical.impl;
 
 import java.util.List;
 
-import levy.daniel.application.exceptions.technical.AbstractTechnicalException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import levy.daniel.application.apptechnic.exceptions.technical.AbstractTechnicalException;
 
 /**
  * class TableauNullException :<br/>
