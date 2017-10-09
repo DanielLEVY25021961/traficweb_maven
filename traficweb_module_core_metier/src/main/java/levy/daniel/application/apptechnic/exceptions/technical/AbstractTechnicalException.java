@@ -84,6 +84,7 @@ public abstract class AbstractTechnicalException extends Exception {
 	 * <li>Ajoute le message de la présente Exception 
 	 * à 'listeExceptions'.</li>
 	 * </ul>
+	 *
 	 */
 	public AbstractTechnicalException() {
 		

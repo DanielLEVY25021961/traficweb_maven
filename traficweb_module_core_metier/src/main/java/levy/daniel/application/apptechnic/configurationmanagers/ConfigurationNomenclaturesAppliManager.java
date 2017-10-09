@@ -16,15 +16,15 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
-import levy.daniel.application.ConfigurationApplicationManager;
-import levy.daniel.application.exceptions.technical.impl.FichierInexistantRunTimeException;
-import levy.daniel.application.exceptions.technical.impl.FichierNullRunTimeException;
-import levy.daniel.application.exceptions.technical.impl.FichierRepertoireRunTimeException;
-import levy.daniel.application.exceptions.technical.impl.FichierVideRunTimeException;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import levy.daniel.application.ConfigurationApplicationManager;
+import levy.daniel.application.apptechnic.exceptions.technical.impl.FichierInexistantRunTimeException;
+import levy.daniel.application.apptechnic.exceptions.technical.impl.FichierNullRunTimeException;
+import levy.daniel.application.apptechnic.exceptions.technical.impl.FichierRepertoireRunTimeException;
+import levy.daniel.application.apptechnic.exceptions.technical.impl.FichierVideRunTimeException;
 
 
 /**

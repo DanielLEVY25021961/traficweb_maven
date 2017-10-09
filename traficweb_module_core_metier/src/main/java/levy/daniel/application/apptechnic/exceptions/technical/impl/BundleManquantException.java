@@ -1,6 +1,5 @@
 package levy.daniel.application.apptechnic.exceptions.technical.impl;
 
-
 import java.util.List;
 
 import org.apache.commons.logging.Log;

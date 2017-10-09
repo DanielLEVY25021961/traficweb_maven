@@ -42,7 +42,6 @@ public class FichierNullRunTimeException extends
 	 * .<br/>
 	 */
 	private static final long serialVersionUID = 1L;
-
 	
 	/**
 	 * LOG : Log : 

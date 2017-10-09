@@ -1,5 +1,10 @@
 package levy.daniel.application;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ResourceBundle;
 
 import org.apache.commons.logging.Log;
@@ -7,8 +12,6 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
 import levy.daniel.application.apptechnic.exceptions.technical.impl.BundleManquantRunTimeException;
-
-import static org.junit.Assert.*;
 
 
 /**

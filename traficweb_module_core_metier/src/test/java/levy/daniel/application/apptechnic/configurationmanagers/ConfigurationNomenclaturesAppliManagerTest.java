@@ -1,16 +1,17 @@
 package levy.daniel.application.apptechnic.configurationmanagers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.util.Set;
 import java.util.SortedMap;
 
-import levy.daniel.application.ConfigurationApplicationManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
+
+import levy.daniel.application.ConfigurationApplicationManager;
 
 
 /**
