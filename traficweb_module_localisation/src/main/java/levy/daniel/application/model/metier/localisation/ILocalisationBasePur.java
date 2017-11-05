@@ -88,6 +88,9 @@ public interface ILocalisationBasePur
 	 * <li>retourne toujours false si la route de la 
 	 * présente Localisation est null.</li>
 	 * <li>retourne toujours false si routes différentes.</li>
+	 * <li>retourne toujours false si this.cumul == null.</li>
+	 * <li>retourne toujours false si 
+	 * pLocalisation.getCumul() == null.</li>
 	 * </ul>
 	 *
 	 * @param pLocalisation : ILocalisationBasePur.<br/>

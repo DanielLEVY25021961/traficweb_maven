@@ -699,7 +699,6 @@ public abstract class AbstractLocalisationBasePur
 	} // Fin de getValeurColonne(...)._____________________________________
 
 	
-
 	
 	/**
 	 * {@inheritDoc}
@@ -727,6 +726,16 @@ public abstract class AbstractLocalisationBasePur
 		
 		/* retourne toujours false si routes différentes. */
 		if (this.route.equals(pLocalisation.getRoute())) {
+			
+			/* retourne toujours false si this.cumul == null. */
+			if (this.cumul == null) {
+				return false;
+			}
+			
+			/* retourne toujours false si pLocalisation.getCumul() == null. */
+			if (pLocalisation.getCumul() == null) {
+				return false;
+			}
 			
 			if (this.cumul < pLocalisation.getCumul()) {
 				return true;

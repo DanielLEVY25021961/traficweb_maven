@@ -660,13 +660,104 @@ public class LocalisationBasePurTest {
 	
 	/**
 	 * method testDevance() :<br/>
-	 * .<br/>
-	 * <br/>
+	 * <ul>
+	 * Teste la méthode <b>devance(ILocalisationBasePur pLocalisation)</b> :
+	 * <li>garantit que x.devance(null) retourne toujours false.</li> 
+	 * <li>garantit que x.devance(x) retourne toujours false.</li>
+	 * <li>garantit que x(sans route).devance(y) retourne toujours false.</li>
+	 * <li>garantit que x.devance(y(autreRoute)) retourne toujours false.</li>
+	 * <li>garantit le traitement des null dans 
+	 * devance(ILocalisationBasePur pLocalisation).</li>
+	 * <li>garantit le bon fonctionnement de 
+	 * devance(ILocalisationBasePur pLocalisation).</li>
+	 * </ul>
 	 */
 	@Test
 	public void testDevance() {
 		
+		// **********************************
+		// AFFICHAGE DANS LE TEST ou NON
+		final boolean affichage = false;
+		// **********************************
+
+		final ILocalisationBasePur objet1 
+			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G");
 		
-	}
+		final ILocalisationBasePur objetSansRoute1 
+			= new LocalisationBasePur(27L, null, 5896.36F, "G");
+		
+		final ILocalisationBasePur objet2 
+			= new LocalisationBasePur(27L, "N0186", 8888.88F, "G");
+		
+		final ILocalisationBasePur objet3 
+			= new LocalisationBasePur(27L, "N0186", 1000F, "G");
+		
+		final ILocalisationBasePur objetRouteDiff 
+			= new LocalisationBasePur(27L, "A0186", 8888.88F, "G");
+		
+		final ILocalisationBasePur objetCumulNull1 
+			= new LocalisationBasePur(27L, "N0186", null, "G");
+		
+		final ILocalisationBasePur objetCumulNull2 
+		= new LocalisationBasePur(27L, "N0186", null, "G");
+		
+		
+		/* garantit que x.devance(null) retourne toujours false. */
+		assertFalse("x.devance(null) doit être false : "
+				, objet1.devance(null));
+		
+		/* garantit que x.devance(x) retourne toujours false. */
+		assertFalse("x.devance(x) doit retourner false : "
+				, objet1.devance(objet1));
+		
+		/* garantit que x(sans route).devance(y) 
+		 * retourne toujours false. */
+		assertFalse("x(sans route) devance(y) doit retourner false : "
+				, objetSansRoute1.devance(objet2));
+		
+		/* garantit que x.devance(y(autreRoute)) 
+		 * retourne toujours false.*/
+		assertFalse("x.devance(y(autreRoute)) doit retourner false : "
+				, objet1.devance(objetRouteDiff));
+		
+		/* garantit le traitement des null dans 
+		 * devance(ILocalisationBasePur pLocalisation). */
+		final boolean compCumulNull1 
+			= objetCumulNull1.devance(objetCumulNull2);
+		
+		final boolean compCumulNull2 
+			= objet1.devance(objetCumulNull2);
+		
+		assertFalse("x(cumul null).devance(y(cumul null)) doit retourner false : "
+				, compCumulNull1);
+		
+		assertFalse("x(cumul non null).devance(y(cumul null)) doit retourner false : "
+				, compCumulNull2);
+		
+		/* garantit le bon fonctionnement de devance(ILocalisationBasePur pLocalisation). */
+		final boolean compObjet1Objet2 = objet1.devance(objet2);
+		final boolean compObjet3Objet1 = objet3.devance(objet1);
+		final boolean compObjet1Objet3 = objet1.devance(objet3);
+		
+		assertTrue("objet1 devance objet2 : "
+				, compObjet1Objet2);
+		assertTrue("objet3 devance objet1"
+				, compObjet3Objet1);
+		assertFalse("objet1 devance objet3 : "
+				, compObjet1Objet3);
+		
+		/* AFFICHAGE A LA CONSOLE. */
+		if (AFFICHAGE_GENERAL && affichage) {			
+			System.out.println("objet1 devance objet2 ? : " 
+					+ compObjet1Objet2);
+			System.out.println("objet3 devance objet1 ? : " 
+					+ compObjet3Objet1);
+			System.out.println("objet1 devance objet3 ? : " 
+					+ compObjet1Objet3);
+		}
+
+	} // Fin de testDevance()._____________________________________________
+	
+	
 	
 } // FIN DE LA CLASSE LocalisationBasePurTest.-------------------------------
