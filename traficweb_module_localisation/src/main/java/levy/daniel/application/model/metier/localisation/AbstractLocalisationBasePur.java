@@ -525,11 +525,9 @@ public abstract class AbstractLocalisationBasePur
 		stb.append('[');
 		
 		/* Identifiant en base. */
-		if (this.id != null) {
-			stb.append("id : ");
-			stb.append(this.id);
-			stb.append(SEPARATEUR_MOINS_AERE);
-		}
+		stb.append("id : ");
+		stb.append(this.id);
+		stb.append(SEPARATEUR_MOINS_AERE);
 		
 		/* route. */
 		stb.append("route : ");
