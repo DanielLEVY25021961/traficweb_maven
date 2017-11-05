@@ -37,27 +37,67 @@ public interface ILocalisationBasePur
 
 	
 	/**
-	 * method devance(
-	 * AbstractLocalisationBasePur pLocalisation) :<br/>
-	 * Précise si la présente Localisation "devance" pLocalisation
-	 * sur une même route (Abscisse cumulée plus petite).<br/>
+	 * method compareTo(
+	 * AbstractLocalisationBasePur pLoc) :<br/>
+	 * Comparaison entre deux valueobject pour l'affichage.<br/>
 	 * <br/>
-	 * - retourne toujours false si pLocalisation est null.<br/>
-	 * - retourne toujours false si pLocalisation est 
-	 * la présente Localisation.<br/>
-	 * - retourne toujours false si la route de la 
-	 * présente Localisation est null.<br/>
-	 * - retourne toujours false si routes différentes.<br/>
+	 * 1 - route.<br/>
+	 * 2 - cumul.<br/>
+	 * 3 - cote.<br/>
+	 * <br/>
+	 * Contrat Java : x.equals(y) ---> x.compareTo(y) == 0.<br/>
 	 * <br/>
 	 *
-	 * @param pLocalisation : AbstractLocalisationBasePur.<br/>
+	 * @param pLoc : AbstractLocalisationBasePur.<br/>
+	 * 
+	 * @return int :<br/>
+	 * - -1 si le présent valueobjet est "plus petit", 
+	 * "au dessus" ou "avant" le comparé dans l'affichage d'une liste.<br/>
+	 *  Par exemple, 'a avant b'
+	 * ou '1 au dessus de 2' dans l'affichage.<br/>
+	 * - 0 si ils sont au même niveau.<br/>
+	 * - +1 si le comparé est "plus grand" ou "au dessous" ou "avant" le
+	 * comparé dans l'afichage d'une liste.<br/>
+	 */
+	int compareTo(ILocalisationBasePur pLoc);
+	
+	
+
+	/**
+	 * method clone() :<br/>
+	 * Clone.<br/>
+	 * <br/>
+	 *
+	 * @return Object.<br/>
+	 * 
+	 * @throws CloneNotSupportedException
+	 */
+	Object clone() throws CloneNotSupportedException;
+
+	
+	
+	/**
+	 * method devance(
+	 * ILocalisationBasePur pLocalisation) :<br/>
+	 * <ul>
+	 * Précise si la présente Localisation "devance" pLocalisation
+	 * sur une même route (Abscisse cumulée plus petite).
+	 * <li>retourne toujours false si pLocalisation est null.</li>
+	 * <li>retourne toujours false si pLocalisation est 
+	 * la présente Localisation.</li>
+	 * <li>retourne toujours false si la route de la 
+	 * présente Localisation est null.</li>
+	 * <li>retourne toujours false si routes différentes.</li>
+	 * </ul>
+	 *
+	 * @param pLocalisation : ILocalisationBasePur.<br/>
 	 * 
 	 * @return : boolean : true si la présente Localisation
 	 * a une abscisse curviligne plus petite que pLocalisation
 	 * sur une même route.<br/>
 	 */
 	boolean devance(
-			AbstractLocalisationBasePur pLocalisation);
+			ILocalisationBasePur pLocalisation);
 	
 
 	

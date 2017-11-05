@@ -54,7 +54,7 @@ import org.apache.commons.logging.LogFactory;
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class AbstractLocalisationBasePur 
 	implements ILocalisationBasePur, Serializable
-		, Comparable<AbstractLocalisationBasePur>, Cloneable {
+		, Comparable<ILocalisationBasePur>, Cloneable {
 
 	// ************************ATTRIBUTS************************************/
 	
@@ -272,19 +272,15 @@ public abstract class AbstractLocalisationBasePur
 	 
 	 
 
-	
 	/**
-	 * method hashCode() :<br/>
-	 * HashCode.<br/>
-	 * <br/>
-	 *
-	 * @return int.<br/>
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
 		
 		final int prime = 31;
-		int result = super.hashCode();
+		
+		int result = 1;
 		
 		result = prime * result
 			+ ((this.route == null) ? 0 : this.route.hashCode());
@@ -300,19 +296,14 @@ public abstract class AbstractLocalisationBasePur
 
 	
 	/**
-	 * method equals(
-	 * Object pObj) :<br/>
+	 * {@inheritDoc}<br/>
+	 * <br/>
 	 * Egalité métier de deux Localisation.<br/>
 	 * <br/>
 	 * 1 - route.<br/>
 	 * 2 - cumul.<br/>
 	 * 3 - cote.<br/>
-	 * 4 - Ors.<br/>
 	 * <br/>
-	 *
-	 * @param pObj : Object.<br/>
-	 * 
-	 * @return boolean.<br/>
 	 */
 	@Override
 	public boolean equals(
@@ -327,45 +318,41 @@ public abstract class AbstractLocalisationBasePur
 		if (pObj == null) {
 			return false;
 		}
-		
-		/* InEgalite super-classe (si héritage) : false. */
-		if (!super.equals(pObj)) {
-			return false;
-		}
-		
+				
 		/* Mauvaise instance : false. */
-		if (!(pObj instanceof AbstractLocalisationBasePur)) {
+		if (!(pObj instanceof ILocalisationBasePur)) {
 			return false;
 		}
 		
 		/* Cast. */
-		final AbstractLocalisationBasePur other 
-			= (AbstractLocalisationBasePur) pObj;
+		final ILocalisationBasePur other 
+			= (ILocalisationBasePur) pObj;
 		
 		/* 1 - route. */
-		if (this.route == null) {
-			if (other.route != null) {
+		if (this.getRoute() == null) {
+			if (other.getRoute() != null) {
 				return false;
 			}
-		} else if (!this.route.equalsIgnoreCase(other.route)) {
+		} else if (!this.getRoute()
+				.equalsIgnoreCase(other.getRoute())) {
 			return false;
 		}
 		
 		/* 2 - cumul. */
-		if (this.cumul == null) {
-			if (other.cumul != null) {
+		if (this.getCumul() == null) {
+			if (other.getCumul() != null) {
 				return false;
 			}
-		} else if (!this.cumul.equals(other.cumul)) {
+		} else if (!this.getCumul().equals(other.getCumul())) {
 			return false;
 		}
 
 		/* 3 - cote. */
-		if (this.cote == null) {
-			if (other.cote != null) {
+		if (this.getCote() == null) {
+			if (other.getCote() != null) {
 				return false;
 			}
-		} else if (!this.cote.equalsIgnoreCase(other.cote)) {
+		} else if (!this.getCote().equalsIgnoreCase(other.getCote())) {
 			return false;
 		}
 		
@@ -378,19 +365,17 @@ public abstract class AbstractLocalisationBasePur
 
 	/**
 	 * method compareTo(
-	 * AbstractLocalisationBasePur pLoc) :<br/>
+	 * ILocalisationBasePur pLoc) :<br/>
 	 * Comparaison entre deux valueobject pour l'affichage.<br/>
 	 * <br/>
-	 * 0 - Super-Classe.<br/>
 	 * 1 - route.<br/>
 	 * 2 - cumul.<br/>
 	 * 3 - cote.<br/>
-	 * 4 - Ors.<br/>
 	 * <br/>
 	 * Contrat Java : x.equals(y) ---> x.compareTo(y) == 0.<br/>
 	 * <br/>
 	 *
-	 * @param pLoc : AbstractLocalisationBasePur.<br/>
+	 * @param pLoc : ILocalisationBasePur.<br/>
 	 * 
 	 * @return int :<br/>
 	 * - -1 si le présent valueobjet est "plus petit", 
@@ -403,7 +388,7 @@ public abstract class AbstractLocalisationBasePur
 	 */
 	@Override
 	public int compareTo(
-			final AbstractLocalisationBasePur pLoc) {
+			final ILocalisationBasePur pLoc) {
 		
 		/* Même instance : 0. */
 		if (this == pLoc) {
@@ -480,16 +465,10 @@ public abstract class AbstractLocalisationBasePur
 	} // Fin de compareTo(
 	 // Object pValueObject).______________________________________________
 	
-	
-	
+		
+
 	/**
-	 * method clone() :<br/>
-	 * Clone.<br/>
-	 * <br/>
-	 *
-	 * @return Object.<br/>
-	 * 
-	 * @throws CloneNotSupportedException
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
@@ -688,7 +667,10 @@ public abstract class AbstractLocalisationBasePur
 		switch (pI) {
 
 		case 0:
-			valeur = this.id;
+			if (this.id != null) {
+				valeur = String.valueOf(this.id);
+			} 
+			
 			break;
 
 		case 1:
@@ -696,7 +678,10 @@ public abstract class AbstractLocalisationBasePur
 			break;
 
 		case 2:
-			valeur = this.cumul;
+			if (this.cumul != null) {
+				valeur = String.valueOf(this.cumul);
+			}
+			
 			break;
 
 		case 3:
@@ -721,20 +706,26 @@ public abstract class AbstractLocalisationBasePur
 	 */
 	@Override
 	public final boolean devance(
-			final AbstractLocalisationBasePur pLocalisation) {
+			final ILocalisationBasePur pLocalisation) {
 		
+		/* retourne toujours false si pLocalisation est null. */
 		if (pLocalisation == null) {
 			return false;
 		}
 		
+		/* retourne toujours false si pLocalisation est 
+		 * la présente Localisation.*/
 		if (this == pLocalisation) {
 			return false;
 		}
 		
+		/* retourne toujours false si la route de la 
+		 * présente Localisation est null.*/
 		if (this.route == null) {
 			return false;
 		}
 		
+		/* retourne toujours false si routes différentes. */
 		if (this.route.equals(pLocalisation.getRoute())) {
 			
 			if (this.cumul < pLocalisation.getCumul()) {
