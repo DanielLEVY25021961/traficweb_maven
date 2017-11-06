@@ -80,14 +80,18 @@ public interface ILocalisationBasePur
 	 * method devance(
 	 * ILocalisationBasePur pLocalisation) :<br/>
 	 * <ul>
-	 * Précise si la présente Localisation "devance" pLocalisation
-	 * sur une même route (Abscisse cumulée plus petite).
+	 * <b>Précise si la présente Localisation "devance" pLocalisation
+	 * sur une même route (Abscisse cumulée plus petite 
+	 * sur une <i>même route</i> et un <i>même côté</i>).</b>
 	 * <li>retourne toujours false si pLocalisation est null.</li>
 	 * <li>retourne toujours false si pLocalisation est 
 	 * la présente Localisation.</li>
 	 * <li>retourne toujours false si la route de la 
-	 * présente Localisation est null.</li>
-	 * <li>retourne toujours false si routes différentes.</li>
+	 * présente Localisation ou de pLocalisation est null.</li>
+	 * <li>retourne toujours false si le côté de la route de la 
+	 * présente Localisation ou de pLocalisation est null.</li>
+	 * <li>retourne toujours false si routes différentes 
+	 * ou côtés différents.</li>
 	 * <li>retourne toujours false si this.cumul == null.</li>
 	 * <li>retourne toujours false si 
 	 * pLocalisation.getCumul() == null.</li>

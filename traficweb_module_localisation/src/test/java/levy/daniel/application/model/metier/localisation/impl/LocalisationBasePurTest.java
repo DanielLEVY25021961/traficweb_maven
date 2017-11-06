@@ -665,7 +665,9 @@ public class LocalisationBasePurTest {
 	 * <li>garantit que x.devance(null) retourne toujours false.</li> 
 	 * <li>garantit que x.devance(x) retourne toujours false.</li>
 	 * <li>garantit que x(sans route).devance(y) retourne toujours false.</li>
+	 * <li>garantit que x(avec route sans cote).devance(y) retourne toujours false.</li>
 	 * <li>garantit que x.devance(y(autreRoute)) retourne toujours false.</li>
+	 * <li>garantit que x.devance(y(autreCote)) retourne toujours false.</li>
 	 * <li>garantit le traitement des null dans 
 	 * devance(ILocalisationBasePur pLocalisation).</li>
 	 * <li>garantit le bon fonctionnement de 
@@ -686,6 +688,9 @@ public class LocalisationBasePurTest {
 		final ILocalisationBasePur objetSansRoute1 
 			= new LocalisationBasePur(27L, null, 5896.36F, "G");
 		
+		final ILocalisationBasePur objetAvecRouteSansCote1 
+			= new LocalisationBasePur(27L, "N0186", 5896.36F, null);
+		
 		final ILocalisationBasePur objet2 
 			= new LocalisationBasePur(27L, "N0186", 8888.88F, "G");
 		
@@ -695,11 +700,14 @@ public class LocalisationBasePurTest {
 		final ILocalisationBasePur objetRouteDiff 
 			= new LocalisationBasePur(27L, "A0186", 8888.88F, "G");
 		
+		final ILocalisationBasePur objetCoteDiff 
+			= new LocalisationBasePur(27L, "A0186", 8888.88F, "D");
+		
 		final ILocalisationBasePur objetCumulNull1 
 			= new LocalisationBasePur(27L, "N0186", null, "G");
 		
 		final ILocalisationBasePur objetCumulNull2 
-		= new LocalisationBasePur(27L, "N0186", null, "G");
+			= new LocalisationBasePur(27L, "N0186", null, "G");
 		
 		
 		/* garantit que x.devance(null) retourne toujours false. */
@@ -715,10 +723,19 @@ public class LocalisationBasePurTest {
 		assertFalse("x(sans route) devance(y) doit retourner false : "
 				, objetSansRoute1.devance(objet2));
 		
+		/* garantit que x(avec route sans cote).devance(y) 
+		 * retourne toujours false.*/
+		assertFalse("x(avec route sans cote).devance(y) doit retourner false ; "
+				, objetAvecRouteSansCote1.devance(objet2));
+		
 		/* garantit que x.devance(y(autreRoute)) 
 		 * retourne toujours false.*/
 		assertFalse("x.devance(y(autreRoute)) doit retourner false : "
 				, objet1.devance(objetRouteDiff));
+		
+		/* garantit que x.devance(y(autreCote)) retourne toujours false.*/
+		assertFalse("x.devance(y(memeRouteAutreCote)) doit retourner false : "
+				, objet1.devance(objetCoteDiff));
 		
 		/* garantit le traitement des null dans 
 		 * devance(ILocalisationBasePur pLocalisation). */

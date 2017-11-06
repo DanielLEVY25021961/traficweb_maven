@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -719,13 +720,23 @@ public abstract class AbstractLocalisationBasePur
 		}
 		
 		/* retourne toujours false si la route de la 
-		 * présente Localisation est null.*/
-		if (this.route == null) {
+		 * présente Localisation ou de pLocalisation est null.*/
+		if (StringUtils.isBlank(this.route) 
+					|| StringUtils.isBlank(pLocalisation.getRoute())) {
 			return false;
 		}
 		
-		/* retourne toujours false si routes différentes. */
-		if (this.route.equals(pLocalisation.getRoute())) {
+		/* retourne toujours false si le côté de la route de la 
+		 * présente Localisation ou de pLocalisation est null.*/
+		if (StringUtils.isBlank(this.cote) 
+				|| StringUtils.isBlank(pLocalisation.getCote())) {
+			return false;
+		}
+		
+		/* traitement métier. */
+		/* Même route et même côté obligatoires. */
+		if (StringUtils.equalsIgnoreCase(this.route, pLocalisation.getRoute()) 
+				&& StringUtils.equalsIgnoreCase(this.cote, pLocalisation.getCote())) {
 			
 			/* retourne toujours false si this.cumul == null. */
 			if (this.cumul == null) {
@@ -743,7 +754,8 @@ public abstract class AbstractLocalisationBasePur
 			
 			return false;
 		}
-				
+		
+		/* retourne toujours false si routes différentes ou côtés différents. */
 		return false;
 		
 	} // Fin de devance(
