@@ -2,9 +2,12 @@ package levy.daniel.application;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.orm.jpa.JpaSystemException;
 
+import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
+import levy.daniel.application.model.metier.localisation.AbstractLocalisationBasePur;
 import levy.daniel.application.model.metier.localisation.impl.LocalisationBasePur;
-import levy.daniel.application.model.services.metier.localisation.impl.ServiceLocalisationBasePur;
+import levy.daniel.application.model.services.metier.localisation.impl.ServiceConcret;
 
 
 
@@ -42,6 +45,11 @@ public final class AppSpring {
 		= "classpath*:applicationContext.xml";
 
 	
+	/**
+	 * serviceConcret : ServiceConcret :<br/>
+	 * .<br/>
+	 */
+	private static transient ServiceConcret serviceConcret;
 
 	// *************************METHODES************************************/
 	
@@ -75,30 +83,64 @@ public final class AppSpring {
 			= new ClassPathXmlApplicationContext(APPLICATIONCONTEXT_PATH);
 
 		/* Obtention du bean DaoLocalisationBasePur. */
-		final ServiceLocalisationBasePur serviceLocalisationBasePur 
-			= context.getBean(ServiceLocalisationBasePur.class);
-
-		final LocalisationBasePur objetNull = null;
+		serviceConcret 
+			= context.getBean(ServiceConcret.class);
 		
-		final LocalisationBasePur objet1 
+		final String serviceConcretClassName = serviceConcret.getClass().getName();
+		
+		System.out.println("PROXY : " + serviceConcretClassName);
+
+		final AbstractLocalisationBasePur objetNull = null;
+		
+		final AbstractLocalisationBasePur objet1 
 			= new LocalisationBasePur("A0006", 5892.36F, "G");
 		
-		final LocalisationBasePur objet2 
+		final AbstractLocalisationBasePur objet2 
 			= new LocalisationBasePur("A0006", 7888F, "G");
 		
-		final LocalisationBasePur objet3 
-		= new LocalisationBasePur("N0187", 36000F, "D");
+		final AbstractLocalisationBasePur objet3 
+			= new LocalisationBasePur("N0187", 36000F, "D");
 		
-		
-		
-		
-			
-		serviceLocalisationBasePur.create(objetNull);
-		serviceLocalisationBasePur.create(objet1);
-		serviceLocalisationBasePur.create(objet2);
-		serviceLocalisationBasePur.create(objet3);
-		
+		final AbstractLocalisationBasePur objet4 
+		= new LocalisationBasePur("N0186", 12000F, "I");
 
+							
+//		serviceConcret.create(objetNull);
+		
+//		try {
+//			serviceConcret.create(objet1);
+//		}
+//		catch (JpaSystemException jpaExc){
+//			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
+//		}
+//		
+//		try {
+//			serviceConcret.create(objet2);
+//		}
+//		catch (JpaSystemException jpaExc){
+//			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
+//		}
+//		
+//		try {
+//			serviceConcret.create(objet3);
+//		}
+//		catch (JpaSystemException jpaExc){
+//			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
+//		}
+//
+//		
+//		try {
+//			serviceConcret.create(objet4);
+//		}
+//		catch (JpaSystemException jpaExc){
+//			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
+//		}
+		
+		creer(objetNull);
+		creer(objet1);
+		creer(objet2);
+		creer(objet3);
+		creer(objet4);
 		
 		/* Clôture du contexte, sinon, fuite de mémoire. */
 		context.close();
@@ -106,5 +148,35 @@ public final class AppSpring {
 	} // Fin de main(...)._________________________________________________
 	
 	
+	
+	/**
+	 * method creer() :<br/>
+	 * .<br/>
+	 * <br/>
+	 *
+	 * @param pObject
+	 * @return :  :  .<br/>
+	 */
+	public static AbstractLocalisationBasePur creer(AbstractLocalisationBasePur pObject) {
+		
+		AbstractLocalisationBasePur objetPersistant = null;
+		
+		try {
+			objetPersistant = serviceConcret.create(pObject);
+		}
+		catch (JpaSystemException jpaExc){
+			System.out.println("APPLICATION - JPA SYSTEM EXCEPTION : " + jpaExc.toString());
+		}
+		catch (AbstractDaoException daoExc) {
+			System.out.println("APPLICATION - ABSTRACT_DAO EXCEPTION : " + daoExc.getMessageUtilisateur());
+		}
+		catch (Exception exc) {
+			System.out.println("APPLICATION - EXCEPTION : " + exc.toString());
+		}
+		
+		return objetPersistant;
+	}
 
+	
+	
 } // FIN DE LA CLASSE AppSpring.---------------------------------------------

@@ -12,11 +12,16 @@ import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
 /**
  * class IServiceGenericSpring :<br/>
  * <ul>
- * <li>Interface pour les SERVICES génériques pour SPRING.</li>
- * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <li>Interface <b>GENERIQUE</b> pour les <b>SERVICES</b> sous SPRING.</li>
  * <li>
- * <img src="../../../../../../../../javadoc/images/implementation_DAOs.png" 
- * alt="implémentation des DAOs" border="1" align="center" />
+ * Comporte les définitions des méthodes <b>CRUD</b> valables 
+ * pour <b>tous les objets métier</b>.
+ * </li>
+ * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/implementation_SERVICEs.png" 
+ * alt="implémentation des SERVICEs" border="1" align="center" />
  * </li>
  * </ul>
  * <br/>

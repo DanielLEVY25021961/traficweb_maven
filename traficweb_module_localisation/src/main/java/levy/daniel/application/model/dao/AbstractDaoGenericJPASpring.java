@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TransactionRequiredException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
@@ -24,8 +25,13 @@ import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
 /**
  * class AbstractDaoGeneric :<br/>
  * <ul>
- * <li>DAO abstrait générique pour SPRING.</li>
+ * <li><b>DAO ABSTRAIT GENERIQUE</b> pour SPRING.</li>
+ * <li>
+ * Comporte l'implémentation des méthodes <b>CRUD</b> valables 
+ * pour <b>tous les objets métier</b>.
+ * </li>
  * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <br/>
  * <li>
  * <img src="../../../../../../../../javadoc/images/implementation_DAOs.png" 
  * alt="implémentation des DAOs" border="1" align="center" />
@@ -54,7 +60,7 @@ import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
  *
  */
 @Repository("AbstractDaoGenericJPASpring")
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable> 
 											implements IDaoGenericJPASpring<T, ID> {
 
@@ -83,7 +89,7 @@ public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable>
 	@PersistenceContext
 	protected transient EntityManager entityManager;
 
-		
+	
 	/**
 	 * classObjetMetier : Class&lt;T&gt; :<br/>
 	 * Class (.Class Reflexion = Introspection) réelle 
@@ -191,6 +197,30 @@ public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable>
 			}			
 												
 		}
+		catch (EntityExistsException entityExistsExc) {
+			
+			System.out.println("DAO - ENTITYEXISTS_EXC : " + entityExistsExc.toString());
+		}
+		catch (TransactionRequiredException transactionRequiredExc) {
+			
+			System.out.println("DAO - TRANSACTION_REQUIRED_EXC : " + transactionRequiredExc.toString());
+		}
+		catch (PersistenceException persistenceExc) {
+			
+			/* LOG. */
+			if (LOG.isDebugEnabled()) {
+				LOG.debug(persistenceExc.getMessage(), persistenceExc);
+			}
+			
+			/* Gestion de la DAO Exception. */
+			this.gestionnaireException.gererException(persistenceExc);
+			
+		}
+		catch (IllegalArgumentException illegalArgExc) {
+			
+			System.out.println("DAO - ILLEGAL_ARGUMENT_EXC : " + illegalArgExc.toString());
+			
+		}		
 		catch (Exception e) {
 			
 			/* LOG. */
@@ -198,8 +228,7 @@ public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable>
 				LOG.debug(e.getMessage(), e);
 			}
 			
-			/* Gestion de la DAO Exception. */
-			this.gestionnaireException.gererException(e);
+			System.out.println("DAO - EXCEPTION : " + e.toString());
 						
 		}
 		

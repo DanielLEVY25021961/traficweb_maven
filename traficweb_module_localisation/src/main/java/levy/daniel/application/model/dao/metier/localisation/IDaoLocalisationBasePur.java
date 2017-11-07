@@ -1,16 +1,25 @@
 package levy.daniel.application.model.dao.metier.localisation;
 
+import levy.daniel.application.model.dao.IDaoGenericJPASpring;
 import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
 import levy.daniel.application.model.metier.localisation.AbstractLocalisationBasePur;
 
 /**
  * class IDaoLocalisationBasePur :<br/>
  * <ul>
- * <li>Interface des DAO pour les LocalisationBasePur.</li>
+ * <li>Interface des DAOs pour les <b>AbstractLocalisationBasePur</b>.</li>
+ * <li>
+ * HERITE DE L'INTERFACE GENERIQUE 
+ * IDaoGenericJPASpring&lt;T, ID extends Serializable&gt;.
+ * </li>
+ * <li>
+ * Définit les méthodes <i>spécifiques</i> aux AbstractLocalisationBasePur
+ * </li>
  * <li>
  * Définit en particulier la méthode de recherche 
  * par identifiant métier.
  * </li>
+ * <br/>
  * <li>
  * <img src="../../../../../../../../../../javadoc/images/implementation_DAOs.png" 
  * alt="implémentation des DAOs" border="1" align="center" />
@@ -34,7 +43,8 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
  * @since 6 nov. 2017
  *
  */
-public interface IDaoLocalisationBasePur {
+public interface IDaoLocalisationBasePur 
+		extends IDaoGenericJPASpring<AbstractLocalisationBasePur, Long> {
 	
 	
 	/**

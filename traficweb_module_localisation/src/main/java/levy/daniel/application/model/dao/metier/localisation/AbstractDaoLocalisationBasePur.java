@@ -7,8 +7,6 @@ import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import levy.daniel.application.model.dao.AbstractDaoGenericJPASpring;
@@ -19,7 +17,20 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
 /**
  * class AbstractDaoLocalisationBasePur :<br/>
  * <ul>
- * <li>DAO abstrait pour les AbstractLocalisationBasePur.</li>
+ * <li>
+ * DAO ABSTRAIT SPRING pour les 
+ * <b>AbstractLocalisationBasePur</b>.
+ * </li>
+ * <li>
+ * Comporte l'implémentation des méthodes <b>spécifiques</b> aux 
+ * AbstractLocalisationBasePur.
+ * </li>
+ * <li>IMPLEMENTE L'INTERFACE IDaoLocalisationBasePur.</li>
+ * <li>
+ * HERITE DE LA CLASSE ABSTRAITE 
+ * AbstractDaoGenericJPASpring&lt;AbstractLocalisationBasePur, Long&gt;.
+ * </li>
+ * <br/>
  * <li>
  * <img src="../../../../../../../../../../javadoc/images/implementation_DAOs.png" 
  * alt="implémentation des DAOs" border="1" align="center" />
@@ -44,7 +55,7 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
  */
 @Repository("AbstractDaoLocalisationBasePur")
 //@Qualifier("AbstractDaoGenericJPASpring")
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class AbstractDaoLocalisationBasePur 
 	extends AbstractDaoGenericJPASpring<AbstractLocalisationBasePur, Long> 
 					implements IDaoLocalisationBasePur {

@@ -9,19 +9,31 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import levy.daniel.application.apptechnic.configurationmanagers.gestionnairesrg.LigneRG;
-import levy.daniel.application.model.dao.AbstractDaoGenericJPASpring;
+import levy.daniel.application.model.dao.IDaoGenericJPASpring;
 import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
 import levy.daniel.application.model.services.valideurs.IValideurGeneric;
 import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
 
 /**
  * class AbstractServiceGenericSpring :<br/>
- * .<br/>
+ * <ul>
+ * <li><b>SERVICE ABSTRAIT GENERIQUE</b> pour SPRING.</li>
+ * <li>
+ * Comporte l'implémentation des méthodes <b>CRUD</b> valables 
+ * pour <b>tous les objets métier</b>.
+ * </li>
+ * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/implementation_SERVICEs.png" 
+ * alt="implémentation des SERVICEs" border="1" align="center" />
+ * </li>
+ * </ul>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>
@@ -42,19 +54,19 @@ import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
  * @since 26 août 2017
  *
  */
-@Service("AbstractServiceGenericSpring")
-public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> implements IServiceGenericSpring<T, ID> {
+@Service(value="AbstractServiceGenericSpring")
+public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> 
+					implements IServiceGenericSpring<T, ID> {
 
 	
 	// ************************ATTRIBUTS************************************/
 
 	
 	/**
-	 * dao : AbstractDaoGenericJPASpring<T,Serializable> :<br/>
+	 * dao : IDaoGenericJPASpring&lt;T ,ID&gt; :<br/>
 	 * DAO pour le service.<br/>
 	 */
-	@Autowired
-	protected AbstractDaoGenericJPASpring<T, Serializable> dao;
+	protected IDaoGenericJPASpring<T, ID> dao;
 	
 		
 	/**
@@ -221,6 +233,25 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	
 
 	
+	 /**
+	 * method CONSTRUCTEUR AbstractServiceGenericSpring(
+	 * IDaoGenericJPASpring&lt;T, ID&gt; pDao) :<br/>
+	 * CONSTRUCTEUR AVEC DAO.<br/>
+	 * <br/>
+	 *
+	 * @param pDao : IDaoGenericJPASpring&lt;T, ID&gt; pDao.<br/>
+	 */
+	public AbstractServiceGenericSpring(
+			final IDaoGenericJPASpring<T, ID> pDao) {
+		
+		super();
+		
+		this.dao = pDao;
+		
+	} // Fin de CONSTRUCTEUR AVEC DAO._____________________________________
+	
+
+	
 	
 	/* CREATE ************/
 
@@ -228,9 +259,10 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	/**
 	 * {@inheritDoc}
 	 */
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED
+			, readOnly = false)
 	@Override
-	public final T create(
+	public T create(
 			final T pObject) {
 		
 		try {
@@ -250,7 +282,8 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final <S extends T> S save(S pObject) {
+	public <S extends T> S save(
+			final S pObject) {
 		return null;
 	} // Fin de save(...)._________________________________________________
 	
@@ -260,7 +293,8 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void persist(T pObject) {
+	public void persist(
+			final T pObject) {
 		return;
 	} // Fin de persist(...).______________________________________________
 	
@@ -270,7 +304,8 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final <S extends T> void persistSousClasse(S pObject) {
+	public <S extends T> void persistSousClasse(
+			final S pObject) {
 		return;
 	} // Fin de persistSousClasse(...).____________________________________
 
@@ -280,7 +315,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final ID createReturnId(
+	public ID createReturnId(
 			final T pObject) {
 		
 		return null;
@@ -293,7 +328,8 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final <S extends T> Iterable<S> save(Iterable<S> pObjects) {
+	public <S extends T> Iterable<S> save(
+			final Iterable<S> pObjects) {
 		return null;
 	} // Fin de save(...)._________________________________________________
 	
@@ -308,7 +344,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final T retrieve(
+	public T retrieve(
 			final T pObject) {
 		
 		return null;
@@ -321,7 +357,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final T findById(
+	public T findById(
 			final ID pId) {
 		return null;
 	} // Fin de findById(...)._____________________________________________
@@ -332,7 +368,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final T getOne(
+	public T getOne(
 			final ID pId) {
 		
 		return null;
@@ -345,7 +381,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final List<T> findAll() {
+	public List<T> findAll() {
 		
 		return null;
 		
@@ -357,7 +393,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final List<T> findAllMax(
+	public List<T> findAllMax(
 			final Long pMax) {
 		
 		return null;
@@ -370,7 +406,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final Iterable<T> findAll(
+	public Iterable<T> findAll(
 			final Iterable<ID> pIds) {
 		
 		return null;
@@ -388,7 +424,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final T update(
+	public T update(
 			final T pObject) {
 		
 		return null;
@@ -406,7 +442,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final boolean delete(
+	public boolean delete(
 			final T pObject) {
 		
 		return false;
@@ -419,7 +455,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void deleteById(
+	public void deleteById(
 			final ID pId) {
 		
 		/***/
@@ -432,7 +468,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final boolean deleteByIdBoolean(
+	public boolean deleteByIdBoolean(
 			final ID pId) {
 		
 		return false;
@@ -445,7 +481,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void deleteAll() {
+	public void deleteAll() {
 		
 		/***/
 		
@@ -457,7 +493,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final boolean deleteAllBoolean() {
+	public boolean deleteAllBoolean() {
 		return false;
 	} // Fin de deleteAllBoolean().________________________________________
 
@@ -467,7 +503,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void delete(
+	public void delete(
 			final Iterable<? extends T> pObjects) {
 		
 		/****/
@@ -484,7 +520,8 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final boolean exists(T pObject) {
+	public boolean exists(
+			final T pObject) {
 		return false;
 	} // Fin de exists(...)._______________________________________________
 	
@@ -494,7 +531,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final boolean exists(
+	public boolean exists(
 			final ID pId) {
 		
 		return false;
@@ -511,7 +548,7 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * @return : Long : the number of entities.<br/>
 	 */
 	@Override
-	public final Long count() {
+	public Long count() {
 		
 		return null;
 		
@@ -679,9 +716,9 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	 * <br/>
 	 *
 	 * @return dao : 
-	 * AbstractDaoGenericJPASpring&lt;T,Serializable&gt;.<br/>
+	 * IDaoGenericJPASpring&lt;T, ID&gt;.<br/>
 	 */
-	public AbstractDaoGenericJPASpring<T, Serializable> getDao() {	
+	public IDaoGenericJPASpring<T, ID> getDao() {	
 		return this.dao;
 	} // Fin de getDao().__________________________________________________
 
@@ -689,15 +726,15 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> i
 	
 	/**
 	* method setDao(
-	* AbstractDaoGenericJPASpring&lt;T,Serializable&gt; pDao) :<br/>
+	* IDaoGenericJPASpring&lt;T, ID&gt; pDao) :<br/>
 	* Setter du DAO pour le service.<br/>
 	* <br/>
 	*
-	* @param pDao : AbstractDaoGenericJPASpring&lt;T,Serializable&gt; : 
+	* @param pDao : IDaoGenericJPASpring&lt;T, ID&gt; : 
 	* valeur à passer à dao.<br/>
 	*/
 	public void setDao(
-			final AbstractDaoGenericJPASpring<T, Serializable> pDao) {	
+			final IDaoGenericJPASpring<T, ID> pDao) {	
 		this.dao = pDao;
 	} // Fin de setDao(...)._______________________________________________
 

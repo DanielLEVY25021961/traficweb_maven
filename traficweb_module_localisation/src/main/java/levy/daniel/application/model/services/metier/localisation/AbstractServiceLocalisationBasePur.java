@@ -4,13 +4,33 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
+import levy.daniel.application.model.dao.IDaoGenericJPASpring;
 import levy.daniel.application.model.metier.localisation.AbstractLocalisationBasePur;
 import levy.daniel.application.model.services.metier.AbstractServiceGenericSpring;
 
 
 /**
  * class AbstractServiceLocalisationBasePur :<br/>
- * .<br/>
+ * <ul>
+ * <li>
+ * SERVICE ABSTRAIT SPRING pour les 
+ * <b>AbstractLocalisationBasePur</b>.
+ * </li>
+ * <li>
+ * Comporte l'implémentation des méthodes <b>spécifiques</b> aux 
+ * AbstractLocalisationBasePur.
+ * </li>
+ * <li>IMPLEMENTE L'INTERFACE IServiceLocalisationBasePur.</li>
+ * <li>
+ * HERITE DE LA CLASSE ABSTRAITE 
+ * AbstractServiceGenericSpring&lt;AbstractLocalisationBasePur, Long&gt;.
+ * </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../../javadoc/images/implementation_SERVICEs.png" 
+ * alt="implémentation des SERVICEs" border="1" align="center" />
+ * </li>
+ * </ul>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>
@@ -28,7 +48,7 @@ import levy.daniel.application.model.services.metier.AbstractServiceGenericSprin
  * @since 7 nov. 2017
  *
  */
-@Service("AbstractServiceLocalisationBasePur")
+@Service(value="AbstractServiceLocalisationBasePur")
 //@Qualifier("AbstractServiceGenericSpring")
 public abstract class AbstractServiceLocalisationBasePur 
 	extends AbstractServiceGenericSpring<AbstractLocalisationBasePur, Long>
@@ -65,6 +85,23 @@ public abstract class AbstractServiceLocalisationBasePur
 	public AbstractServiceLocalisationBasePur() {
 		super();
 	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
+	
+	
+	
+	 /**
+	 * method CONSTRUCTEUR AbstractServiceLocalisationBasePur(
+	 * IDaoGenericJPASpring&lt;AbstractLocalisationBasePur, Long&gt; pDao) :<br/>
+	 * CONSTRUCTEUR AVEC DAO.<br/>
+	 * <br/>
+	 *
+	 * @param pDao : IDaoGenericJPASpring&lt;AbstractLocalisationBasePur, Long&gt;.<br/>
+	 */
+	public AbstractServiceLocalisationBasePur(
+			final IDaoGenericJPASpring<AbstractLocalisationBasePur, Long> pDao) {
+		
+		super(pDao);
+		
+	} // Fin du CONSTRUCTEUR AVEC DAO._____________________________________
 	
 	
 	

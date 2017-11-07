@@ -2,8 +2,6 @@ package levy.daniel.application.model.dao.metier.localisation.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import levy.daniel.application.model.dao.metier.localisation.AbstractDaoLocalisationBasePur;
@@ -12,7 +10,11 @@ import levy.daniel.application.model.dao.metier.localisation.AbstractDaoLocalisa
 /**
  * class DaoLocalisationBasePur :<br/>
  * <ul>
- * <li>DAO pour les AbstractLocalisationBasePur.<br/></li>
+ * <li>DAO <b>CONCRET</b> pour les <b>AbstractLocalisationBasePur</b>.</li>
+ * <li>
+ * HERITE DU DAO ABSTRAIT AbstractDaoLocalisationBasePur.
+ * </li>
+ * <br/>
  * <li>
  * <img src="../../../../../../../../../../../javadoc/images/implementation_DAOs.png" 
  * alt="implémentation des DAOs" border="1" align="center" />
@@ -38,7 +40,7 @@ import levy.daniel.application.model.dao.metier.localisation.AbstractDaoLocalisa
  */
 @Repository("DaoLocalisationBasePur")
 //@Qualifier("AbstractDaoLocalisationBasePur")
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DaoLocalisationBasePur extends AbstractDaoLocalisationBasePur {
 
 	// ************************ATTRIBUTS************************************/

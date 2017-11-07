@@ -157,7 +157,7 @@
 			<!-- SUPPRIME le schéma après la fermeture de l'application.		-->
 			<!-- Le schéma de la BD est INVISIBLE dans le manager de BD 		-->
 			<!-- après la fermeture de l'application.							-->
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
 
 
 			<!-- SUPPRIME et RECREE le schéma de base de données au démarrage.   -->
@@ -170,7 +170,7 @@
 <!--  			<property name="hibernate.hbm2ddl.auto" value="update" /> -->
 		
 			<!-- VALIDE LE SCHEMA ET CONSERVE LES DONNEES. POUR LA PROD. -->
-<!-- 			<property name="hibernate.hbm2ddl.auto" value="validate" /> -->
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
 			
 
 
