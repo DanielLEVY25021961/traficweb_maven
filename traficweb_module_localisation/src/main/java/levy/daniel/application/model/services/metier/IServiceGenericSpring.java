@@ -1,5 +1,6 @@
 package levy.daniel.application.model.services.metier;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
@@ -9,23 +10,40 @@ import levy.daniel.application.model.services.valideurs.IValideurGeneric;
 import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
 
 /**
- * class IServiceGeneric :<br/>
- * .<br/>
+ * class IServiceGenericSpring :<br/>
+ * <ul>
+ * <li>Interface pour les SERVICES génériques pour SPRING.</li>
+ * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <li>
+ * <img src="../../../../../../../../javadoc/images/implementation_DAOs.png" 
+ * alt="implémentation des DAOs" border="1" align="center" />
+ * </li>
+ * </ul>
  * <br/>
+ * 
+ * 
  * - Exemple d'utilisation :<br/>
  * <br/>
+ * 
+ * 
  * - Mots-clé :<br/>
  * Généricité, Type paramétré, <br/>
  * <br/>
+ * 
+ * 
  * - Dépendances :<br/>
  * <br/>
+ *
  *
  * @author dan Lévy
  * @version 1.0
  * @param <T> : Type paramétré : Classe réelle d'un Objet métier.<br/>
+ * @param <ID> : Type paramétré : type de l'ID en base d'un Objet métier 
+ * (Long, Integer, String, ...).<br/>
+ * 
  * @since 25 août 2017
  */
-public interface IServiceGeneric<T> {
+public interface IServiceGenericSpring<T, ID extends Serializable> {
 
 	
 	/* CREATE ************/
@@ -44,7 +62,77 @@ public interface IServiceGeneric<T> {
 	 */
 	T create(T pObject);
 
+
+
+	/**
+	 * method save(
+	 * S pObject) :<br/>
+	 * <ul>
+	 * <li>Sauvegarde l'objet métier pObject de type paramétré S 
+	 * (S pouvant être un T ou n'importe quelle sous-classe de T) 
+	 * en base.</li>
+	 * <li>Crée un Objet metier DESCENDANT de type paramétré S
+	 * sous-classe de T pObject en base (strategy=InheritanceType.JOINED) 
+	 * et le retourne avec la visibilité (Typé) S.</li>
+	 * <li>Utile par rapport à create() pour éviter de caster. 
+	 * create() retourne en effet toujours un T</li>
+	 * <li>Retourne l'instance sauvegardée en base.</li>
+	 * </ul>
+	 * retourne null si pObject == null.<br/>
+	 * jette une AbstractDaoException si l'objet n'a pu être créé 
+	 * (doublon, exception, ...).<br/>
+	 * <br/>
+	 *
+	 * @param pObject : S : objet métier de Type paramétré S 
+	 * où S est un T ou une sous-classe de T.<br/>
+	 * 
+	 * @return : S : Objet métier de type paramétré S 
+	 * (T ou n'importe quelle sous-classe de T) créé en base.<br/>
+	 */
+	<S extends T> S save(S pObject);
 	
+
+	
+	/**
+	 * method persist(
+	 * T pObject) :<br/>
+	 * <ul>
+	 * <li>Crée un Objet metier de type paramétré T pObject en base.</li>
+	 * <li>Crée un Objet metier DESCENDANT de type paramétré S
+	 * sous-classe de T pObject en base 
+	 * (strategy=InheritanceType.JOINED).</li>
+	 * <li>Ne retourne rien.</li>
+	 * </ul>
+	 * ne fait rien si pObject == null.<br/>
+	 * jette une AbstractDaoException si l'objet n'a pu être créé 
+	 * (doublon, exception, ...).<br/>
+	 * <br/>
+	 *
+	 * @param pObject : T : Objet métier de type paramétré T.<br/>
+	 */
+	void persist(T pObject);
+	
+
+	
+	/**
+	 * method persistSousClasse() :<br/>
+	 * <ul>
+	 * <li>Crée un Objet metier de type paramétré S 
+	 * (S pouvant être un T ou n'importe quelle sous-classe de T) 
+	 * en base.</li>
+	 * <li>Ne retourne rien.</li>
+	 * </ul>
+	 * ne fait rien si pObject == null.<br/>
+	 * jette une AbstractDaoException si l'objet n'a pu être créé 
+	 * (doublon, exception, ...).<br/>
+	 * <br/>
+	 *
+	 * @param pObject : S : objet métier de Type paramétré S 
+	 * où S est un T ou une sous-classe de T.<br/>
+	 */
+	<S extends T> void persistSousClasse(S pObject);
+
+
 	
 	/**
 	 * method createReturnId(
@@ -56,10 +144,37 @@ public interface IServiceGeneric<T> {
 	 *
 	 * @param pObject : T : Objet métier de type paramétré T.<br/>
 	 * 
-	 * @return : T : Objet métier de type paramétré T créé.<br/>
+	 * @return : ID : ID de l'Objet métier de type paramétré T créé.<br/>
 	 */
-	Long createReturnId(T pObject);
+	ID createReturnId(T pObject);
 
+	
+
+	/**
+	 * method save(
+	 * Iterable&lt;S&gt; pObjects) :<br/>
+	 * <ul>
+	 * <li>Sauvegarde en base tous les objets métier de type S 
+	 * (S pouvant être n'importe quelle sous-classe de T) 
+	 * contenus dans la collection itérable d'objets métier 
+	 * de type S "pObjects".</li>
+	 * <li>Retourne la Collection itérable d'objets de type S 
+	 * (sous-classes de T) sauvegardés en base.</li>
+	 * </ul>
+	 *
+	 * @param pObjects : Iterable&lt;S&gt; : 
+	 * collection itérable d'objets métier de type S 
+	 * (S pouvant être n'importe quelle sous-classe de T).<br/>
+	 *  
+	 * @return : Iterable&lt;S&gt; : La Collection itérable d'objets 
+	 * de type S (sous-classes de T) sauvegardés en base.<br/>
+	 * 
+	 * @throws IllegalArgumentException in case the given 
+	 * entity is {@literal null}.
+	 */
+	<S extends T> Iterable<S> save(Iterable<S> pObjects);
+	
+	
 	
 	
 	/* READ *************/
@@ -82,10 +197,36 @@ public interface IServiceGeneric<T> {
 	T retrieve(T pObject);
 	
 	
+	
+	/**
+	 * method findById(
+	 * ID pId) :<br/>
+	 * <ul>
+	 * <li>Recherche un Objet métier de Type 
+	 * paramétré T via son ID en base.</li>
+	 * <li>Recherche un objet métier DESCENDANT de Type 
+	 * paramétré S sous-classe de T pObject en base 
+	 * (strategy=InheritanceType.JOINED).</li>
+	 * <li>Retourne l'objet métier de Type 
+	 * paramétré T pObject trouvé en base 
+	 * avec la visibilité (Typé) T.</li>
+	 * <li>ID est de type paramétré ID (Long, Integer, String, ...).</li>
+	 * </ul>
+	 * retourne null si pId n'existe pas en base.<br/>
+	 * <br/>
+	 *
+	 * @param pId : ID : ID en base de l'Objet métier.<br/>
+	 * 
+	 * @return : T : Objet métier de Type paramétré T 
+	 * existant en base.<br/>
+	 */
+	T findById(ID pId);
 
+	
+	
 	/**
 	 * method getOne(
-	 * Long pId) :<br/>
+	 * ID pId) :<br/>
 	 * <ul>
 	 * <li>Recherche un Objet métier de Type 
 	 * paramétré T via son ID en base.</li>
@@ -94,12 +235,12 @@ public interface IServiceGeneric<T> {
 	 * <li>Compatible avec SpringData.</li>
 	 * </ul>
 	 *
-	 * @param pId : Long : ID en base de l'Objet métier.
+	 * @param pId : ID : ID en base de l'Objet métier.
 	 * 
 	 * @return : T : Objet métierde Type paramétré T 
 	 * existant en base.<br/>
 	 */
-	T getOne(Long pId);
+	T getOne(ID pId);
 	
 	
 
@@ -145,7 +286,7 @@ public interface IServiceGeneric<T> {
 	 * @return Iterable&lt;T&gt;.<br/>
 	 */
 	Iterable<T> findAll(
-			Iterable<Long> pIds);
+			Iterable<ID> pIds);
 	
 	
 	
@@ -169,52 +310,6 @@ public interface IServiceGeneric<T> {
 	 * T modifié en base.<br/>
 	 */
 	T update(T pObject);
-	
-	
-
-	/**
-	 * method save(
-	 * S pObject) :<br/>
-	 * <ul>
-	 * <li>Sauvegarde l'objet métier pObject de type paramétré S 
-	 * (S pouvant être n'importe quelle sous-classe de T) 
-	 * en base.</li>
-	 * <li>Retourne l'instance sauvegardée en base.</li>
-	 * </ul>
-	 *
-	 * @param pObject : S : objet métier de Type paramétré S 
-	 * où S est une sous-classe de T.<br/>
-	 * 
-	 * @return : S : Objet métier de type paramétré S 
-	 * (n'importe quelle sous-classe de T) créé en base.<br/>
-	 */
-	<S extends T> S save(S pObject);
-	
-	
-
-	/**
-	 * method save(
-	 * Iterable&lt;S&gt; pObjects) :<br/>
-	 * <ul>
-	 * <li>Sauvegarde en base tous les objets métier de type S 
-	 * (S pouvant être n'importe quelle sous-classe de T) 
-	 * contenus dans la collection itérable d'objets métier 
-	 * de type S "pObjects".</li>
-	 * <li>Retourne la Collection itérable d'objets de type S 
-	 * (sous-classes de T) sauvegardés en base.</li>
-	 * </ul>
-	 *
-	 * @param pObjects : Iterable&lt;S&gt; : 
-	 * collection itérable d'objets métier de type S 
-	 * (S pouvant être n'importe quelle sous-classe de T).<br/>
-	 *  
-	 * @return : Iterable&lt;S&gt; : La Collection itérable d'objets 
-	 * de type S (sous-classes de T) sauvegardés en base.<br/>
-	 * 
-	 * @throws IllegalArgumentException in case the given 
-	 * entity is {@literal null}.
-	 */
-	<S extends T> Iterable<S> save(Iterable<S> pObjects);
 	
 	
 	
@@ -242,21 +337,21 @@ public interface IServiceGeneric<T> {
 	
 	
 	/**
-	 * method delete(
-	 * Long pId) :<br/>
+	 * method deleteById(
+	 * ID pId) :<br/>
 	 * Détruit un un objet métier de Type paramétré T 
 	 * existant en base via son ID.<br/>
 	 * <br/>
 	 *
-	 * @param pId : Long : ID en base.<br/>
+	 * @param pId : ID : ID en base.<br/>
 	 */
-	void delete(Long pId);
+	void deleteById(ID pId);
 	
 
 	
 	/**
-	 * method deleteBoolean(
-	 * Long pId) :<br/>
+	 * method deleteByIdBoolean(
+	 * ID pId) :<br/>
 	 * <ul>
 	 * <li>Détruit un un objet métier de Type paramétré T 
 	 * existant en base via son ID en base.</li>
@@ -264,23 +359,45 @@ public interface IServiceGeneric<T> {
 	 * si l'opération de destruction a eu lieu.</li>
 	 * </ul>
 	 *
-	 * @param pId : Long : ID en base.<br/>
+	 * @param pId : ID : ID en base.<br/>
 	 * 
 	 * @return boolean : true si l'objet d'ID pId 
 	 * a été détruit en base.<br:>
 	 */
-	boolean deleteBoolean(Long pId);
+	boolean deleteByIdBoolean(ID pId);
 	
 	
 
 	/**
 	 * method deleteAll() :<br/>
-	 * Deletes all entities managed by the repository.<br/>
-	 * <br/>
+	 * <ul>
+	 * <li>Détruit en base toutes les instances 
+	 * d'Objets métier de Type paramétré T.</li>
+	 * <li>Détruit en base toutes les instances DESCENDANTES 
+	 * (strategy=InheritanceType.JOINED)
+	 * d'Objets métier de Type paramétré S (S sous-classe de T).</li>
+	 * </ul>
 	 */
 	void deleteAll();
 	
 
+	
+	/**
+	 * method deleteAllBoolean() :<br/>
+	 * <ul>
+	 * <li>Détruit en base tous les enregistrements 
+	 * d'Objets métier de Type paramétré T.</li>
+	 * <li>Détruit en base toutes les instances DESCENDANTES 
+	 * (strategy=InheritanceType.JOINED)
+	 * d'Objets métier de Type paramétré S (S sous-classe de T).</li>
+	 * <li>Retourne true si la destruction a bien été effectuée.</li>
+	 * </ul>
+	 * @return boolean : true si tous les enregistrements 
+	 * ont été détruits en base.<br/>
+	 */
+	boolean deleteAllBoolean();
+
+	
 	
 	/**
 	 * method delete(
@@ -302,22 +419,51 @@ public interface IServiceGeneric<T> {
 	
 	/* TOOLS *************/
 
-
+	
+	/**
+	 * method exists(
+	 * T pObject) :<br/>
+	 * <ul>
+	 * <li>Retourne un boolean permettant de déterminer si l'Objet métier 
+	 * de Type paramétré T pObject est persisté en base.</li>
+	 * <li>Retourne un boolean permettant de déterminer si l'Objet métier 
+	 * DESCENDANT de Type paramétré S (S sous-classe de T) pObject est 
+	 * persisté en base (strategy=InheritanceType.JOINED).</li>
+	 * <li>Retourne true si l'Objet métier a été trouvé en base.</li>
+	 * </ul>
+	 * retourne false si l'objet n'existe pas en base.<br/>
+	 * <br/>
+	 *
+	 * @param pObject : T : objet métier de Type paramétré T 
+	 * (ou sous-classe de T).<br/>
+	 * 
+	 * @return boolean : true si l'objet métier de Type paramétré T 
+	 * existe en base.<br/>
+	 */
+	boolean exists(T pObject);
+	
+	
+	
 	/**
 	 * method exists(
 	 * ID pId) :<br/>
-	 * Returns whether an entity with the given id exists.<br/>
+	 * <ul>
+	 * <li>Retourne un boolean permettant de déterminer si un Objet métier 
+	 * de Type paramétré T avec ID == pId  est persisté en base.</li>
+	 * <li>Retourne un boolean permettant de déterminer si un Objet métier 
+	 * DESCENDANT de Type paramétré S (S sous-classe de T) avec ID == pId 
+	 * est persisté en base (strategy=InheritanceType.JOINED).</li>
+	 * <li>Retourne true si l'Objet métier a été trouvé en base.</li>
+	 * </ul>
+	 * retourne false si l'objet n'existe pas en base.<br/>
 	 * <br/>
 	 *
-	 * @param pId : ID : must not be {@literal null}.
+	 * @param pId : ID.<br/>
 	 * 
-	 * @return true if an entity with the given id exists
-	 * , {@literal false} otherwise.<br/>
-	 * 
-	 * @throws IllegalArgumentException 
-	 * if {@code id} is {@literal null}
+	 * @return boolean : true si l'objet métier de Type paramétré T 
+	 * d'ID en base pId existe en base.<br/>
 	 */
-	boolean exists(Long pId);
+	boolean exists(ID pId);
 
 	
 	
@@ -331,6 +477,7 @@ public interface IServiceGeneric<T> {
 	Long count();
 
 
+	
 	/* VALIDATION ************/
 	
 	
@@ -545,4 +692,4 @@ public interface IServiceGeneric<T> {
 	 */
 	Boolean getValide();
 
-} // FIN DE L'INTERFACE IServiceGeneric<T>.--------------------------------
+} // FIN DE L'INTERFACE IServiceGenericSpring<T>.--------------------------------

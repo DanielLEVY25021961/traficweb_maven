@@ -1,5 +1,6 @@
 package levy.daniel.application.model.services.metier;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import levy.daniel.application.apptechnic.configurationmanagers.gestionnairesrg.LigneRG;
+import levy.daniel.application.model.dao.AbstractDaoGenericJPASpring;
+import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
 import levy.daniel.application.model.services.valideurs.IValideurGeneric;
 import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
 
 /**
- * class AbstractServiceGeneric :<br/>
+ * class AbstractServiceGenericSpring :<br/>
  * .<br/>
  * <br/>
  *
@@ -31,13 +37,25 @@ import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
  * @author dan Lévy
  * @version 1.0
  * @param <T> : Type paramétré : Classe réelle d'un Objet métier.<br/>
+ * @param <ID> : Type paramétré : type de l'ID en base d'un Objet métier 
+ * (Long, Integer, String, ...).<br/>
  * @since 26 août 2017
  *
  */
-public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
+@Service("AbstractServiceGenericSpring")
+public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> implements IServiceGenericSpring<T, ID> {
 
+	
 	// ************************ATTRIBUTS************************************/
 
+	
+	/**
+	 * dao : AbstractDaoGenericJPASpring<T,Serializable> :<br/>
+	 * DAO pour le service.<br/>
+	 */
+	@Autowired
+	protected AbstractDaoGenericJPASpring<T, Serializable> dao;
+	
 		
 	/**
 	 * listeRGImplementees : List&lt;LigneRG&gt; :<br/>
@@ -59,6 +77,17 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	 * Objet métier géré par le présent service.<br/>
 	 */
 	protected transient T objetMetier;
+	
+		
+	/**
+	 * classObjetMetier : Class&lt;T&gt; :<br/>
+	 * Class (.Class Reflexion = Introspection) réelle 
+	 * de l'Objet métier de Type paramétré T 
+	 * concerné par le présent Service.<br/>
+	 */
+	protected transient Class<T> classObjetMetier;
+
+
 
 	
 	/**
@@ -176,17 +205,17 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	 * Logger pour Log4j (utilisant commons-logging).
 	 */
 	private static final Log LOG 
-		= LogFactory.getLog(AbstractServiceGeneric.class);
+		= LogFactory.getLog(AbstractServiceGenericSpring.class);
 
 	// *************************METHODES************************************/
 	
 	
 	 /**
-	 * method CONSTRUCTEUR AbstractServiceGeneric() :<br/>
+	 * method CONSTRUCTEUR AbstractServiceGenericSpring() :<br/>
 	 * CONSTRUCTEUR D'ARITE NULLE.<br/>
 	 * <br/>
 	 */
-	public AbstractServiceGeneric() {
+	public AbstractServiceGenericSpring() {
 		super();
 	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 	
@@ -199,21 +228,59 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Transactional
 	@Override
 	public final T create(
 			final T pObject) {
 		
-		return null;
+		try {
+			return this.dao.create(pObject);
+		}
+		catch (AbstractDaoException e) {
+			e.printStackTrace();
+		}
 		
+		return null;
 	} // Fin de create(...)._______________________________________________
 
 	
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final <S extends T> S save(S pObject) {
+		return null;
+	} // Fin de save(...)._________________________________________________
+	
+
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final Long createReturnId(
+	public final void persist(T pObject) {
+		return;
+	} // Fin de persist(...).______________________________________________
+	
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final <S extends T> void persistSousClasse(S pObject) {
+		return;
+	} // Fin de persistSousClasse(...).____________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final ID createReturnId(
 			final T pObject) {
 		
 		return null;
@@ -221,6 +288,17 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	} // Fin de createReturnId(...)._______________________________________
 
 	
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final <S extends T> Iterable<S> save(Iterable<S> pObjects) {
+		return null;
+	} // Fin de save(...)._________________________________________________
+	
+	
+
 	
 	/* READ *************/
 
@@ -243,8 +321,19 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public final T findById(
+			final ID pId) {
+		return null;
+	} // Fin de findById(...)._____________________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public final T getOne(
-			final Long pId) {
+			final ID pId) {
 		
 		return null;
 		
@@ -282,7 +371,7 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	 */
 	@Override
 	public final Iterable<T> findAll(
-			final Iterable<Long> pIds) {
+			final Iterable<ID> pIds) {
 		
 		return null;
 		
@@ -308,32 +397,6 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	
 	
 	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public final <S extends T> S save(
-			final S pObject) {
-		
-		return null;
-		
-	} // Fin de save(...)._________________________________________________
-	
-	
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public final <S extends T> Iterable<S> save(
-			final Iterable<S> pObjects) {
-		
-		return null;
-		
-	} // Fin de save(...)._________________________________________________
-	
-	
-	
 
 	/* DELETE *************/
 	
@@ -356,12 +419,12 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final void delete(
-			final Long pId) {
+	public final void deleteById(
+			final ID pId) {
 		
 		/***/
 		
-	} // Fin de delete(...)._______________________________________________
+	} // Fin de deleteById(...).___________________________________________
 	
 
 	
@@ -369,12 +432,12 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final boolean deleteBoolean(
-			final Long pId) {
+	public final boolean deleteByIdBoolean(
+			final ID pId) {
 		
 		return false;
 		
-	} // Fin de deleteBoolean(...).________________________________________
+	} // Fin de deleteByIdBoolean(...).____________________________________
 	
 	
 
@@ -394,6 +457,16 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public final boolean deleteAllBoolean() {
+		return false;
+	} // Fin de deleteAllBoolean().________________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public final void delete(
 			final Iterable<? extends T> pObjects) {
 		
@@ -405,13 +478,24 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 	
 	/* TOOLS *************/
 
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final boolean exists(T pObject) {
+		return false;
+	} // Fin de exists(...)._______________________________________________
+	
+
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public final boolean exists(
-			final Long pId) {
+			final ID pId) {
 		
 		return false;
 		
@@ -587,6 +671,36 @@ public abstract class AbstractServiceGeneric<T> implements IServiceGeneric<T> {
 		return this.valide;
 	} // Fin de getValide()._______________________________________________
 
+
+	
+	/**
+	 * method getDao() :<br/>
+	 * Getter du DAO pour le service.<br/>
+	 * <br/>
+	 *
+	 * @return dao : 
+	 * AbstractDaoGenericJPASpring&lt;T,Serializable&gt;.<br/>
+	 */
+	public AbstractDaoGenericJPASpring<T, Serializable> getDao() {	
+		return this.dao;
+	} // Fin de getDao().__________________________________________________
+
+
+	
+	/**
+	* method setDao(
+	* AbstractDaoGenericJPASpring&lt;T,Serializable&gt; pDao) :<br/>
+	* Setter du DAO pour le service.<br/>
+	* <br/>
+	*
+	* @param pDao : AbstractDaoGenericJPASpring&lt;T,Serializable&gt; : 
+	* valeur à passer à dao.<br/>
+	*/
+	public void setDao(
+			final AbstractDaoGenericJPASpring<T, Serializable> pDao) {	
+		this.dao = pDao;
+	} // Fin de setDao(...)._______________________________________________
+
 		
 	
-} // FIN DE LA CLASSE AbstractServiceGeneric.--------------------------------
+} // FIN DE LA CLASSE AbstractServiceGenericSpring.--------------------------------

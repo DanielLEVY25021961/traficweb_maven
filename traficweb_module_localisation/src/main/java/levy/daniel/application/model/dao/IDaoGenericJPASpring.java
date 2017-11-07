@@ -7,13 +7,24 @@ import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
 
 /**
  * class IDaoGeneric :<br/>
- * Interface pour les DAO génériques pour SPRING.<br/>
- * Les transactions sont gérées par le conteneur SPRING.<br/>
+ * <ul>
+ * <li>Interface pour les DAO génériques pour SPRING.</li>
+ * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <li>
+ * <img src="../../../../../../../../javadoc/images/implementation_DAOs.png" 
+ * alt="implémentation des DAOs" border="1" align="center" />
+ * </li>
+ * </ul>
  * <br/>
+ * 
+ * 
  * - Exemple d'utilisation :<br/>
  * <br/>
+ * 
  * - Mots-clé :<br/>
  * <br/>
+ * 
+ * 
  * - Dépendances :<br/>
  * <br/>
  *
@@ -209,6 +220,7 @@ public interface IDaoGenericJPASpring<T, ID extends Serializable> {
 	 * </ul>
 	 * Retourne null si aucun objet equals à pObject 
 	 * est retrouvé en base.<br/>
+	 * Retourne null si pObject == null.<br/>
 	 * La base doit avoir un index d'unicité sur equals(...).<br/>
 	 * <br/>
 	 *
@@ -435,7 +447,7 @@ public interface IDaoGenericJPASpring<T, ID extends Serializable> {
 	
 		
 	/**
-	 * method deleteBoolean(
+	 * method deleteByIdBoolean(
 	 * ID pId) :<br/>
 	 * <ul>
 	 * <li>Détruit un Objet métier de Type paramétré T 
@@ -563,7 +575,7 @@ public interface IDaoGenericJPASpring<T, ID extends Serializable> {
 	 * retourne false si l'objet n'existe pas en base.<br/>
 	 * <br/>
 	 *
-	 * @param pId : ID .<br/>
+	 * @param pId : ID.<br/>
 	 * 
 	 * @return boolean : true si l'objet métier de Type paramétré T 
 	 * existe en base.<br/>

@@ -11,6 +11,8 @@ import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
@@ -21,8 +23,14 @@ import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
 
 /**
  * class AbstractDaoGeneric :<br/>
- * DAO abstrait générique pour SPRING.<br/>
- * Les transactions sont gérées par le conteneur SPRING.<br/>
+ * <ul>
+ * <li>DAO abstrait générique pour SPRING.</li>
+ * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <li>
+ * <img src="../../../../../../../../javadoc/images/implementation_DAOs.png" 
+ * alt="implémentation des DAOs" border="1" align="center" />
+ * </li>
+ * </ul>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>
@@ -45,12 +53,28 @@ import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
  * @since 8 sept. 2017
  *
  */
-@Repository
+@Repository("AbstractDaoGenericJPASpring")
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable> 
 											implements IDaoGenericJPASpring<T, ID> {
 
 	// ************************ATTRIBUTS************************************/
 
+
+	/**
+	 * CLASSE_ABSTRACTDAOGENERIC : String :<br/>
+	 * "Classe AbstractDaoGenericJPASpring".<br/>
+	 */
+	public static final String CLASSE_ABSTRACTDAOGENERIC 
+		= "Classe AbstractDaoGenericJPASpring";
+
+	
+	/**
+	 * SEPARATEUR_MOINS_AERE : String :<br/>
+	 * " - ".<br/>
+	 */
+	public static final String SEPARATEUR_MOINS_AERE = " - ";
+	
 	
 	/**
 	 * entityManager : javax.persistence.EntityManager :<br/>
@@ -145,9 +169,26 @@ public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable>
 		try {
 			
 			/* PERSISTE en base. */
-			this.entityManager.persist(pObject);
-			
-			persistentObject = pObject;
+			if (this.entityManager != null) {
+				
+				this.entityManager.persist(pObject);
+				
+				persistentObject = pObject;
+				
+			}
+			else {
+				
+				final String message 
+					= CLASSE_ABSTRACTDAOGENERIC 
+					+ SEPARATEUR_MOINS_AERE
+					+ "Méthode Create(T pObject)"
+					+ SEPARATEUR_MOINS_AERE
+					+ "Le entityManager de SPRING est null";
+				
+				if (LOG.isFatalEnabled()) {
+					LOG.fatal(message);
+				}
+			}			
 												
 		}
 		catch (Exception e) {

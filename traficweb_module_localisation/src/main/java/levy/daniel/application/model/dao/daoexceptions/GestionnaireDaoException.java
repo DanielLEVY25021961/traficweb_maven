@@ -2,6 +2,7 @@ package levy.daniel.application.model.dao.daoexceptions;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -9,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.postgresql.util.PSQLException;
 
 import levy.daniel.application.model.dao.daoexceptions.technical.impl.DaoDoublonException;
+import levy.daniel.application.model.dao.daoexceptions.technical.impl.DaoTransactionException;
 
 /**
  * class GestionnaireDaoException :<br/>
@@ -87,7 +89,33 @@ public class GestionnaireDaoException {
 		
 		
 		/* Violation de contraintes. */
-		if (pE instanceof PersistenceException) {			
+		if (pE instanceof PersistenceException) {
+			
+			/* Problème de transaction. */
+			if (pE instanceof TransactionRequiredException) {
+								
+				final String messageUtilisateur 
+					= "PROBLEME GRAVE DE TRANSACTION - Prévenez le centre serveur";
+				
+				final String messageTechnique 
+					= "PROBLEME GRAVE DE TRANSACTION - "
+						+ pE.getMessage();
+				
+				
+				final DaoTransactionException daoTransactionExc 
+				= new DaoTransactionException(pE.getMessage(), pE);
+				
+				daoTransactionExc.setMessageUtilisateur(messageUtilisateur);
+				daoTransactionExc.setMessageTechnique(messageTechnique);
+				
+				if (LOG.isFatalEnabled()) {
+					LOG.fatal(messageUtilisateur, pE);
+				}
+				
+				throw daoTransactionExc;			
+			}
+			
+			/* problème de doublon. */
 			gererDoublon(pE, causeMere, causeGrandMere);			
 		}
 		
