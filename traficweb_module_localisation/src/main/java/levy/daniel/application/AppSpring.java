@@ -100,7 +100,7 @@ public final class AppSpring {
 				
 		// **********************************
 		// AFFICHAGE DANS LE TEST ou NON
-		final boolean affichage = false;
+		final boolean affichage = true;
 		// **********************************
 
 		// ******************************************
@@ -133,6 +133,20 @@ public final class AppSpring {
 		serviceLoc 
 			= (IServiceLocalisationBasePur) 
 				context.getBean("ServiceLocalisationBasePur");
+		
+		/* Récupération du nom du PROXY. */
+		final String serviceClassName = serviceLoc.getClass().toGenericString();
+		
+		/* AFFICHAGE A LA CONSOLE. */
+		if (AFFICHAGE_GENERAL && affichage) {
+			
+			System.out.println();
+			System.out.println(TIRETS);
+			System.out.println("PROXY UTILISE A LA PLACE DU SERVICE : " + serviceClassName);
+			System.out.println(TIRETS);
+			System.out.println();
+
+		}
 		
 		
 		final AbstractLocalisationBasePur objetNull = null;
@@ -211,14 +225,19 @@ public final class AppSpring {
 			objetPersistant = serviceLoc.create(pObject);
 		}
 		catch (JpaSystemException jpaExc){
-//			System.out.println("APPLICATION - JPA SYSTEM EXCEPTION : " + jpaExc.toString());
+			System.out.println("APPLICATION AppSpring - "
+					+ "Méthode creer(AbstractLocalisationBasePur pObject) "
+					+ "- JPA SYSTEM EXCEPTION : " + jpaExc.toString());
 		}
 		catch (Exception exc) {
-			System.out.println("APPLICATION - EXCEPTION : " + exc.toString());
+			System.out.println("APPLICATION AppSpring - "
+					+ "Méthode creer(AbstractLocalisationBasePur pObject) "
+					+ "- EXCEPTION : " + exc.toString());
 		}
 		
 		return objetPersistant;
-	}
+		
+	} // Fin de creer(...).________________________________________________
 
 	
 	

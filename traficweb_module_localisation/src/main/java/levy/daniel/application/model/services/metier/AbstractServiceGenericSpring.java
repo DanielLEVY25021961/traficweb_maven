@@ -62,9 +62,27 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable>
 	
 	/**
 	 * CLASS_ABSTRACT_SERVICE_GENERIC : String :<br/>
-	 * .<br/>
+	 * "Classe AbstractServiceGenericSpring".<br/>
 	 */
-	public static final String CLASS_ABSTRACT_SERVICE_GENERIC = "Classe AbstractServiceGenericSpring";
+	public static final String CLASS_ABSTRACT_SERVICE_GENERIC 
+		= "Classe AbstractServiceGenericSpring";
+
+	
+	/**
+	 * METHODE_CREATE : String :<br/>
+	 * "Méthode create(T pObject)".<br/>
+	 */
+	public static final String METHODE_CREATE 
+		= "Méthode create(T pObject)";
+	
+	
+	/**
+	 * SEPARATEUR_MOINS_AERE : String :<br/>
+	 * " - ".<br/>
+	 */
+	public static final String SEPARATEUR_MOINS_AERE = " - ";
+	
+
 	
 	
 	/**
@@ -283,10 +301,14 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable>
 			
 		}
 		catch (AbstractDaoException e) {
-			e.printStackTrace();
+			System.out.println(CLASS_ABSTRACT_SERVICE_GENERIC 
+					+ SEPARATEUR_MOINS_AERE 
+					+ METHODE_CREATE + SEPARATEUR_MOINS_AERE 
+					+ "MESSAGE UTILISATEUR : " + e.getMessageUtilisateur());
 		}
 		
 		return null;
+		
 	} // Fin de create(...)._______________________________________________
 
 	
