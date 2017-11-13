@@ -4,7 +4,7 @@ import levy.daniel.application.model.metier.IExportateurCsv;
 import levy.daniel.application.model.metier.IExportateurJTable;
 
 /**
- * class ILocalisationBasePur :<br/>
+ * INTERFACE ILocalisationBasePur :<br/>
  * INTERFACE factorisant tous les comportements 
  * des LocalisationPur.
  * <ul>
@@ -13,8 +13,18 @@ import levy.daniel.application.model.metier.IExportateurJTable;
  * <li>Connaitront leur route.</li>
  * <li>Connaitront éventuellement leur abscisse cumulée.</li>
  * <li>Connaitront leur cote (Chaussée I, D, ou G).</li>
+ * <li>Connaitront leur voie.</li>
+ * <li>Implémenteront un Comparator.<br/>
+ * <li>Pourront être clonés.</li>
+ * <li>sauront si une Localisation sur la même route 
+ * avec la même latéralisation (cote + voie) précède la présente.</li>
  * <li>Pourront être <b>exportés</b> au format <b>csv</b>.</li>
  * <li>Pourront être affichés sous forme de <b>JTable</b>.</li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/localisation_pures.png" 
+ * alt="Localisations pures" border="1" align="center" />
+ * </li>
  * </ul>
  *
  * - Exemple d'utilisation :<br/>
@@ -82,7 +92,8 @@ public interface ILocalisationBasePur
 	 * <ul>
 	 * <b>Précise si la présente Localisation "devance" pLocalisation
 	 * sur une même route (Abscisse cumulée plus petite 
-	 * sur une <i>même route</i> et un <i>même côté</i>).</b>
+	 * sur une <i>même route</i>, un <i>même côté</i> 
+	 * et une <i>même voie</i>).</b>
 	 * <li>retourne toujours false si pLocalisation est null.</li>
 	 * <li>retourne toujours false si pLocalisation est 
 	 * la présente Localisation.</li>
@@ -90,8 +101,10 @@ public interface ILocalisationBasePur
 	 * présente Localisation ou de pLocalisation est null.</li>
 	 * <li>retourne toujours false si le côté de la route de la 
 	 * présente Localisation ou de pLocalisation est null.</li>
+	 * <li>retourne false si la voie d'une des Localisation 
+	 * est null et pas la voie de l'autre.</li>
 	 * <li>retourne toujours false si routes différentes 
-	 * ou côtés différents.</li>
+	 * , côtés différents ou voies différentes (MEME LATERALISATION).</li>
 	 * <li>retourne toujours false si this.cumul == null.</li>
 	 * <li>retourne toujours false si 
 	 * pLocalisation.getCumul() == null.</li>
@@ -101,7 +114,8 @@ public interface ILocalisationBasePur
 	 * 
 	 * @return : boolean : true si la présente Localisation
 	 * a une abscisse curviligne plus petite que pLocalisation
-	 * sur une même route.<br/>
+	 * sur une même route avec une même latéralisation 
+	 * (cote + voie).<br/>
 	 */
 	boolean devance(
 			ILocalisationBasePur pLocalisation);
@@ -148,7 +162,8 @@ public interface ILocalisationBasePur
 	 * Setter de la Route de la localisation.<br/>
 	 * <br/>
 	 *
-	 * @param pRoute : String : valeur à passer à route.<br/>
+	 * @param pRoute : String : 
+	 * valeur à passer à route.<br/>
 	 */	
 	void setRoute(String pRoute);
 	
@@ -171,7 +186,8 @@ public interface ILocalisationBasePur
 	 * Setter de l'abscisse cumulée de la localisation.<br/>
 	 * <br/>
 	 *
-	 * @param pCumul : Float.<br/>
+	 * @param pCumul : Float : 
+	 * valeur à passer à this.cumul.<br/>
 	 */
 	void setCumul(Float pCumul);
 
@@ -200,6 +216,31 @@ public interface ILocalisationBasePur
 	 */
 	void setCote(String pCote);
 	
+	
+	
+	/**
+	 * method getVoie() :<br/>
+	 * Getter de la Voie de la localisation 
+	 * (1 pour la première voie à droite dans le sens de la route).<br/>
+	 * <br/>
+	 *
+	 * @return voie : Integer.<br/>
+	 */
+	Integer getVoie();
+
+
+	
+	/**
+	* method setVoie(
+	* Integer pVoie) :<br/>
+	* Setter de la Voie de la localisation 
+	 * (1 pour la première voie à droite dans le sens de la route).<br/>
+	* <br/>
+	*
+	* @param pVoie : Integer : valeur à passer à voie.<br/>
+	*/
+	void setVoie(Integer pVoie);
+
 	
 	
 } // FIN DE LA CLASSE ILocalisationBasePur.-------------------------------------

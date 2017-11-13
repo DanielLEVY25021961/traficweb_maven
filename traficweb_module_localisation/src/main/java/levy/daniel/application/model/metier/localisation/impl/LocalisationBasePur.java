@@ -13,8 +13,15 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
 
 /**
  * class LocalisationBasePur :<br/>
- * .<br/>
+ * <ul>
+ * <li>CLASSE CONCRETE modélisant les LocalisationBasePur.</li>
+ * <li>HERITE de AbstractLocalisationBasePur.</li>
  * <br/>
+ * <li>
+ * <img src="../../../../../../../../../../javadoc/images/localisation_pures.png" 
+ * alt="Localisations pures" border="1" align="center" />
+ * </li>
+ * </ul>
  *
  * - Exemple d'utilisation :<br/>
  *<br/>
@@ -64,7 +71,7 @@ public class LocalisationBasePur extends AbstractLocalisationBasePur {
 	 */
 	public LocalisationBasePur() {
 		
-		this(null, null, null, null);
+		this(null, null, null, null, null);
 		
 	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 
@@ -74,21 +81,21 @@ public class LocalisationBasePur extends AbstractLocalisationBasePur {
 	 * method CONSTRUCTEUR LocalisationBasePur(
 	 * String pRoute
 	 * , Float pCumul) :<br/>
-	 * CONSTRUCTEUR : <br/>
-	 * - SANS IDENTIFIANT EN BASE (null).<br/>
-	 * - SANS COTE = AVEC COTE INDETERMINE "I" (portée ROUTE).<br/>
-	 * <br/>
+	 * CONSTRUCTEUR UTILE POUR LA PORTEE ROUTE : <br/>
+	 * <ul>
+	 * <li>SANS IDENTIFIANT EN BASE (null).</li>
+	 * <li>SANS COTE = AVEC COTE INDETERMINE "I" (portée ROUTE).</li>
+	 * <li>SANS VOIE (voie = null pour portée ROUTE).</li>
+	 * </ul>
 	 *
 	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
 	 * @param pCumul : Float : abscisse cumulée de la localisation.<br/>
 	 */
 	public LocalisationBasePur(
 			final String pRoute
-				, final Float pCumul) {
-		
-		this(null, pRoute, pCumul, "I");
-		
-	} // Fin de CONSTRUCTEUR LocalisationBasePur(
+				, final Float pCumul) {		
+		this(null, pRoute, pCumul, "I", null);		
+	} // Fin de CONSTRUCTEUR AbstractLocalisationBasePur(
 	 // String pRoute
 	 // , Float pCumul).___________________________________________________
 
@@ -97,10 +104,11 @@ public class LocalisationBasePur extends AbstractLocalisationBasePur {
 	 /**
 	 * method CONSTRUCTEUR LocalisationBasePur(
 	 * CONSTRUCTEUR COMPLET) :<br/>
-	 * CONSTRUCTEUR COMPLET :<br/>
+	 * CONSTRUCTEUR COMPLET PORTEE CHAUSSEE :<br/>
 	 * <ul>
 	 * <li>SANS IDENTIFIANT EN BASE (null).</li>
 	 * <li>AVEC COTE.</li>
+	 * <li>SANS VOIE</li>
 	 * </ul>
 	 *
 	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
@@ -109,11 +117,38 @@ public class LocalisationBasePur extends AbstractLocalisationBasePur {
 	 */
 	public LocalisationBasePur(
 			final String pRoute
-				, final Float pCumul
-					, final String pCote) {
+					, final Float pCumul						
+							, final String pCote) {
 		
-		this(null, pRoute, pCumul, pCote);
+		this(null, pRoute, pCumul, pCote, null);
+				
+	} // Fin de CONSTRUCTEUR COMPLET.______________________________________
+
+
+	
+	 /**
+	 * method CONSTRUCTEUR LocalisationBasePur(
+	 * CONSTRUCTEUR COMPLET) :<br/>
+	 * CONSTRUCTEUR COMPLET PORTEE VOIE :<br/>
+	 * <ul>
+	 * <li>SANS IDENTIFIANT EN BASE (null).</li>
+	 * <li>AVEC COTE.</li>
+	 * <li>AVEC VOIE</li>
+	 * </ul>
+	 *
+	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
+	 * @param pCumul : Float : abscisse cumulée de la localisation.<br/>
+	 * @param pCote : String : cote de la route (I, D ou G).<br/>
+	 * @param pVoie : Integer : Voie de la localisation.<br/>
+	 */
+	public LocalisationBasePur(
+			final String pRoute
+					, final Float pCumul						
+							, final String pCote
+								, final Integer pVoie) {
 		
+		this(null, pRoute, pCumul, pCote, pVoie);
+				
 	} // Fin de CONSTRUCTEUR COMPLET.______________________________________
 
 
@@ -124,25 +159,28 @@ public class LocalisationBasePur extends AbstractLocalisationBasePur {
 	 * , String pRoute
 	 * , Float pCumul
 	 * , String pCote
-	 * , IORS pOrs) :<br/>
+	 * , Integer pVoie) :<br/>
 	 * CONSTRUCTEUR COMPLET BASE.
 	 * <ul>
 	 * <li>AVEC IDENTIFIANT EN BASE.</li>
 	 * <li>AVEC COTE.</li>
+	 * <li>AVEC VOIE.</li>
 	 * </ul>
 	 *
 	 * @param pId : Long : identifiant en base.<br/>
 	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
 	 * @param pCumul : Float : abscisse cumulée de la localisation.<br/>
 	 * @param pCote : String : cote de la route (I, D ou G).<br/>
+	 * @param pVoie : Integer : Voie de la localisation.<br/>
 	 */
 	public LocalisationBasePur(
 			final Long pId
 				, final String pRoute
 					, final Float pCumul
-						, final String pCote) {
+						, final String pCote
+							, final Integer pVoie) {
 		
-		super(pId, pRoute, pCumul, pCote);
+		super(pId, pRoute, pCumul, pCote, pVoie);
 		
 	} // Fin de CONSTRUCTEUR COMPLET BASE._________________________________
 

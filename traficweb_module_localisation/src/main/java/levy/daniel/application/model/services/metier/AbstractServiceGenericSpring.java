@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,7 @@ import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
 /**
  * class AbstractServiceGenericSpring :<br/>
  * <ul>
- * <li><b>SERVICE ABSTRAIT GENERIQUE</b> pour SPRING.</li>
+ * <li><b>SERVICE ABSTRAIT GENERIQUE</b> pour <b>SPRING AVEC JPA</b>.</li>
  * <li>
  * Comporte l'implémentation des méthodes <b>CRUD</b> valables 
  * pour <b>tous les objets métier</b>.
@@ -30,7 +29,7 @@ import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
  * <li>Les transactions sont gérées par le conteneur SPRING.</li>
  * <br/>
  * <li>
- * <img src="../../../../../../../../../javadoc/images/implementation_SERVICEs.png" 
+ * <img src="../../../../../../../../../javadoc/images/implementation_SERVICEs_1.png" 
  * alt="implémentation des SERVICEs" border="1" align="center" />
  * </li>
  * </ul>
@@ -54,13 +53,19 @@ import levy.daniel.application.model.services.valideurs.LigneRapportValidation;
  * @since 26 août 2017
  *
  */
-@Service(value="AbstractServiceGenericSpring")
 public abstract class AbstractServiceGenericSpring<T, ID extends Serializable> 
 					implements IServiceGenericSpring<T, ID> {
 
 	
 	// ************************ATTRIBUTS************************************/
 
+	
+	/**
+	 * CLASS_ABSTRACT_SERVICE_GENERIC : String :<br/>
+	 * .<br/>
+	 */
+	public static final String CLASS_ABSTRACT_SERVICE_GENERIC = "Classe AbstractServiceGenericSpring";
+	
 	
 	/**
 	 * dao : IDaoGenericJPASpring&lt;T ,ID&gt; :<br/>
@@ -266,7 +271,16 @@ public abstract class AbstractServiceGenericSpring<T, ID extends Serializable>
 			final T pObject) {
 		
 		try {
-			return this.dao.create(pObject);
+			
+			if (this.dao != null) {
+				return this.dao.create(pObject);
+			}
+
+			if (LOG.isFatalEnabled()) {
+				LOG.fatal("DAO null");
+			}
+			
+			
 		}
 		catch (AbstractDaoException e) {
 			e.printStackTrace();

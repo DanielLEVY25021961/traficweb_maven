@@ -4,10 +4,9 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.jpa.JpaSystemException;
 
-import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
 import levy.daniel.application.model.metier.localisation.AbstractLocalisationBasePur;
 import levy.daniel.application.model.metier.localisation.impl.LocalisationBasePur;
-import levy.daniel.application.model.services.metier.localisation.impl.ServiceConcret;
+import levy.daniel.application.model.services.metier.localisation.IServiceLocalisationBasePur;
 
 
 
@@ -46,10 +45,33 @@ public final class AppSpring {
 
 	
 	/**
-	 * serviceConcret : ServiceConcret :<br/>
-	 * .<br/>
+	 * SAUT_LIGNE : char :<br/>
+	 * '\n'.<br/>
 	 */
-	private static transient ServiceConcret serviceConcret;
+	public static final char SAUT_LIGNE = '\n';
+	
+	
+	/**
+	 * AFFICHAGE_GENERAL : Boolean :<br/>
+	 * Boolean qui commande l'affichage pour tous les tests.<br/>
+	 */
+	public static final Boolean AFFICHAGE_GENERAL = true;
+
+	
+	/**
+	 * TIRETS : String :<br/>
+	 * "--------------------------------------------------------".<br/>
+	 */
+	public static final String TIRETS 
+	= "--------------------------------------------------------";
+	
+	
+	/**
+	 * serviceLoc : IServiceLocalisationBasePur :<br/>
+	 * Service pour les LocalisationBasePur.<br/>
+	 */
+	public static IServiceLocalisationBasePur serviceLoc;
+	
 
 	// *************************METHODES************************************/
 	
@@ -75,72 +97,94 @@ public final class AppSpring {
 	 * @param pArgs : String[] :  .<br/>
 	 */
 	public static void main(final String[] pArgs) {
+				
+		// **********************************
+		// AFFICHAGE DANS LE TEST ou NON
+		final boolean affichage = false;
+		// **********************************
 
-		// Création de l'applicationContext SPRING 
-		// avec le fichier de configuration
+		// ******************************************
+		// Création de l'applicationCONTEXT SPRING 
+		// avec lecture du fichier de configuration
 		// applicationContext.xml.
+		// ******************************************
 		final AbstractApplicationContext context 
 			= new ClassPathXmlApplicationContext(APPLICATIONCONTEXT_PATH);
 
-		/* Obtention du bean DaoLocalisationBasePur. */
-		serviceConcret 
-			= context.getBean(ServiceConcret.class);
+		/* AFFICHAGE A LA CONSOLE. */
+		if (AFFICHAGE_GENERAL && affichage) {
+			
+			/* Affichage des Beans SPRING instanciés dans le Contexte. */
+			final String affichageBeans = beansToString(context);
+			
+			System.out.println();
+			System.out.println(TIRETS);
+			System.out.println("BEANS INSTANCIES DANS LE CONTENEUR SPRING : ");
+			System.out.println(TIRETS);
+			System.out.println(affichageBeans);
+			System.out.println(TIRETS);
+			System.out.println();
+			
+		}
 		
-		final String serviceConcretClassName = serviceConcret.getClass().getName();
 		
-		System.out.println("PROXY : " + serviceConcretClassName);
-
+		/* Obtention du bean ServiceLocalisationBasePur 
+		 * auprès du contexte SPRING. */
+		serviceLoc 
+			= (IServiceLocalisationBasePur) 
+				context.getBean("ServiceLocalisationBasePur");
+		
+		
 		final AbstractLocalisationBasePur objetNull = null;
 		
 		final AbstractLocalisationBasePur objet1 
-			= new LocalisationBasePur("A0006", 5892.36F, "G");
+			= new LocalisationBasePur("A0006", 5892.36F, "G", 0);
 		
 		final AbstractLocalisationBasePur objet2 
-			= new LocalisationBasePur("A0006", 7888F, "G");
+			= new LocalisationBasePur("A0006", 7888F, "G", 0);
 		
 		final AbstractLocalisationBasePur objet3 
-			= new LocalisationBasePur("N0187", 36000F, "D");
+			= new LocalisationBasePur("N0187", 36000F, "D", 0);
 		
 		final AbstractLocalisationBasePur objet4 
-		= new LocalisationBasePur("N0186", 12000F, "I");
+		= new LocalisationBasePur("N0186", 12000F, "I", 0);
+		
+		
+		try {
+			creer(objet1);
+		}
+		catch (JpaSystemException jpaExc){
+//			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
+		}
 
-							
-//		serviceConcret.create(objetNull);
-		
-//		try {
-//			serviceConcret.create(objet1);
-//		}
-//		catch (JpaSystemException jpaExc){
+		try {
+			creer(objetNull);
+		}
+		catch (JpaSystemException jpaExc){
 //			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
-//		}
-//		
-//		try {
-//			serviceConcret.create(objet2);
-//		}
-//		catch (JpaSystemException jpaExc){
+		}
+
+		try {
+			creer(objet2);
+		}
+		catch (JpaSystemException jpaExc){
 //			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
-//		}
-//		
-//		try {
-//			serviceConcret.create(objet3);
-//		}
-//		catch (JpaSystemException jpaExc){
+		}
+
+		try {
+			creer(objet3);
+		}
+		catch (JpaSystemException jpaExc){
 //			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
-//		}
-//
-//		
-//		try {
-//			serviceConcret.create(objet4);
-//		}
-//		catch (JpaSystemException jpaExc){
+		}
+
+		try {
+			creer(objet4);
+		}
+		catch (JpaSystemException jpaExc){
 //			System.out.println("JPA SYSTEM EXCEPTION : " + jpaExc.toString());
-//		}
-		
-		creer(objetNull);
-		creer(objet1);
-		creer(objet2);
-		creer(objet3);
-		creer(objet4);
+		}
+
 		
 		/* Clôture du contexte, sinon, fuite de mémoire. */
 		context.close();
@@ -150,25 +194,24 @@ public final class AppSpring {
 	
 	
 	/**
-	 * method creer() :<br/>
+	 * method creer(
+	 * AbstractLocalisationBasePur pObject) :<br/>
 	 * .<br/>
 	 * <br/>
 	 *
 	 * @param pObject
 	 * @return :  :  .<br/>
 	 */
-	public static AbstractLocalisationBasePur creer(AbstractLocalisationBasePur pObject) {
+	public static AbstractLocalisationBasePur creer(
+			final AbstractLocalisationBasePur pObject) {
 		
 		AbstractLocalisationBasePur objetPersistant = null;
 		
 		try {
-			objetPersistant = serviceConcret.create(pObject);
+			objetPersistant = serviceLoc.create(pObject);
 		}
 		catch (JpaSystemException jpaExc){
-			System.out.println("APPLICATION - JPA SYSTEM EXCEPTION : " + jpaExc.toString());
-		}
-		catch (AbstractDaoException daoExc) {
-			System.out.println("APPLICATION - ABSTRACT_DAO EXCEPTION : " + daoExc.getMessageUtilisateur());
+//			System.out.println("APPLICATION - JPA SYSTEM EXCEPTION : " + jpaExc.toString());
 		}
 		catch (Exception exc) {
 			System.out.println("APPLICATION - EXCEPTION : " + exc.toString());
@@ -176,6 +219,47 @@ public final class AppSpring {
 		
 		return objetPersistant;
 	}
+
+	
+	
+	/**
+	 * method beansToString(
+	 * AbstractApplicationContext pContext) :<br/>
+	 * <ul>
+	 * <b>Crée et retourne une String</b> pour l'<i>affichage</i> 
+	 * de la <b>liste des Beans SPRING</b> instanciés contenus dans le 
+	 * contexte SPRING pContext.<br/>
+	 * <li>retourne null si pContext == null.</li>
+	 * </ul>
+	 * <br/>
+	 *
+	 * @param pContext : AbstractApplicationContext : Context Spring.<br/>
+	 * 
+	 * @return : String : Liste des Beans instanciés contenus 
+	 * dans le Context SPRING avec saut de ligne.<br/>
+	 */
+	public static String beansToString(
+			final AbstractApplicationContext pContext) {
+		
+		/* retourne null si pContext == null. */
+		if (pContext == null) {
+			return null;
+		}
+		
+		final StringBuilder stb = new StringBuilder();
+		
+		/* Récupération du tableau de Beans 
+		 * instanciés dans le conteneur SPRING. */
+		final String[] tableauBeans = pContext.getBeanDefinitionNames();
+		
+		for (int i = 0; i < tableauBeans.length; i ++) {
+			stb.append(tableauBeans[i]);
+			stb.append(SAUT_LIGNE);
+		}
+		
+		return stb.toString();
+		
+	} // Fin de beansToString(...).________________________________________
 
 	
 	

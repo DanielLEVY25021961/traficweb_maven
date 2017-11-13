@@ -10,7 +10,7 @@ import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
 
 /**
  * class DaoTransactionException :<br/>
- * .<br/>
+ * Exception pour les problèmes de Transaction.<br/>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>

@@ -7,7 +7,6 @@ import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Repository;
 
 import levy.daniel.application.model.dao.AbstractDaoGenericJPASpring;
 import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
@@ -53,10 +52,7 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
  * @since 7 nov. 2017
  *
  */
-@Repository("AbstractDaoLocalisationBasePur")
-//@Qualifier("AbstractDaoGenericJPASpring")
-//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class AbstractDaoLocalisationBasePur 
+public abstract class AbstractDaoLocalisationBasePur 
 	extends AbstractDaoGenericJPASpring<AbstractLocalisationBasePur, Long> 
 					implements IDaoLocalisationBasePur {
 
