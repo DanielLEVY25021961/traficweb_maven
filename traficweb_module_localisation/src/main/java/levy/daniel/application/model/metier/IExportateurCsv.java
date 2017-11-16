@@ -41,8 +41,11 @@ public interface IExportateurCsv {
 	
 	/**
 	 * method toStringCsv() :<br/>
-	 * Fournit le ValueObject sous forme de ligne Csv.<br/>
-	 * <br/>
+	 * <ul>
+	 * <li>Fournit le ValueObject sous forme de <b>ligne Csv</b>.</li>
+	 * <li>Remplace les valeurs null par "null" comme 
+	 * dans "27;N0186;5896.36;G;null;" avec une voie=null.</li>
+	 * </ul>
 	 *
 	 * @return : String.<br/>
 	 */

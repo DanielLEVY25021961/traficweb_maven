@@ -2,9 +2,8 @@ package levy.daniel.application.model.services.metier.localisation;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Service;
 
-import levy.daniel.application.model.dao.IDaoGenericJPASpring;
+import levy.daniel.application.model.dao.metier.localisation.AbstractDaoLocalisationBasePur;
 import levy.daniel.application.model.metier.localisation.AbstractLocalisationBasePur;
 import levy.daniel.application.model.services.metier.AbstractServiceGenericSpring;
 
@@ -27,7 +26,7 @@ import levy.daniel.application.model.services.metier.AbstractServiceGenericSprin
  * </li>
  * <br/>
  * <li>
- * <img src="../../../../../../../../../../javadoc/images/implementation_SERVICEs.png" 
+ * <img src="../../../../../../../../../../javadoc/images/implementation_SERVICEs_1.png" 
  * alt="implémentation des SERVICEs" border="1" align="center" />
  * </li>
  * </ul>
@@ -48,22 +47,12 @@ import levy.daniel.application.model.services.metier.AbstractServiceGenericSprin
  * @since 7 nov. 2017
  *
  */
-@Service(value="AbstractServiceLocalisationBasePur")
-//@Qualifier("AbstractServiceGenericSpring")
 public abstract class AbstractServiceLocalisationBasePur 
 	extends AbstractServiceGenericSpring<AbstractLocalisationBasePur, Long>
 										implements IServiceLocalisationBasePur {
 
 	// ************************ATTRIBUTS************************************/
 
-	/**
-	 * dao : AbstractDaoGenericJPASpring<T,Serializable> :<br/>
-	 * DAO pour le service.<br/>
-	 */
-//	@Autowired(required=true)
-//	@Qualifier("DaoLocalisationBasePur")
-//	protected AbstractDaoLocalisationBasePur dao;
-	
 	
 	/**
 	 * LOG : Log : 
@@ -97,7 +86,7 @@ public abstract class AbstractServiceLocalisationBasePur
 	 * @param pDao : IDaoGenericJPASpring&lt;AbstractLocalisationBasePur, Long&gt;.<br/>
 	 */
 	public AbstractServiceLocalisationBasePur(
-			final IDaoGenericJPASpring<AbstractLocalisationBasePur, Long> pDao) {
+			final AbstractDaoLocalisationBasePur  pDao) {
 		
 		super(pDao);
 		
@@ -111,10 +100,9 @@ public abstract class AbstractServiceLocalisationBasePur
 	@Override
 	public AbstractLocalisationBasePur retrieveByIdMetier(
 			final AbstractLocalisationBasePur pObjet) {
-
 		return null;
 	} // Fin de retrieveByIdMetier(...).___________________________________
-	
+
 
 
 } // FIN DE LA CLASSE AbstractServiceLocalisationBasePur.--------------------

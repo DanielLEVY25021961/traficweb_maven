@@ -55,6 +55,16 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
-
+	<dependencies>
+	
+		<!-- INJECTION DES DEPENDANCES ENTRE LES DIFFERENTS MODULES -->
+		<dependency>
+			<groupId>levy.daniel.application</groupId>
+		    <artifactId>traficweb_module_localisation</artifactId>
+		    <version>${pom.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+	</dependencies>
 
 </project>

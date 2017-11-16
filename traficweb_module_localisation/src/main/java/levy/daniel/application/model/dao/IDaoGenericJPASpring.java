@@ -14,6 +14,10 @@ import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
  * pour <b>tous les objets métier</b>.
  * </li>
  * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <li>
+ * Certaines méthodes (getOne(ID), ...) sont 
+ * <b>compatibles SPRING DATA</b>.
+ * </li>
  * <br/>
  * <li>
  * <img src="../../../../../../../../javadoc/images/implementation_DAOs.png" 

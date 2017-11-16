@@ -20,7 +20,7 @@ import levy.daniel.application.model.services.metier.IServiceGenericSpring;
  * </li>
  * <br/>
  * <li>
- * <img src="../../../../../../../../../../javadoc/images/implementation_SERVICEs.png" 
+ * <img src="../../../../../../../../../../javadoc/images/implementation_SERVICEs_1.png" 
  * alt="implémentation des SERVICEs" border="1" align="center" />
  * </li>
  * </ul>

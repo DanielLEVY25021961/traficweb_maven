@@ -1,8 +1,6 @@
 package levy.daniel.application.model.metier.localisation;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +27,11 @@ import org.apache.commons.logging.LogFactory;
  * des LocalisationBasePur.
  * <ul>
  * <li>IMPLEMENTE ILocalisationBasePur.</li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/localisation_pures.png" 
+ * alt="Localisations pures" border="1" align="center" />
+ * </li>
  * </ul>
  * 
  * 
@@ -49,8 +52,8 @@ import org.apache.commons.logging.LogFactory;
  */
 @Entity(name="AbstractLocalisationBasePur")
 @Table(name = "ABSTRACT_LOCALISATIONS_BASE_PURES", schema = "PUBLIC"
-, uniqueConstraints=@UniqueConstraint(name="UNICITE_ROUTE_CUMUL_COTE"
-, columnNames={"ROUTE", "CUMUL", "COTE"})
+, uniqueConstraints=@UniqueConstraint(name="UNICITE_ROUTE_CUMUL_LATERALISATION"
+, columnNames={"ROUTE", "CUMUL", "COTE", "VOIE"})
 , indexes={@Index(name = "INDEX_ROUTE", columnList="ROUTE")})
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class AbstractLocalisationBasePur 
@@ -130,14 +133,14 @@ public abstract class AbstractLocalisationBasePur
 	 * chaussée (I pour indéfini, D pour Droit, G pour Gauche).<br/>
 	 */
 	protected String cote;
+
 	
-			
 	/**
-	 * SET_COTES_VALABLES : Set<String> :<br/>
-	 * Ensemble des cotes admis (I, G, D).<br/>
+	 * voie : Integer :<br/>
+	 * Voie de la localisation 
+	 * (1 pour la première voie à droite dans le sens de la route).<br/>
 	 */
-	public static final Set<String> SET_COTES_VALABLES 
-		= new HashSet<String>();
+	protected Integer voie;
 	
 	
 	/**
@@ -146,18 +149,6 @@ public abstract class AbstractLocalisationBasePur
 	 */
 	private static final Log LOG = LogFactory
 			.getLog(AbstractLocalisationBasePur.class);
-
-	
-	static {
-		
-		SET_COTES_VALABLES.add("I");
-		SET_COTES_VALABLES.add("i");
-		SET_COTES_VALABLES.add("G");
-		SET_COTES_VALABLES.add("g");
-		SET_COTES_VALABLES.add("D");
-		SET_COTES_VALABLES.add("d");
-
-	}
 
 	
 
@@ -172,7 +163,7 @@ public abstract class AbstractLocalisationBasePur
 	 * <br/>
 	 */
 	public AbstractLocalisationBasePur() {		
-		this(null, null, null, null);		
+		this(null, null, null, null, null);		
 	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 	
 	
@@ -181,10 +172,12 @@ public abstract class AbstractLocalisationBasePur
 	 * method CONSTRUCTEUR AbstractLocalisationBasePur(
 	 * String pRoute
 	 * , Float pCumul) :<br/>
-	 * CONSTRUCTEUR : <br/>
-	 * - SANS IDENTIFIANT EN BASE (null).<br/>
-	 * - SANS COTE = AVEC COTE INDETERMINE "I" (portée ROUTE).<br/>
-	 * <br/>
+	 * CONSTRUCTEUR UTILE POUR LA PORTEE ROUTE : <br/>
+	 * <ul>
+	 * <li>SANS IDENTIFIANT EN BASE (null).</li>
+	 * <li>SANS COTE = AVEC COTE INDETERMINE "I" (portée ROUTE).</li>
+	 * <li>SANS VOIE (voie = null pour portée ROUTE).</li>
+	 * </ul>
 	 *
 	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
 	 * @param pCumul : Float : abscisse cumulée de la localisation.<br/>
@@ -192,7 +185,7 @@ public abstract class AbstractLocalisationBasePur
 	public AbstractLocalisationBasePur(
 			final String pRoute
 				, final Float pCumul) {		
-		this(null, pRoute, pCumul, "I");		
+		this(null, pRoute, pCumul, "I", null);		
 	} // Fin de CONSTRUCTEUR AbstractLocalisationBasePur(
 	 // String pRoute
 	 // , Float pCumul).___________________________________________________
@@ -202,10 +195,11 @@ public abstract class AbstractLocalisationBasePur
 	 /**
 	 * method CONSTRUCTEUR AbstractLocalisationBasePur(
 	 * CONSTRUCTEUR COMPLET) :<br/>
-	 * CONSTRUCTEUR COMPLET :<br/>
+	 * CONSTRUCTEUR COMPLET PORTEE CHAUSSEE :<br/>
 	 * <ul>
 	 * <li>SANS IDENTIFIANT EN BASE (null).</li>
 	 * <li>AVEC COTE.</li>
+	 * <li>SANS VOIE</li>
 	 * </ul>
 	 *
 	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
@@ -217,10 +211,37 @@ public abstract class AbstractLocalisationBasePur
 					, final Float pCumul						
 							, final String pCote) {
 		
-		this(null, pRoute, pCumul, pCote);
+		this(null, pRoute, pCumul, pCote, null);
 				
 	} // Fin de CONSTRUCTEUR COMPLET.______________________________________
+
 	
+	
+	 /**
+	 * method CONSTRUCTEUR AbstractLocalisationBasePur(
+	 * CONSTRUCTEUR COMPLET) :<br/>
+	 * CONSTRUCTEUR COMPLET PORTEE VOIE :<br/>
+	 * <ul>
+	 * <li>SANS IDENTIFIANT EN BASE (null).</li>
+	 * <li>AVEC COTE.</li>
+	 * <li>AVEC VOIE</li>
+	 * </ul>
+	 *
+	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
+	 * @param pCumul : Float : abscisse cumulée de la localisation.<br/>
+	 * @param pCote : String : cote de la route (I, D ou G).<br/>
+	 * @param pVoie : Integer : Voie de la localisation.<br/>
+	 */
+	public AbstractLocalisationBasePur(
+			final String pRoute
+					, final Float pCumul						
+							, final String pCote
+								, final Integer pVoie) {
+		
+		this(null, pRoute, pCumul, pCote, pVoie);
+				
+	} // Fin de CONSTRUCTEUR COMPLET.______________________________________
+
 	
 	
 	 /**
@@ -229,23 +250,26 @@ public abstract class AbstractLocalisationBasePur
 	 * , String pRoute
 	 * , Float pCumul
 	 * , String pCote
-	 * , IORS pOrs) :<br/>
+	 * , Integer pVoie) :<br/>
 	 * CONSTRUCTEUR COMPLET BASE.
 	 * <ul>
 	 * <li>AVEC IDENTIFIANT EN BASE.</li>
 	 * <li>AVEC COTE.</li>
+	 * <li>AVEC VOIE.</li>
 	 * </ul>
 	 * 
 	 * @param pId : Long : identifiant en base.<br/>
 	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
 	 * @param pCumul : Float : abscisse cumulée de la localisation.<br/>
 	 * @param pCote : String : cote de la route (I, D ou G).<br/>
+	 * @param pVoie : Integer : Voie de la localisation.<br/>
 	 */
 	public AbstractLocalisationBasePur(
 			final Long pId
 				, final String pRoute
 					, final Float pCumul						
-							, final String pCote) {
+							, final String pCote
+								, final Integer pVoie) {
 		
 		super();
 		
@@ -263,13 +287,15 @@ public abstract class AbstractLocalisationBasePur
 		/* côté. */
 		this.cote = pCote;
 
+		/* voie. */
+		this.voie = pVoie;
 				
 	} // Fin de CONSTRUCTEUR AbstractLocalisationBasePur(
 	 // Long pIdBase
 	 // , String pRoute
 	 // , Float pCumul
 	 // , String pCote
-	 // , IORS pOrs)._______________________________________________
+	 // , Integer pVoie).__________________________________________________
 	 
 	 
 
@@ -288,7 +314,9 @@ public abstract class AbstractLocalisationBasePur
 		result = prime * result
 			+ ((this.cumul == null) ? 0 : this.cumul.hashCode());
 		result = prime * result
-				+ ((this.cote == null) ? 0 : this.cote.hashCode());		
+				+ ((this.cote == null) ? 0 : this.cote.hashCode());
+		result = prime * result
+				+ ((this.voie == null) ? 0 : this.voie.hashCode());
 		
 		return result;
 		
@@ -304,6 +332,7 @@ public abstract class AbstractLocalisationBasePur
 	 * 1 - route.<br/>
 	 * 2 - cumul.<br/>
 	 * 3 - cote.<br/>
+	 * 4 - voie.<br/>
 	 * <br/>
 	 */
 	@Override
@@ -357,6 +386,15 @@ public abstract class AbstractLocalisationBasePur
 			return false;
 		}
 		
+		/* 4 - voie. */
+		if (this.getVoie() == null) {
+			if (other.getVoie() != null) {
+				return false;
+			}
+		} else if (!this.getVoie().equals(other.getVoie())) {
+			return false;
+		}
+		
 		return true;
 		
 	} // Fin de equals(
@@ -372,6 +410,7 @@ public abstract class AbstractLocalisationBasePur
 	 * 1 - route.<br/>
 	 * 2 - cumul.<br/>
 	 * 3 - cote.<br/>
+	 * 4 - voie.<br/>
 	 * <br/>
 	 * Contrat Java : x.equals(y) ---> x.compareTo(y) == 0.<br/>
 	 * <br/>
@@ -404,6 +443,7 @@ public abstract class AbstractLocalisationBasePur
 		int compRoute = 0;
 		int compCumul = 0;
 		int compCote = 0;
+		int compVoie = 0;
 
 		/* 1 - route. */
 		if (this.getRoute() == null) {
@@ -450,18 +490,39 @@ public abstract class AbstractLocalisationBasePur
 			if (pLoc.getCote() != null) {
 				return +1;
 			}
+
+		} else {
+			if (pLoc.getCote() == null) {
+				return -1;
+			}
+				
+			compCote = this.getCote()
+					.compareToIgnoreCase(pLoc.getCote());
+			
+			if (compCote != 0) {
+				return compCote;
+			}
+			
+		} // Fin de compCote._________________________
+
+				
+		/* 4 - voie. */
+		if (this.getVoie() == null) {
+			if (pLoc.getVoie() != null) {
+				return +1;
+			}
 			
 			return 0;
 		}
 
-		if (pLoc.getCote() == null) {
+		if (pLoc.getVoie() == null) {
 			return -1;
 		}
 			
-		compCote = this.getCote()
-				.compareToIgnoreCase(pLoc.getCote());
+		compVoie = this.getVoie()
+				.compareTo(pLoc.getVoie());
 			
-		return compCote;
+		return compVoie;
 		
 	} // Fin de compareTo(
 	 // Object pValueObject).______________________________________________
@@ -483,6 +544,7 @@ public abstract class AbstractLocalisationBasePur
 		clone.setRoute(this.route);
 		clone.setCumul(this.cumul);
 		clone.setCote(this.cote);
+		clone.setVoie(this.voie);
 						
 		return clone;
 		
@@ -537,6 +599,16 @@ public abstract class AbstractLocalisationBasePur
 			stb.append(NULL);
 		}
 		
+		stb.append(SEPARATEUR_MOINS_AERE);
+		
+		/* voie. */
+		stb.append("voie : ");
+		if (this.voie != null) {
+			stb.append(this.voie);
+		} else {
+			stb.append(NULL);
+		}
+		
 		stb.append(']');
 		
 		return stb.toString();
@@ -549,7 +621,7 @@ public abstract class AbstractLocalisationBasePur
 	 * method getEnTeteCsv() :<br/>
 	 * Retourne l'En-Tête pour les fichiers CSV de Localisation.<br/>
 	 * <br/>
-	 * id;route;cumul;cote;<br/>
+	 * id;route;cumul;cote;voie;<br/>
 	 * <br/>
 	 *
 	 * @return : String : En-Tête de la Localisation en CSV.<br/>
@@ -572,6 +644,9 @@ public abstract class AbstractLocalisationBasePur
 		stb.append("cote");
 		stb.append(POINT_VIRGULE);
 		
+		stb.append("voie");
+		stb.append(POINT_VIRGULE);
+		
 		return stb.toString();
 		
 	} // Fin de getEnTeteCsv().____________________________________________
@@ -580,11 +655,14 @@ public abstract class AbstractLocalisationBasePur
 	
 	/**
 	 * method toStringCsv() :<br/>
-	 * Retourne la localisation en CSV avec le séparateur
-	 * ";" correspondant à l'en-tête fourni par getEnTeteCsv().<br/>
-	 * L'ordre des champs est :<br/>
-	 * "id;route;cumul;cote;"<br/>
-	 * <br/>
+	 * <ul>
+	 * <li>Retourne la localisation en CSV avec le séparateur
+	 * ";" correspondant à l'en-tête fourni par getEnTeteCsv().</li>
+	 * <li>L'ordre des champs est :<br/>
+	 * "id;route;cumul;cote;voie;"</li>
+	 * <li>Remplace les valeurs null par "null" comme 
+	 * dans "27;N0186;5896.36;G;null;" avec une voie=null.</li>
+	 * </ul>
 	 *
 	 * @return : String.<br/>
 	 */
@@ -609,6 +687,10 @@ public abstract class AbstractLocalisationBasePur
 		stb.append(this.cote);
 		stb.append(POINT_VIRGULE);
 		
+		/* voie. */
+		stb.append(this.voie);
+		stb.append(POINT_VIRGULE);
+		
 		return stb.toString();
 		
 	} // Fin de toCsv().___________________________________________________
@@ -617,10 +699,12 @@ public abstract class AbstractLocalisationBasePur
 		
 	/**
 	 * {@inheritDoc} <br/>
-	 * "id;route;cumul;cote;"<br/>;
+	 * "id;route;cumul;cote;voie;"<br/>;
 	 */
+	@Transient
 	@Override
-	public String getEnTeteColonne(final int pI) {
+	public String getEnTeteColonne(
+			final int pI) {
 
 		String entete = null;
 
@@ -641,6 +725,10 @@ public abstract class AbstractLocalisationBasePur
 		case 3:
 			entete = "cote";
 			break;
+			
+		case 4:
+			entete = "voie";
+			break;
 
 		default:
 			entete = "invalide";
@@ -656,7 +744,7 @@ public abstract class AbstractLocalisationBasePur
 	
 	/**
 	 * {@inheritDoc} <br/>
-	 * "id;route;cumul;cote;"<br/>
+	 * "id;route;cumul;cote;voie;"<br/>
 	 */
 	@Transient
 	@Override
@@ -687,6 +775,13 @@ public abstract class AbstractLocalisationBasePur
 
 		case 3:
 			valeur = this.cote;
+			break;
+			
+		case 4:
+			if (this.voie != null) {
+				valeur = String.valueOf(this.voie);
+			}
+			
 			break;
 
 		default:
@@ -733,10 +828,27 @@ public abstract class AbstractLocalisationBasePur
 			return false;
 		}
 		
+		/* retourne false si la voie d'une des 
+		 * Localisation est null et pas la voie de l'autre. */
+		if (this.getVoie() == null) {
+			if (pLocalisation.getVoie() != null) {
+				return false;
+			}
+		}
+		
+		if (pLocalisation.getVoie() == null) {
+			if (this.getVoie() != null) {
+				return false;
+			}
+		}
+		
+		
 		/* traitement métier. */
-		/* Même route et même côté obligatoires. */
+		/* Même route, MEME LATERALISATION 
+		 * (même côté et même voie) obligatoires. */
 		if (StringUtils.equalsIgnoreCase(this.route, pLocalisation.getRoute()) 
-				&& StringUtils.equalsIgnoreCase(this.cote, pLocalisation.getCote())) {
+				&& StringUtils.equalsIgnoreCase(this.cote, pLocalisation.getCote()) 
+					&& determinerEgaliteVoies(this.voie, pLocalisation.getVoie())) {
 			
 			/* retourne toujours false si this.cumul == null. */
 			if (this.cumul == null) {
@@ -761,8 +873,46 @@ public abstract class AbstractLocalisationBasePur
 	} // Fin de devance(
 	 // ILocalisationBase pLocalisation).__________________________________
 	
-			
 
+
+	
+	/**
+	 * method determinerEgaliteVoies(
+	 * Integer pVoie1
+	 * , Integer pVoie2) :<br/>
+	 * <ul>
+	 * <li>retourne un boolean spécifiant si pVoie1 equals pVoie2.</li>
+	 * <li>retourne true si pVoie1 et pVoie2 sont non null et equals.</li>
+	 * <li>retourne true si pVoie1 et pVoie2 sont null en même temps.</li>
+	 * </ul>
+	 *
+	 * @param pVoie1 : Integer.<br/>
+	 * @param pVoie2 : Integer.<br/>
+	 * 
+	 * @return : boolean.<br/>
+	 */
+	private boolean determinerEgaliteVoies(
+			final Integer pVoie1
+				, final Integer pVoie2) {
+		
+		if (pVoie1 == null) {
+			if (pVoie2 != null) {
+				return false;
+			}
+			
+			return true;
+		}
+		
+		if (pVoie2 == null) {
+			return false;
+		}
+		
+		return pVoie1.equals(pVoie2);
+		
+	} // Fin de determinerEgaliteVoies(...)._______________________________
+
+	
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -788,11 +938,7 @@ public abstract class AbstractLocalisationBasePur
 
 
 	/**
-	 * method getRoute() :<br/>
-	 * Getter de la Route de la localisation.<br/>
-	 * <br/>
-	 *
-	 * @return route : String.<br/>
+	 * {@inheritDoc}
 	 */
 	@Column(name = "ROUTE"
 	, unique = false, nullable = true
@@ -805,13 +951,8 @@ public abstract class AbstractLocalisationBasePur
 	
 
 	/**
-	 * method setRoute(
-	 * String pRoute) :<br/>
-	 * Setter de la Route de la localisation.<br/>
-	 * <br/>
-	 *
-	 * @param pRoute : String : valeur à passer à route.<br/>
-	 */	
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setRoute(
 			final String pRoute) {		
@@ -820,13 +961,9 @@ public abstract class AbstractLocalisationBasePur
 	 // String pRoute).____________________________________________________
 	
 
-	
+		
 	/**
-	 * method getCumul() :<br/>
-	 * Getter de l'abscisse cumulée de la localisation.<br/>
-	 * <br/>
-	 *
-	 * @return cumul : Float.<br/>
+	 * {@inheritDoc}
 	 */
 	@Column(name = "CUMUL"
 	, unique = false, nullable = true
@@ -837,14 +974,9 @@ public abstract class AbstractLocalisationBasePur
 	} // Fin de getCumul().________________________________________________
 	
 	
-
+	
 	/**
-	 * method setCumul(
-	 * Float pCumul) :<br/>
-	 * Setter de l'abscisse cumulée de la localisation.<br/>
-	 * <br/>
-	 *
-	 * @param pCumul : Float.<br/>
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void setCumul(
@@ -856,12 +988,7 @@ public abstract class AbstractLocalisationBasePur
 
 		
 	/**
-	 * method getCote() :<br/>
-	 * Getter de la chaussée 
-	 * (I pour indéfini, D pour Droit, G pour Gauche).<br/>
-	 * <br/>
-	 *
-	 * @return cote : String.<br/>
+	 * {@inheritDoc}
 	 */
 	@Column(name = "COTE"
 		, unique = false, nullable = true
@@ -874,13 +1001,7 @@ public abstract class AbstractLocalisationBasePur
 
 
 	/**
-	 * method setCote(
-	 * String pCote) :<br/>
-	 * Setter de la chaussée 
-	 * (I pour indéfini, D pour Droit, G pour Gauche).<br/>
-	 * <br/>
-	 *
-	 * @param pCote : String : valeur à passer à cote.<br/>
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void setCote(
@@ -890,5 +1011,29 @@ public abstract class AbstractLocalisationBasePur
 	 // String pCote)._____________________________________________________
 
 
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Column(name = "VOIE"
+			, unique = false, nullable = true
+			, updatable = true, insertable = true)
+	@Override
+	public Integer getVoie() {	
+		return this.voie;
+	} // Fin de getVoie()._________________________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setVoie(
+			final Integer pVoie) {	
+		this.voie = pVoie;
+	} // Fin de setVoie(...).______________________________________________
+
+	
 	
 } // FIN DE LA CLASSE AbstractLocalisationBasePur.------------------------------

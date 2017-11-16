@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import levy.daniel.application.model.dao.IDaoGenericJPASpring;
 import levy.daniel.application.model.dao.metier.localisation.impl.DaoLocalisationBasePur;
-import levy.daniel.application.model.metier.localisation.AbstractLocalisationBasePur;
 import levy.daniel.application.model.services.metier.localisation.AbstractServiceLocalisationBasePur;
 
 /**
@@ -20,7 +18,7 @@ import levy.daniel.application.model.services.metier.localisation.AbstractServic
  * </li>
  * <br/>
  * <li>
- * <img src="../../../../../../../../../../../javadoc/images/implementation_SERVICEs.png" 
+ * <img src="../../../../../../../../../../../javadoc/images/implementation_SERVICEs_1.png" 
  * alt="implémentation des SERVICEs" border="1" align="center" />
  * </li>
  * <br/>
@@ -41,7 +39,6 @@ import levy.daniel.application.model.services.metier.localisation.AbstractServic
  *
  */
 @Service(value="ServiceLocalisationBasePur")
-//@Qualifier("AbstractServiceLocalisationBasePur")
 public class ServiceLocalisationBasePur 
 				extends AbstractServiceLocalisationBasePur {
 
@@ -53,15 +50,6 @@ public class ServiceLocalisationBasePur
 	 */
 	public static final String CLASSE_SERVICE_LOCALISATIONBASEPUR 
 		= "Classe ServiceLocalisationBasePur";
-	
-	
-	/**
-	 * daoLocalisationBasePur : DaoLocalisationBasePur :<br/>
-	 * DAO pour le ServiceLocalisationBasePur.<br/>
-	 */
-	@Autowired
-	@Qualifier("DaoLocalisationBasePur")
-	protected transient DaoLocalisationBasePur daoLocalisationBasePur;
 	
 	
 	/**
@@ -93,12 +81,13 @@ public class ServiceLocalisationBasePur
 	 * <br/>
 	 *
 	 * @param pDao : IDaoGenericJPASpring&lt;AbstractLocalisationBasePur, Long&gt;.<br/>
-	 */	
+	 */
+	@Autowired(required=true)
 	public ServiceLocalisationBasePur(
-			final IDaoGenericJPASpring<AbstractLocalisationBasePur, Long> pDao) {
+			@Qualifier("DaoLocalisationBasePur")
+				final DaoLocalisationBasePur pDao) {
 		
 		super(pDao);
-		this.daoLocalisationBasePur = (DaoLocalisationBasePur) pDao;
 		
 	} // Fin du CONSTRUCTEUR AVEC DAO._____________________________________
 	

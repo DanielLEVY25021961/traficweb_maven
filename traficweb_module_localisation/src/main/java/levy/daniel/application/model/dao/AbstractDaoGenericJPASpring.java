@@ -14,7 +14,6 @@ import javax.persistence.TransactionRequiredException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Repository;
 
 import levy.daniel.application.model.dao.daoexceptions.AbstractDaoException;
 import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
@@ -31,6 +30,10 @@ import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
  * pour <b>tous les objets métier</b>.
  * </li>
  * <li>Les transactions sont gérées par le conteneur SPRING.</li>
+ * <li>
+ * Certaines méthodes (getOne(ID), ...) sont 
+ * <b>compatibles SPRING DATA</b>.
+ * </li>
  * <br/>
  * <li>
  * <img src="../../../../../../../../javadoc/images/implementation_DAOs.png" 
@@ -59,8 +62,6 @@ import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
  * @since 8 sept. 2017
  *
  */
-@Repository("AbstractDaoGenericJPASpring")
-//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable> 
 											implements IDaoGenericJPASpring<T, ID> {
 
@@ -906,6 +907,37 @@ public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable>
 
 
 	
+	
+	/**
+	 * method getEntityManager() :<br/>
+	 * Getter .<br/>
+	 * <br/>
+	 *
+	 * @return entityManager : EntityManager.<br/>
+	 */
+	public EntityManager getEntityManager() {
+	
+		return this.entityManager;
+	}
+
+
+
+	
+	/**
+	* method setEntityManager(
+	* EntityManager pEntityManager) :<br/>
+	* .<br/>
+	* <br/>
+	*
+	* @param pEntityManager : EntityManager : valeur à passer à entityManager.<br/>
+	*/
+	public void setEntityManager(EntityManager pEntityManager) {
+	
+		this.entityManager = pEntityManager;
+	}
+
+
+
 	/**
 	 * {@inheritDoc}
 	 */

@@ -100,13 +100,13 @@ public class LocalisationBasePurTest {
 		// **********************************
 
 		final ILocalisationBasePur objet1 
-		= new LocalisationBasePur(2L, "A0006", 5896F, "D");
+		= new LocalisationBasePur(2L, "A0006", 5896F, "D", null);
 		
 		final ILocalisationBasePur objet2 
-		= new LocalisationBasePur(3L, "A0006", 5896F, "D");
+		= new LocalisationBasePur(3L, "A0006", 5896F, "D", null);
 		
 		final ILocalisationBasePur objet3 
-		= new LocalisationBasePur(4L, "A0006", 5896F, "D");
+		= new LocalisationBasePur(4L, "A0006", 5896F, "D", null);
 
 		
 		/* garantit le contrat Java reflexif x.equals(x). */
@@ -154,10 +154,10 @@ public class LocalisationBasePurTest {
 		}
 		
 		final ILocalisationBasePur objet1AvecNull 
-			= new LocalisationBasePur(2L, null, null, "D");
+			= new LocalisationBasePur(2L, null, null, "D", null);
 		
 		final ILocalisationBasePur objet2AvecNull 
-			= new LocalisationBasePur(3L, null, null, "D");
+			= new LocalisationBasePur(3L, null, null, "D", null);
 
 		assertEquals("objet1AvecNull.equals(objet2AvecNull) : "
 				, objet1AvecNull
@@ -198,10 +198,10 @@ public class LocalisationBasePurTest {
 		/* garantit le bon fonctionnement de equals() 
 		 * en cas d'inégalité métier. */
 		final ILocalisationBasePur objetDiff1 
-			= new LocalisationBasePur(2L, "A0006", 5896F, "D");
+			= new LocalisationBasePur(2L, "A0006", 5896F, "D", 1);
 		
 		final ILocalisationBasePur objetDiff2 
-			= new LocalisationBasePur(3L, "A0086", 5896F, "D");
+			= new LocalisationBasePur(3L, "A0086", 5896F, "D", 2);
 		
 		assertFalse("objetDiff1 PAS equals(objetDiff2) : "
 				, objetDiff1.equals(objetDiff2));
@@ -244,15 +244,15 @@ public class LocalisationBasePurTest {
 		// **********************************
 
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(2L, "A0006", 5896F, "D");
+			= new LocalisationBasePur(2L, "A0006", 5896F, "D", 1);
 		
 		final ILocalisationBasePur objet1MemeInstance = objet1;
 		
 		final ILocalisationBasePur objetEquals1 
-			= new LocalisationBasePur(10L, "N0221", 5896.23F, "G");
+			= new LocalisationBasePur(10L, "N0221", 5896.23F, "G", 2);
 		
 		final ILocalisationBasePur objetEquals2 
-			= new LocalisationBasePur(11L, "N0221", 5896.23F, "G");
+			= new LocalisationBasePur(11L, "N0221", 5896.23F, "G", 2);
 
 		final ILocalisationBasePur objetNull1 
 		= new LocalisationBasePur();
@@ -261,10 +261,10 @@ public class LocalisationBasePurTest {
 			= new LocalisationBasePur();
 				
 		final ILocalisationBasePur objetCompAvant1 
-			= new LocalisationBasePur(3L, "A0006", 5896F, "D");
+			= new LocalisationBasePur(3L, "A0006", 5896F, "D", 3);
 
 		final ILocalisationBasePur objetCompApres2 
-			= new LocalisationBasePur(3L, "A0086", 5896F, "D");
+			= new LocalisationBasePur(3L, "A0086", 5896F, "D", 3);
 
 	
 		/* garantit que compareTo(memeInstance) retourne 0. */		
@@ -365,7 +365,7 @@ public class LocalisationBasePurTest {
 			= (ILocalisationBasePur) objetNull1.clone();
 		
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(23L, "N0844", 5698.36F, "G");
+			= new LocalisationBasePur(23L, "N0844", 5698.36F, "G", null);
 		
 		final ILocalisationBasePur objetClone1 
 		= (ILocalisationBasePur) objet1.clone();
@@ -425,12 +425,12 @@ public class LocalisationBasePurTest {
 			= new LocalisationBasePur();
 		
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(2L, "A0006", 5896F, "D");
+			= new LocalisationBasePur(2L, "A0006", 5896F, "D", 1);
 
 		
 		/* garantit que les null sont bien gérés dans toString(). */
 		assertEquals("objetNull.toString() retourne une chaine : "
-				, "[id : null - route : null - cumul : null - cote : null]"
+				, "[id : null - route : null - cumul : null - cote : null - voie : null]"
 						, objetNull.toString());
 		
 		/* AFFICHAGE A LA CONSOLE. */
@@ -440,7 +440,7 @@ public class LocalisationBasePurTest {
 		
 		/* garantit le bon affichage de toString(). */
 		assertEquals("affichage : "
-				, "[id : 2 - route : A0006 - cumul : 5896.0 - cote : D]"
+				, "[id : 2 - route : A0006 - cumul : 5896.0 - cote : D - voie : 1]"
 						, objet1.toString());
 		
 		/* AFFICHAGE A LA CONSOLE. */
@@ -468,13 +468,13 @@ public class LocalisationBasePurTest {
 		// **********************************
 
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(2L, "A0006", 5896F, "D");
+			= new LocalisationBasePur(2L, "A0006", 5896F, "D", null);
 
 		/* garantit que getEnTeteCsv() retourne le bon en-tête csv. */
 		final String entete = objet1.getEnTeteCsv();
 		
 		assertEquals("en-tête csv : "
-				, "id;route;cumul;cote;"
+				, "id;route;cumul;cote;voie;"
 					, entete);
 		
 		/* AFFICHAGE A LA CONSOLE. */
@@ -506,26 +506,25 @@ public class LocalisationBasePurTest {
 		= new LocalisationBasePur();
 	
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G");
+			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G", null);
 		
 		/* garantit que les null sont gérés dans toStringCsv(). */
 		final String ligneCsvNull = objetNull.toStringCsv();
-		
+						
 		assertEquals("ligne csv null : "
-				, "null;null;null;null;"
+				, "null;null;null;null;null;"
 					, ligneCsvNull);
 		
 		/* AFFICHAGE A LA CONSOLE. */
 		if (AFFICHAGE_GENERAL && affichage) {			
 			System.out.println(ligneCsvNull);
 		}
-		
-		
+						
 		/* garantit que toStringCsv() retourne la bonne ligne csv. */
 		final String ligneCsv = objet1.toStringCsv();
 		
 		assertEquals("ligne csv : "
-				, "27;N0186;5896.36;G;"
+				, "27;N0186;5896.36;G;null;"
 					, ligneCsv);
 		
 		/* AFFICHAGE A LA CONSOLE. */
@@ -559,7 +558,7 @@ public class LocalisationBasePurTest {
 		= new LocalisationBasePur();
 	
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G");
+			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G", null);
 		
 		/* garantit que les null sont gérés 
 		 * dans getEnTeteColonne(int pI). */
@@ -611,7 +610,7 @@ public class LocalisationBasePurTest {
 		= new LocalisationBasePur();
 	
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G");
+			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G", 2);
 		
 		/* garantit que les null sont gérés 
 		 * dans getValeurColonne(int pI). */
@@ -619,11 +618,13 @@ public class LocalisationBasePurTest {
 		final String valeurNull1 = (String) objetNull.getValeurColonne(1);
 		final String valeurNull2 = (String) objetNull.getValeurColonne(2);
 		final String valeurNull3 = (String) objetNull.getValeurColonne(3);
+		final String valeurNull4 = (String) objetNull.getValeurColonne(4);
 		
 		assertEquals("valeurNull0 : ", null, valeurNull0);
 		assertEquals("valeurNull1 : ", null, valeurNull1);
 		assertEquals("valeurNull2 : ", null, valeurNull2);
 		assertEquals("valeurNull3 : ", null, valeurNull3);
+		assertEquals("valeurNull4 : ", null, valeurNull4);
 
 		/* AFFICHAGE A LA CONSOLE. */
 		if (AFFICHAGE_GENERAL && affichage) {			
@@ -631,6 +632,7 @@ public class LocalisationBasePurTest {
 			System.out.println("valeurNull1 : " + valeurNull1);			
 			System.out.println("valeurNull2 : " + valeurNull2);
 			System.out.println("valeurNull3 : " + valeurNull3);
+			System.out.println("valeurNull4 : " + valeurNull4);
 		}
 
 		
@@ -640,11 +642,13 @@ public class LocalisationBasePurTest {
 		final String valeur1 = (String) objet1.getValeurColonne(1);		
 		final String valeur2 = (String) objet1.getValeurColonne(2);
 		final String valeur3 = (String) objet1.getValeurColonne(3);
+		final String valeur4 = (String) objet1.getValeurColonne(4);
 		
 		assertEquals("valeur0 : ", "27", valeur0);		
 		assertEquals("valeur1 : ", "N0186", valeur1);
 		assertEquals("valeur2 : ", "5896.36", valeur2);
 		assertEquals("valeur3 : ", "G", valeur3);
+		assertEquals("valeur4 : ", "2", valeur4);
 		
 		/* AFFICHAGE A LA CONSOLE. */
 		if (AFFICHAGE_GENERAL && affichage) {			
@@ -652,6 +656,7 @@ public class LocalisationBasePurTest {
 			System.out.println("valeur1 : " + valeur1);			
 			System.out.println("valeur2 : " + valeur2);
 			System.out.println("valeur3 : " + valeur3);
+			System.out.println("valeur4 : " + valeur4);
 		}
 
 	} // Fin de testGetValeurColonne().____________________________________
@@ -683,31 +688,31 @@ public class LocalisationBasePurTest {
 		// **********************************
 
 		final ILocalisationBasePur objet1 
-			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G");
+			= new LocalisationBasePur(27L, "N0186", 5896.36F, "G", null);
 		
 		final ILocalisationBasePur objetSansRoute1 
-			= new LocalisationBasePur(27L, null, 5896.36F, "G");
+			= new LocalisationBasePur(27L, null, 5896.36F, "G", null);
 		
 		final ILocalisationBasePur objetAvecRouteSansCote1 
-			= new LocalisationBasePur(27L, "N0186", 5896.36F, null);
+			= new LocalisationBasePur(27L, "N0186", 5896.36F, null, null);
 		
 		final ILocalisationBasePur objet2 
-			= new LocalisationBasePur(27L, "N0186", 8888.88F, "G");
+			= new LocalisationBasePur(27L, "N0186", 8888.88F, "G", null);
 		
 		final ILocalisationBasePur objet3 
-			= new LocalisationBasePur(27L, "N0186", 1000F, "G");
+			= new LocalisationBasePur(27L, "N0186", 1000F, "G", null);
 		
 		final ILocalisationBasePur objetRouteDiff 
-			= new LocalisationBasePur(27L, "A0186", 8888.88F, "G");
+			= new LocalisationBasePur(27L, "A0186", 8888.88F, "G", null);
 		
 		final ILocalisationBasePur objetCoteDiff 
-			= new LocalisationBasePur(27L, "A0186", 8888.88F, "D");
+			= new LocalisationBasePur(27L, "A0186", 8888.88F, "D", null);
 		
 		final ILocalisationBasePur objetCumulNull1 
-			= new LocalisationBasePur(27L, "N0186", null, "G");
+			= new LocalisationBasePur(27L, "N0186", null, "G", null);
 		
 		final ILocalisationBasePur objetCumulNull2 
-			= new LocalisationBasePur(27L, "N0186", null, "G");
+			= new LocalisationBasePur(27L, "N0186", null, "G", null);
 		
 		
 		/* garantit que x.devance(null) retourne toujours false. */

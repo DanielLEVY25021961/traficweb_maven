@@ -14,6 +14,10 @@ import levy.daniel.application.model.dao.metier.localisation.AbstractDaoLocalisa
  * <li>
  * HERITE DU DAO ABSTRAIT AbstractDaoLocalisationBasePur.
  * </li>
+ * <li>
+ * Certaines méthodes (getOne(ID), ...) sont 
+ * <b>compatibles SPRING DATA</b>.
+ * </li>
  * <br/>
  * <li>
  * <img src="../../../../../../../../../../../javadoc/images/implementation_DAOs.png" 
@@ -38,9 +42,7 @@ import levy.daniel.application.model.dao.metier.localisation.AbstractDaoLocalisa
  * @since 7 nov. 2017
  *
  */
-@Repository("DaoLocalisationBasePur")
-//@Qualifier("AbstractDaoLocalisationBasePur")
-//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Repository(value="DaoLocalisationBasePur")
 public class DaoLocalisationBasePur extends AbstractDaoLocalisationBasePur {
 
 	// ************************ATTRIBUTS************************************/

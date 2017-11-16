@@ -7,9 +7,11 @@ import javax.persistence.TransactionRequiredException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.exception.SQLGrammarException;
 import org.postgresql.util.PSQLException;
 
 import levy.daniel.application.model.dao.daoexceptions.technical.impl.DaoDoublonException;
+import levy.daniel.application.model.dao.daoexceptions.technical.impl.DaoPSQLException;
 import levy.daniel.application.model.dao.daoexceptions.technical.impl.DaoTransactionException;
 
 /**
@@ -37,6 +39,32 @@ public class GestionnaireDaoException {
 
 	// ************************ATTRIBUTS************************************/
 
+	/**
+	 * CLASSE_GESTIONNAIREDAOEXCEPTION : String :<br/>
+	 * "Classe GestionnaireDaoException".<br/>
+	 */
+	public static final String CLASSE_GESTIONNAIREDAOEXCEPTION 
+		= "Classe GestionnaireDaoException";
+
+	
+	/**
+	 * METHOD_GEREREXCEPTION : String :<br/>
+	 * "Méthode gererException(Exception pE)".<br/>
+	 */
+	public static final String METHOD_GEREREXCEPTION 
+		= "Méthode gererException(Exception pE)";
+	
+	
+	/**
+	 * METHOD_GERER_DOUBLONS : String :<br/>
+	 * "Méthode gererDoublon(Exception pE
+	 * , Throwable pCauseMere, Throwable pCauseGrandMere)".<br/>
+	 */
+	public static final String METHOD_GERER_DOUBLONS 
+		= "Méthode gererDoublon(Exception pE"
+				+ ", Throwable pCauseMere, Throwable pCauseGrandMere)";
+	
+	
 	/**
 	 * TIRET_AERE : String :<br/>
 	 * " - ".<br/>
@@ -86,10 +114,61 @@ public class GestionnaireDaoException {
 		if (causeMere != null) {
 			causeGrandMere = causeMere.getCause();
 		}
+
 		
-		
-		/* Violation de contraintes. */
+		/* Violation de contraintes ou Tables absentes. */
 		if (pE instanceof PersistenceException) {
+			
+			/* Tables absentes. */
+			if (causeMere != null 
+					&& causeMere instanceof SQLGrammarException) {
+				
+				final String baseMessage = "PROBLEME GRAVE POSTGRESQL";
+				final String baseUtilisateur = "Prévenez le centre serveur";
+				
+				String messageUtilisateur = null;			
+				String messageTechnique = null;
+			
+				if (causeGrandMere != null && causeGrandMere instanceof PSQLException) {
+					
+					messageUtilisateur 
+						= baseMessage + TIRET_AERE 
+						+ causeGrandMere.getMessage() + TIRET_AERE 
+						+ baseUtilisateur;
+					
+					messageTechnique 
+						= CLASSE_GESTIONNAIREDAOEXCEPTION + TIRET_AERE 
+						+ METHOD_GEREREXCEPTION + TIRET_AERE 
+						+ baseMessage + TIRET_AERE 
+						+ causeGrandMere.getMessage() + TIRET_AERE 
+						+ pE.getMessage();
+					
+				} else {
+					
+					messageUtilisateur 
+					= baseMessage + TIRET_AERE 
+					+ baseUtilisateur;
+					
+					messageTechnique 
+					= CLASSE_GESTIONNAIREDAOEXCEPTION + TIRET_AERE 
+						+ METHOD_GEREREXCEPTION + TIRET_AERE 
+						+ baseMessage + TIRET_AERE 
+						+ pE.getMessage();
+					
+				}
+								
+				final DaoPSQLException daoPSQLExc 
+				= new DaoPSQLException(pE.getMessage(), pE);
+				
+				daoPSQLExc.setMessageUtilisateur(messageUtilisateur);
+				daoPSQLExc.setMessageTechnique(messageTechnique);
+				
+				if (LOG.isFatalEnabled()) {
+					LOG.fatal(messageUtilisateur, pE);
+				}
+				
+				throw daoPSQLExc;						
+			}
 			
 			/* Problème de transaction. */
 			if (pE instanceof TransactionRequiredException) {
@@ -114,7 +193,7 @@ public class GestionnaireDaoException {
 				
 				throw daoTransactionExc;			
 			}
-			
+						
 			/* problème de doublon. */
 			gererDoublon(pE, causeMere, causeGrandMere);			
 		}
@@ -158,7 +237,10 @@ public class GestionnaireDaoException {
 									pCauseGrandMere.getMessage());
 				
 				final String messageTechnique 
-					= "TENTATIVE DE CREATION DE DOUBLON - "
+					= CLASSE_GESTIONNAIREDAOEXCEPTION + TIRET_AERE
+						+ METHOD_GERER_DOUBLONS + TIRET_AERE
+						+ "TENTATIVE DE CREATION DE DOUBLON"
+						+ TIRET_AERE
 						+ pCauseGrandMere.getMessage() 
 						+ TIRET_AERE 
 						+ pCauseGrandMere.getClass().getName();
@@ -170,6 +252,10 @@ public class GestionnaireDaoException {
 				
 				daoDoublonExc.setMessageUtilisateur(messageUtilisateur);
 				daoDoublonExc.setMessageTechnique(messageTechnique);
+				
+				if (LOG.isDebugEnabled()) {
+					LOG.debug(messageUtilisateur, pCauseGrandMere);
+				}
 				
 				throw daoDoublonExc;
 				
