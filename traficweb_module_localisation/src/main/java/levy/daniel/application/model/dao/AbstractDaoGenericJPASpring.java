@@ -907,6 +907,37 @@ public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable>
 
 
 	
+	
+	/**
+	 * method getEntityManager() :<br/>
+	 * Getter .<br/>
+	 * <br/>
+	 *
+	 * @return entityManager : EntityManager.<br/>
+	 */
+	public EntityManager getEntityManager() {
+	
+		return this.entityManager;
+	}
+
+
+
+	
+	/**
+	* method setEntityManager(
+	* EntityManager pEntityManager) :<br/>
+	* .<br/>
+	* <br/>
+	*
+	* @param pEntityManager : EntityManager : valeur à passer à entityManager.<br/>
+	*/
+	public void setEntityManager(EntityManager pEntityManager) {
+	
+		this.entityManager = pEntityManager;
+	}
+
+
+
 	/**
 	 * {@inheritDoc}
 	 */
