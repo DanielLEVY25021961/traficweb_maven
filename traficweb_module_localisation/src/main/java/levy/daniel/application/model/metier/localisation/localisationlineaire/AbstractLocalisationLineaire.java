@@ -3,9 +3,11 @@ package levy.daniel.application.model.metier.localisation.localisationlineaire;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.Index;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,6 +30,12 @@ import levy.daniel.application.model.metier.localisation.ILocalisationBasePur;
  * <li><b>cote</b></li>
  * <li><b>voie</b></li>
  * </ul>
+ * <li>Introduit :</li>
+ * <ul>
+ * <li><b>plo</b></li>
+ * <li><b>abs</b> : ATTENTION, c'est une abscisse de PLO 
+ * (peut donc être négatif contrairement aux abscisses de PR)</li>
+ * </ul>
  * </ul>
  * <br/>
  *
@@ -47,7 +55,10 @@ import levy.daniel.application.model.metier.localisation.ILocalisationBasePur;
  *
  */
 @Entity(name="AbstractLocalisationLineaire")
-@Table(name = "ABSTRACT_LOCALISATIONS_LINEAIRES", schema = "PUBLIC")
+@Table(name = "ABSTRACT_LOCALISATIONS_LINEAIRES", schema = "PUBLIC"
+, uniqueConstraints=@UniqueConstraint(name="UNICITE_ROUTE_LATERALISATION_PLO_ABS"
+, columnNames={"ROUTE", "COTE", "VOIE", "PLO", "ABSCISSE"})
+, indexes={@Index(name = "INDEX_ROUTE_LATERALISATION_PLO_ABS", columnList= "ROUTE, COTE, VOIE, PLO, ABSCISSE")})
 @PrimaryKeyJoinColumn(name = "ID_ABSTRACTLOCALISATIONBASEPUR"
 , foreignKey=@ForeignKey(name="FK_ABSTRACTLOCALISATIONLINEAIRE_ABSTRACTLOCALISATIONBASEPUR"))
 public abstract class AbstractLocalisationLineaire 
@@ -455,15 +466,13 @@ public abstract class AbstractLocalisationLineaire
 	} // Fin de clone().___________________________________________________
 
 
-	
+
 	/**
-	 * method toString() :<br/>
+	 * {@inheritDoc}<br/>
 	 * <ul>
 	 * <li>Affichage d'une Localisation Linéaire.</li>
-	 * <li>[id - route - cumul - cote - plo - abs]</li>
+	 * <li>[id - route - cumul - cote - voie - plo - abs]</li>
 	 * </ul>
-	 *
-	 * @return String.<br/>
 	 */
 	@Override
 	public String toString() {
@@ -508,6 +517,16 @@ public abstract class AbstractLocalisationLineaire
 		
 		stb.append(SEPARATEUR_MOINS_AERE);
 		
+		/* voie. */
+		stb.append("voie : ");
+		if (this.voie != null) {
+			stb.append(this.voie);
+		} else {
+			stb.append(NULL);
+		}
+		
+		stb.append(SEPARATEUR_MOINS_AERE);
+		
 		stb.append("plo : ");
 		if (this.plo != null) {
 			stb.append(this.plo);
@@ -531,15 +550,12 @@ public abstract class AbstractLocalisationLineaire
 	} // Fin de toString().________________________________________________
 	
 
-		
+	
 	/**
-	 * method getEnTeteCsv() :<br/>
-	 * <ul>
-	 * <li>Retourne l'En-Tête pour les fichiers CSV de Localisation.</li>
-	 * <li>"id;route;cumul;cote;voie;plo;abs;".</li>
-	 * </ul>
-	 *
-	 * @return : String : En-Tête de la Localisation en CSV.<br/>
+	 * {@inheritDoc}
+	 * <br/>
+	 * "id;route;cumul;cote;voie;plo;abs;".<br/>
+	 * <br/>
 	 */
 	@Transient
 	@Override
@@ -564,14 +580,15 @@ public abstract class AbstractLocalisationLineaire
 	
 	
 	/**
-	 * method toStringCsv() :<br/>
-	 * Retourne la localisation en CSV avec le séparateur
-	 * ";" correspondant à l'en-tête fourni par getEnTeteCsv().<br/>
-	 * L'ordre des champs est :<br/>
-	 * "id;route;cumul;cote;voie;plo;abs;".<br/>
-	 * <br/>
-	 *
-	 * @return : String.<br/>
+	 * {@inheritDoc}
+	 * <ul>
+	 * <li>Retourne la localisation en CSV avec le séparateur
+	 * ";" correspondant à l'en-tête fourni par getEnTeteCsv().</li>
+	 * <li>L'ordre des champs est :<br/>
+	 * "id;route;cumul;cote;voie;plo;abs;".</li>
+	 * <li>Remplace les valeurs null par "null" comme 
+	 * dans "27;N0186;5896.36;G;null;" avec une voie=null.</li>
+	 * </ul>
 	 */
 	@Override
 	public String toStringCsv() {
@@ -593,20 +610,10 @@ public abstract class AbstractLocalisationLineaire
 	
 	
 
-	
 	/**
-	 * method getEnTeteColonne(
-	 * int pI) :<br/>
-	 * <ul>
-	 * <li>Fournit l'en-tête de la pIème colonne (0-based) 
-	 * pour affichage dans une JTable par exemple.</li>
-	 * <li>Suit l'ordre défini dans le csv : <br/>
-	 * "id;route;cumul;cote;voie;plo;abs;".</li>
-	 * </ul>
-	 *
-	 * @param pI : int : pIème colonne (0 - based).<br/>
-	 * 
-	 * @return : String : En-tête de la pIème colonne (0 - based).<br/>
+	 * {@inheritDoc} <br/>
+	 * "id;route;cumul;cote;voie;plo;abs;".<br/>
+	 * <br/>
 	 */
 	@Transient
 	@Override
@@ -615,17 +622,17 @@ public abstract class AbstractLocalisationLineaire
 		
 		String entete = null;
 		
-		if (pI < 4) {
+		if (pI < 5) {
 			return super.getEnTeteColonne(pI);
 		}
 		
 		switch (pI) {
 
-		case 4:
+		case 5:
 			entete = "plo";
 			break;
 
-		case 5:
+		case 6:
 			entete = "abs";
 			break;
 
@@ -640,21 +647,12 @@ public abstract class AbstractLocalisationLineaire
 	} // Fin de getEnTeteColonne(
 	 // int pI).___________________________________________________________
 	
-	
+
 	
 	/**
-	 * method getValeurColonne(
-	 * int pI) :<br/>
-	 * <ul>
-	 * <li>Fournit la valeur de la pIème colonne (0-based) 
-	 * pour affichage dans une JTable par exemple.</li>
-	 * <li>Suit l'ordre défini dans le csv : <br/>
-	 * "id;route;cumul;cote;voie;plo;abs;".</li>
-	 * </ul>
-	 *
-	 * @param pI : int : pIème colonne (0 - based).<br/>
-	 * 
-	 * @return : Object : valeur de la pIème colonne (0 - based).<br/>
+	 * {@inheritDoc} <br/>
+	 * "id;route;cumul;cote;voie;plo;abs;".<br/>
+	 * <br/>
 	 */
 	@Transient
 	@Override
@@ -663,18 +661,21 @@ public abstract class AbstractLocalisationLineaire
 		
 		Object valeur = null;
 		
-		if (pI < 4) {
+		if (pI < 5) {
 			return super.getValeurColonne(pI);
 		}
 		
 		switch (pI) {
 
-		case 4:
+		case 5:
 			valeur = this.plo;
 			break;
 
-		case 5:
-			valeur = this.abs;
+		case 6:
+			if (this.abs != null) {
+				valeur = String.valueOf(this.abs);
+			}
+			
 			break;
 
 		default:

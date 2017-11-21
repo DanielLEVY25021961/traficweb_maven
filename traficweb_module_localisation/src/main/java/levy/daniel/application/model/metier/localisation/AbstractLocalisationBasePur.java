@@ -572,11 +572,9 @@ public abstract class AbstractLocalisationBasePur
 
 	
 	/**
-	 * method toString() :<br/>
-	 * Affichage d'une Localisation.<br/>
+	 * {@inheritDoc}<br/>
+	 *  Affichage d'une Localisation.<br/>
 	 * <br/>
-	 *
-	 * @return String.<br/>
 	 */
 	@Override
 	public String toString() {
@@ -635,15 +633,12 @@ public abstract class AbstractLocalisationBasePur
 	} // Fin de toString().________________________________________________
 	
 
-	
+		
 	/**
-	 * method getEnTeteCsv() :<br/>
-	 * Retourne l'En-Tête pour les fichiers CSV de Localisation.<br/>
+	 * {@inheritDoc}
 	 * <br/>
 	 * id;route;cumul;cote;voie;<br/>
 	 * <br/>
-	 *
-	 * @return : String : En-Tête de la Localisation en CSV.<br/>
 	 */
 	@Transient
 	@Override
@@ -672,8 +667,9 @@ public abstract class AbstractLocalisationBasePur
 	
 	
 	
+	
 	/**
-	 * method toStringCsv() :<br/>
+	 * {@inheritDoc}
 	 * <ul>
 	 * <li>Retourne la localisation en CSV avec le séparateur
 	 * ";" correspondant à l'en-tête fourni par getEnTeteCsv().</li>
@@ -682,8 +678,6 @@ public abstract class AbstractLocalisationBasePur
 	 * <li>Remplace les valeurs null par "null" comme 
 	 * dans "27;N0186;5896.36;G;null;" avec une voie=null.</li>
 	 * </ul>
-	 *
-	 * @return : String.<br/>
 	 */
 	@Override
 	public String toStringCsv() {
@@ -718,7 +712,8 @@ public abstract class AbstractLocalisationBasePur
 		
 	/**
 	 * {@inheritDoc} <br/>
-	 * "id;route;cumul;cote;voie;"<br/>;
+	 * "id;route;cumul;cote;voie;"<br/>
+	 * <br/>
 	 */
 	@Transient
 	@Override
