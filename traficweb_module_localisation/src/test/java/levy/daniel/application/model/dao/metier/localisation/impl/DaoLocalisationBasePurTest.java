@@ -70,7 +70,13 @@ public class DaoLocalisationBasePurTest {
 	
 
 
+	/**
+	 * entityManagerFactory : EntityManagerFactory :<br/>
+	 * .<br/>
+	 */
 	public transient EntityManagerFactory entityManagerFactory;
+
+	
 	
 	/**
 	 * entityManager : javax.persistence.EntityManager :<br/>
