@@ -6,14 +6,36 @@ import levy.daniel.application.model.metier.IExportateurJTable;
 /**
  * INTERFACE ILocalisationBasePur :<br/>
  * INTERFACE factorisant tous les comportements 
- * des LocalisationPur.
+ * des LocalisationBasePur.
  * <ul>
- * Garantit que tous les LocalisationPur :<br/>
- * <li>Connaitront leur identifiant en base id.</li>
- * <li>Connaitront leur route.</li>
- * <li>Connaitront éventuellement leur abscisse cumulée.</li>
- * <li>Connaitront leur cote (Chaussée I, D, ou G).</li>
- * <li>Connaitront leur voie.</li>
+ * <li>Un <b>même</b> point routier peut être localisé selon les 3 modes suivants : </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/modes_localisation.png" 
+ * alt="les 3 modes de localisation" border="1" align="center" />
+ * </li>
+ * <br/>
+ * <li>
+ * On peut <b>factoriser</b> ces 3 modes de localisation en faisant 
+ * apparaitre le concept de <b>LocalisationBasePur</b> 
+ * [route + cumul + cote + voie] : 
+ * </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/modes_localisation_factorises.png" 
+ * alt="les 3 modes de localisation" border="1" align="center" />
+ * </li>
+ * <br/>
+ * </ul>
+ * <br/>
+ * <ul>
+ * L' INTERFACE ILocalisationBasePur garantit que tous les LocalisationBasePur :<br/>
+ * <li>Connaitront leur identifiant en base <b>id</b>.</li>
+ * <li>Connaitront leur <b>route</b>.</li>
+ * <li>Connaitront <i>éventuellement</i> leur abscisse cumulée <b>cumul</b>.</li>
+ * <li>Connaitront leur <b>cote</b> 
+ * (Chaussée "I", "D", ou "G", "I" pour un côté indéterminé).</li>
+ * <li>Connaitront leur <b>voie</b> (100 pour une voie indéterminée).</li>
  * <li>Implémenteront un Comparator.<br/>
  * <li>Pourront être clonés.</li>
  * <li>sauront si une Localisation sur la même route 

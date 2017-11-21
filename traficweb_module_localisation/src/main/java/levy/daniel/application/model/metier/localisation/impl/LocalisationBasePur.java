@@ -14,7 +14,27 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
 /**
  * class LocalisationBasePur :<br/>
  * <ul>
- * <li>CLASSE CONCRETE modélisant les LocalisationBasePur.</li>
+ * <li>Un <b>même</b> point routier peut être localisé selon les 3 modes suivants : </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../../javadoc/images/modes_localisation.png" 
+ * alt="les 3 modes de localisation" border="1" align="center" />
+ * </li>
+ * <br/>
+ * <li>
+ * On peut <b>factoriser</b> ces 3 modes de localisation en faisant 
+ * apparaitre le concept de <b>LocalisationBasePur</b> 
+ * [route + cumul + cote + voie] : 
+ * </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../../javadoc/images/modes_localisation_factorises.png" 
+ * alt="les 3 modes de localisation" border="1" align="center" />
+ * </li>
+ * <br/>
+ * <ul>
+ * <li>la CLASSE CONCRETE LocalisationBasePur modélise les LocalisationBasePur. 
+ * Elle n'est utile que pour les TESTS.</li>
  * <li>HERITE de AbstractLocalisationBasePur.</li>
  * <br/>
  * <li>

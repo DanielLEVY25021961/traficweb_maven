@@ -26,7 +26,26 @@ import org.apache.commons.logging.LogFactory;
  * CLASSE ABSTRAITE factorisant tous les attributs et comportements 
  * des LocalisationBasePur.
  * <ul>
- * <li>IMPLEMENTE ILocalisationBasePur.</li>
+ * <li>Un <b>même</b> point routier peut être localisé selon les 3 modes suivants : </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/modes_localisation.png" 
+ * alt="les 3 modes de localisation" border="1" align="center" />
+ * </li>
+ * <br/>
+ * <li>
+ * On peut <b>factoriser</b> ces 3 modes de localisation en faisant 
+ * apparaitre le concept de <b>LocalisationBasePur</b> 
+ * [route + cumul + cote + voie] : 
+ * </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/modes_localisation_factorises.png" 
+ * alt="les 3 modes de localisation" border="1" align="center" />
+ * </li>
+ * <br/>
+ * <ul>
+ * <li>la CLASSE ABSTRAITE AbstractLocalisationBasePur IMPLEMENTE ILocalisationBasePur.</li>
  * <br/>
  * <li>
  * <img src="../../../../../../../../../javadoc/images/localisation_pures.png" 

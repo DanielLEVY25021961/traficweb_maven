@@ -38,6 +38,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	<artifactId>traficweb_module_localisation</artifactId>
 	<!-- name est utilisé par Eclipse pour générer le projet module -->
 	<name>traficweb_module_localisation</name>
+	<!-- Description du module.  -->
 	<description>classes définissant les localisations FEOR et Les Objets Routiers Simples comme les section de trafic (ORS)</description>
 
 
