@@ -10,12 +10,10 @@ import org.junit.Test;
 
 import levy.daniel.application.model.metier.localisation.localisationlineaire.ILocalisationLineaire;
 
-
-
 /**
- * class LocalisationPloConstructionTest :<br/>
+ * class LocalisationPloTypePRTest :<br/>
  * <ul>
- * <li>Test JUnit de la classe LocalisationPloConstruction.</li>
+ * <li>Test JUnit de la classe LocalisationPloTypePR.</li>
  * </ul>
  * <br/>
  *
@@ -34,7 +32,7 @@ import levy.daniel.application.model.metier.localisation.localisationlineaire.IL
  * @since 21 nov. 2017
  *
  */
-public class LocalisationPloConstructionTest {
+public class LocalisationPloTypePRTest {
 
 	// ************************ATTRIBUTS************************************/
 	
@@ -53,23 +51,24 @@ public class LocalisationPloConstructionTest {
 	= "--------------------------------------------------------";
 
 
+
 	/**
 	 * LOG : Log : 
 	 * Logger pour Log4j (utilisant commons-logging).
 	 */
 	private static final Log LOG 
-		= LogFactory.getLog(LocalisationPloConstructionTest.class);
-
+		= LogFactory.getLog(LocalisationPloTypePRTest.class);
 	
-	// *************************METHODES************************************/
 
+	// *************************METHODES************************************/
+	
 	
 	 /**
-	 * method CONSTRUCTEUR LocalisationPloConstructionTest() :<br/>
+	 * method CONSTRUCTEUR LocalisationPloTypePRTest() :<br/>
 	 * CONSTRUCTEUR D'ARITE NULLE.<br/>
 	 * <br/>
 	 */
-	public LocalisationPloConstructionTest() {
+	public LocalisationPloTypePRTest() {
 		super();
 	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 	
@@ -105,13 +104,13 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objet1 
-		= new LocalisationPloConstruction(2L, "A0006", 5896F, "D", null, "73PR7DC", 785F);
+		= new LocalisationPloTypePR(2L, "A0006", 5896F, "D", null, "73PR7DC", 785F);
 		
 		final ILocalisationLineaire objet2 
-		= new LocalisationPloConstruction(3L, "A0006", 5896F, "D", null, "73PR7DC", 785F);
+		= new LocalisationPloTypePR(3L, "A0006", 5896F, "D", null, "73PR7DC", 785F);
 		
 		final ILocalisationLineaire objet3 
-		= new LocalisationPloConstruction(4L, "A0006", 5896F, "D", null, "73PR7DC", 785F);
+		= new LocalisationPloTypePR(4L, "A0006", 5896F, "D", null, "73PR7DC", 785F);
 
 		
 		/* garantit le contrat Java reflexif x.equals(x). */
@@ -139,9 +138,9 @@ public class LocalisationPloConstructionTest {
 				
 		/* garantit que les null sont bien gérés dans equals(...). */
 		final ILocalisationLineaire objetNull1 
-			= new LocalisationPloConstruction();
+			= new LocalisationPloTypePR();
 		final ILocalisationLineaire objetNull2 
-			= new LocalisationPloConstruction();
+			= new LocalisationPloTypePR();
 
 		assertEquals("objetNull1.equals(objetNull2) : "
 				, objetNull1
@@ -159,10 +158,10 @@ public class LocalisationPloConstructionTest {
 		}
 		
 		final ILocalisationLineaire objet1AvecNull 
-			= new LocalisationPloConstruction(2L, null, null, "D", null, null, null);
+			= new LocalisationPloTypePR(2L, null, null, "D", null, null, null);
 		
 		final ILocalisationLineaire objet2AvecNull 
-			= new LocalisationPloConstruction(3L, null, null, "D", null, null, null);
+			= new LocalisationPloTypePR(3L, null, null, "D", null, null, null);
 
 		assertEquals("objet1AvecNull.equals(objet2AvecNull) : "
 				, objet1AvecNull
@@ -203,10 +202,10 @@ public class LocalisationPloConstructionTest {
 		/* garantit le bon fonctionnement de equals() 
 		 * en cas d'inégalité métier. */
 		final ILocalisationLineaire objetDiff1 
-			= new LocalisationPloConstruction(2L, "A0006", 5896F, "D", 1, "75PR5D", 563.21F);
+			= new LocalisationPloTypePR(2L, "A0006", 5896F, "D", 1, "75PR5D", 563.21F);
 		
 		final ILocalisationLineaire objetDiff2 
-			= new LocalisationPloConstruction(3L, "A0087", 5896F, "D", 2, "75PR5D", 563.21F);
+			= new LocalisationPloTypePR(3L, "A0087", 5896F, "D", 2, "75PR5D", 563.21F);
 		
 		assertFalse("objetDiff1 PAS equals(objetDiff2) : "
 				, objetDiff1.equals(objetDiff2));
@@ -249,27 +248,27 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(2L, "A0006", 5896F, "D", 1, "73PR7DC", 785F);
+			= new LocalisationPloTypePR(2L, "A0006", 5896F, "D", 1, "73PR7DC", 785F);
 		
 		final ILocalisationLineaire objet1MemeInstance = objet1;
 		
 		final ILocalisationLineaire objetEquals1 
-			= new LocalisationPloConstruction(10L, "N0221", 5896.23F, "G", 2, "37PR88GC", 78.20F);
+			= new LocalisationPloTypePR(10L, "N0221", 5896.23F, "G", 2, "37PR88GC", 78.20F);
 		
 		final ILocalisationLineaire objetEquals2 
-			= new LocalisationPloConstruction(11L, "N0221", 5896.23F, "G", 2, "37PR88GC", 78.20F);
+			= new LocalisationPloTypePR(11L, "N0221", 5896.23F, "G", 2, "37PR88GC", 78.20F);
 
 		final ILocalisationLineaire objetNull1 
-		= new LocalisationPloConstruction();
+		= new LocalisationPloTypePR();
 	
 		final ILocalisationLineaire objetNull2 
-			= new LocalisationPloConstruction();
+			= new LocalisationPloTypePR();
 				
 		final ILocalisationLineaire objetCompAvant1 
-			= new LocalisationPloConstruction(3L, "A0006", null, "D", 3, "01PR88D", 78.20F);
+			= new LocalisationPloTypePR(3L, "A0006", null, "D", 3, "01PR88D", 78.20F);
 
 		final ILocalisationLineaire objetCompApres2 
-			= new LocalisationPloConstruction(3L, "A0006", null, "D", 3, "37PR88D", 78.20F);
+			= new LocalisationPloTypePR(3L, "A0006", null, "D", 3, "37PR88D", 78.20F);
 
 	
 		/* garantit que compareTo(memeInstance) retourne 0. */		
@@ -364,13 +363,13 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 		
 		final ILocalisationLineaire objetNull1 
-			= new LocalisationPloConstruction();
+			= new LocalisationPloTypePR();
 		
 		final ILocalisationLineaire objetNullClone1 
 			= (ILocalisationLineaire) objetNull1.clone();
 		
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(23L, "N0844", 5698.36F, "G", null, "73PR7G", 785F);
+			= new LocalisationPloTypePR(23L, "N0844", 5698.36F, "G", null, "73PR7G", 785F);
 		
 		final ILocalisationLineaire objetClone1 
 		= (ILocalisationLineaire) objet1.clone();
@@ -427,10 +426,10 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objetNull 
-			= new LocalisationPloConstruction();
+			= new LocalisationPloTypePR();
 		
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(2L, "A0006", 5896F, "D", 1, "77PR25D", 412.36F);
+			= new LocalisationPloTypePR(2L, "A0006", 5896F, "D", 1, "77PR25D", 412.36F);
 
 		
 		/* garantit que les null sont bien gérés dans toString(). */
@@ -473,7 +472,7 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(2L, "A0006", 5896F, "D", null, "77PR2DC", 0F);
+			= new LocalisationPloTypePR(2L, "A0006", 5896F, "D", null, "77PR2DC", 0F);
 
 		/* garantit que getEnTeteCsv() retourne le bon en-tête csv. */
 		final String entete = objet1.getEnTeteCsv();
@@ -508,10 +507,10 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objetNull 
-		= new LocalisationPloConstruction();
+		= new LocalisationPloTypePR();
 	
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(27L, "N0186", 5896.36F, "G", null, "77PR12G", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", 5896.36F, "G", null, "77PR12G", 0F);
 		
 		/* garantit que les null sont gérés dans toStringCsv(). */
 		final String ligneCsvNull = objetNull.toStringCsv();
@@ -560,10 +559,10 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objetNull 
-		= new LocalisationPloConstruction();
+		= new LocalisationPloTypePR();
 	
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(27L, "N0186", 5896.36F, "G", null, "77PR2G", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", 5896.36F, "G", null, "77PR2G", 0F);
 		
 		/* garantit que les null sont gérés 
 		 * dans getEnTeteColonne(int pI). */
@@ -613,10 +612,10 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objetNull 
-		= new LocalisationPloConstruction();
+		= new LocalisationPloTypePR();
 	
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(27L, "N0186", 5896.36F, "G", 2, "77PR2GC", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", 5896.36F, "G", 2, "77PR2GC", 0F);
 		
 		/* garantit que les null sont gérés 
 		 * dans getValeurColonne(int pI). */
@@ -706,31 +705,31 @@ public class LocalisationPloConstructionTest {
 		// **********************************
 
 		final ILocalisationLineaire objet1 
-			= new LocalisationPloConstruction(27L, "N0186", 5896.36F, "G", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", 5896.36F, "G", null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objetSansRoute1 
-			= new LocalisationPloConstruction(27L, null, 5896.36F, "G", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, null, 5896.36F, "G", null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objetAvecRouteSansCote1 
-			= new LocalisationPloConstruction(27L, "N0186", 5896.36F, null, null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", 5896.36F, null, null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objet2 
-			= new LocalisationPloConstruction(27L, "N0186", 8888.88F, "G", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", 8888.88F, "G", null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objet3 
-			= new LocalisationPloConstruction(27L, "N0186", 1000F, "G", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", 1000F, "G", null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objetRouteDiff 
-			= new LocalisationPloConstruction(27L, "A0186", 8888.88F, "G", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "A0186", 8888.88F, "G", null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objetCoteDiff 
-			= new LocalisationPloConstruction(27L, "A0186", 8888.88F, "D", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "A0186", 8888.88F, "D", null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objetCumulNull1 
-			= new LocalisationPloConstruction(27L, "N0186", null, "G", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", null, "G", null, "73PR7GC", 0F);
 		
 		final ILocalisationLineaire objetCumulNull2 
-			= new LocalisationPloConstruction(27L, "N0186", null, "G", null, "73PR7GC", 0F);
+			= new LocalisationPloTypePR(27L, "N0186", null, "G", null, "73PR7GC", 0F);
 		
 		
 		/* garantit que x.devance(null) retourne toujours false. */
@@ -800,4 +799,4 @@ public class LocalisationPloConstructionTest {
 	
 	
 
-} // FIN DE LA CLASSE LocalisationPloConstructionTest.-----------------------
+} // FIN DE LA CLASSE LocalisationPloTypePRTest.-----------------------------

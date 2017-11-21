@@ -13,8 +13,9 @@ import levy.daniel.application.model.metier.localisation.localisationlineaire.Ab
 /**
  * class LocalisationPloConstruction :<br/>
  * <ul>
- * <li>Modélisation d'une Localisation en PLO de Construction.</li>
+ * <li>Modélisation d'une Localisation en PLO de Type PR.</li>
  * </ul>
+ * <br/>
  *
  * - Exemple d'utilisation :<br/>
  *<br/>
@@ -31,11 +32,11 @@ import levy.daniel.application.model.metier.localisation.localisationlineaire.Ab
  * @since 21 nov. 2017
  *
  */
-@Entity(name="LocalisationPloConstruction")
-@Table(name="LOCALISATIONS_PLO_CONSTRUCTION", schema="PUBLIC")
+@Entity(name="LocalisationPloTypePR")
+@Table(name="LOCALISATIONS_PLO_TYPE_PR", schema="PUBLIC")
 @PrimaryKeyJoinColumn(name="ID_ABSTRACTLOCALISATIONBASEPUR"
-, foreignKey=@ForeignKey(name="FK_LOCALISATIONPLOCONSTRUCTION_LOCSBASEPURES"))
-public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
+, foreignKey=@ForeignKey(name="FK_LOCALISATIONPLOTYPEPR_LOCSBASEPURES"))
+public class LocalisationPloTypePR extends AbstractLocalisationLineaire {
 
 	// ************************ATTRIBUTS************************************/
 
@@ -50,27 +51,27 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 	 * LOG : Log : 
 	 * Logger pour Log4j (utilisant commons-logging).
 	 */
-	private static final Log LOG = LogFactory.getLog(LocalisationPloConstruction.class);
+	private static final Log LOG = LogFactory.getLog(LocalisationPloTypePR.class);
 
 	// *************************METHODES************************************/
 	
 	
 	 /**
-	 * method CONSTRUCTEUR LocalisationPloConstruction() :<br/>
+	 * method CONSTRUCTEUR LocalisationPloTypePR() :<br/>
 	 * CONSTRUCTEUR D'ARITE NULLE.<br/>
 	 * A utiliser avec les Setters.<br/>
 	 * <br/>
 	 */
-	public LocalisationPloConstruction() {
+	public LocalisationPloTypePR() {
 		
 		this(null, null, null, null, null, null, null);
 				
-	} // Fin de CONSTRUCTEUR AbstractLocalisationLineaire()._______________
+	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 	
 
 		
 	 /**
-	 * method CONSTRUCTEUR LocalisationPloConstruction(
+	 * method CONSTRUCTEUR LocalisationPloTypePR(
 	 * String pRoute, Float pCumul, 
 	 * String pPlo, Float pAbs) :<br/>
 	 * <ul>
@@ -87,7 +88,7 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 	 * ATTENTION : cette abscisse peut être négative 
 	 * (contrairement à l'abscisse d'un PR).<br/>
 	 */
-	public LocalisationPloConstruction(
+	public LocalisationPloTypePR(
 			final String pRoute, final Float pCumul
 			, final String pPlo, final Float pAbs) {
 		
@@ -98,7 +99,7 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 
 	
 	 /**
-	 * method CONSTRUCTEUR LocalisationPloConstruction(
+	 * method CONSTRUCTEUR LocalisationPloTypePR(
 	 * COMPLET) :<br/>
 	 * <ul>
 	 * <li>CONSTRUCTEUR COMPLET.</li>
@@ -114,7 +115,7 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 	 * ATTENTION : cette abscisse peut être négative 
 	 * (contrairement à l'abscisse d'un PR).<br/>
 	 */
-	public LocalisationPloConstruction(
+	public LocalisationPloTypePR(
 			final String pRoute, final Float pCumul
 			, final String pCote, final Integer pVoie
 			, final String pPlo, final Float pAbs) {
@@ -126,7 +127,7 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 	
 	
 	 /**
-	 * method CONSTRUCTEUR LocalisationPloConstruction(
+	 * method CONSTRUCTEUR LocalisationPloTypePR(
 	 * COMPLET BASE) :<br/>
 	 * <ul>
 	 * <li>CONSTRUCTEUR COMPLET BASE.</li>
@@ -143,7 +144,7 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 	 * ATTENTION : cette abscisse peut être négative 
 	 * (contrairement à l'abscisse d'un PR).<br/>
 	 */
-	public LocalisationPloConstruction(
+	public LocalisationPloTypePR(
 			final Long pId
 			, final String pRoute, final Float pCumul
 			, final String pCote, final Integer pVoie
@@ -155,4 +156,4 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 
 
 		
-} // FIN DE LA CLASSE LocalisationPloConstruction.---------------------------
+} // FIN DE LA CLASSE LocalisationPloTypePR.---------------------------------
