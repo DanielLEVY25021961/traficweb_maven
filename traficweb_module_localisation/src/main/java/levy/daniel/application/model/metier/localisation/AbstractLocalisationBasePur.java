@@ -83,7 +83,7 @@ public abstract class AbstractLocalisationBasePur
 	
 	/**
 	 * serialVersionUID : long :<br/>
-	 * .<br/>
+	 * serialVersionUID.<br/>
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -690,7 +690,7 @@ public abstract class AbstractLocalisationBasePur
 		
 		final StringBuffer stb = new StringBuffer();
 		
-		/* idBase. */
+		/* id. */
 		stb.append(this.id);					
 		stb.append(POINT_VIRGULE);
 		

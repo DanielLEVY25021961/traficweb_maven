@@ -61,7 +61,7 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
 @Entity(name="LocalisationBasePur")
 @Table(name="LOCALISATIONS_BASE_PURES", schema="PUBLIC")
 @PrimaryKeyJoinColumn(name="ID_ABSTRACTLOCALISATIONBASEPUR"
-, foreignKey=@ForeignKey(name="FK_ABSTRACTLOCSPURES_LOCSPURES"))
+, foreignKey=@ForeignKey(name="FK_ABSTRACTLOCSBASEPURES_LOCSBASEPURES"))
 public class LocalisationBasePur extends AbstractLocalisationBasePur {
 
 	// ************************ATTRIBUTS************************************/
