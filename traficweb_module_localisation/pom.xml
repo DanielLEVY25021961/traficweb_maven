@@ -121,6 +121,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	<!-- =============================================== -->	
 	<dependencies>
 
+		<!-- ====================================== -->
+		<!-- dépendances pour CERBERE-BOUCHON 		-->
+		<!-- ====================================== -->
 		<!-- https://forge.din.developpement-durable.gouv.fr/nexus/repository/maven-public -->
 		<dependency>
 		   <groupId>fr.gouv.e2.cerbere</groupId>
