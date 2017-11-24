@@ -22,6 +22,26 @@ import levy.daniel.application.model.metier.localisation.localisationlineaire.Ab
  * Cette abscisse peut être négative pour un PLO 
  * (comptée en sens décroissant par rapport au PLO).</li>
  * </ul>
+ * <br/>
+ * <li>
+ * Voici un exemple d'un même point localisé en 
+ * [PR + abscisse], [PLO de type PR + abscisse]
+ * , [PLO de construction + abscisse (négative)] et 
+ * localisation géométrique :</li>
+ * </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../../../javadoc/images/Route_A2_Dept59.png" 
+ * alt="image de 4 localisations d'un même point" border="1" align="center" />
+ * </li>
+ * <br/>
+ * <li>Voici le diagramme des classes linéaires implémentées : </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../../../javadoc/images/localisations_lineaires_concretes.png" 
+ * alt="implémentation des localisations linéaires" border="1" align="center" />
+ * </li>
+ * <br/>
  * </ul>
  * <br/>
  *

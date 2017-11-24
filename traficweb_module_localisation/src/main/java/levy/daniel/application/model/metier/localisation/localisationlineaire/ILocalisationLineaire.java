@@ -9,6 +9,7 @@ import levy.daniel.application.model.metier.localisation.ILocalisationBasePur;
  * LocalisationLineaire (plo, abs).</li>
  * <li>HERITE de ILocalisationBasePur.</li>
  * </ul>
+ * 
  * <br/>
  *
  * - Exemple d'utilisation :<br/>

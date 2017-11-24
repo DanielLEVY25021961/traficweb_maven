@@ -114,6 +114,19 @@
  * <img src="../../../../../../../../../javadoc/images/modes_localisation.png" 
  * alt="les 3 modes de localisation" border="1" align="center" />
  * </li>
+ * <br/>
+ * <li>
+ * Voici un exemple d'un même point localisé en 
+ * [PR + abscisse], [PLO de type PR + abscisse]
+ * , [PLO de construction + abscisse (négative)] et 
+ * localisation géométrique :</li>
+ * </li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../javadoc/images/Route_A2_Dept59.png" 
+ * alt="image de 4 localisations d'un même point" border="1" align="center" />
+ * </li>
+ * <br/>
  * </ul>
  * <br/>
  *
