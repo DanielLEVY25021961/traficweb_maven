@@ -20,14 +20,16 @@
  * <li>
  * Avec une localisation <i>linéaire</i>, on localise toujours 
  * un point routier avec un <b>repère</b> (PLO ou PR) et une 
- * <b>abscisse</b> dans le sens croissant par rapport à ce repère.<br/>
+ * <b>abscisse</b> <i>(dans le sens croissant par rapport 
+ * à ce repère en PR, peut être décroissant en PLO)</i>.<br/>
  * Par exemple, un même point routier pourra être exprimé en 
  * localisation linéaire comme suit :<br/> 
  * <b>LocalisationBasePur</b>=[route_A0006 + cumul_null + cote_G + voie_1] 
  * + <b>repère PR</b>=[Dept73 + Concedé + PR7] 
  * + <b>abscisse</b>=987 en <b>PR</b>.<br/>
  * <b>LocalisationBasePur</b>=[route_A0006 + cumul_null + cote_G + voie_1] 
- * + <b>repère PLO</b>=[73PR7GC] + <b>abscisse</b>=987 en <b>PLO</b> (de type PR).<br/>
+ * + <b>repère PLO</b>=[73PR7GC] + <b>abscisse</b>=987 
+ * en <b>PLO</b> (de type PR).<br/>
  * </li>
  * <li>
  * Avec une localisation <i>géométrique</i>, on repère un 

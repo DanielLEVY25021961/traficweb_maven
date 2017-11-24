@@ -14,6 +14,13 @@ import levy.daniel.application.model.metier.localisation.localisationlineaire.Ab
  * class LocalisationPloConstruction :<br/>
  * <ul>
  * <li>Modélisation d'une Localisation en PLO de Construction.</li>
+ * <ul>
+ * <li>PLO de Type Construction <b>plo</b>.<br/>
+ * par exemple FFxxxx pour "Fin de fourchexxxx".</li>
+ * <li>abscisse du PLO <b>abs</b>.<br/>
+ * Cette abscisse peut être négative pour un PLO 
+ * (comptée en sens décroissant par rapport au PLO).</li>
+ * </ul>
  * </ul>
  *
  * - Exemple d'utilisation :<br/>
@@ -65,10 +72,42 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 		
 		this(null, null, null, null, null, null, null);
 				
-	} // Fin de CONSTRUCTEUR AbstractLocalisationLineaire()._______________
+	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 	
 
 		
+	 /**
+	 * method CONSTRUCTEUR LocalisationPloConstruction(
+	 * String pRoute
+	 * , String pPlo, Float pAbs) :<br/>
+	 * <ul>
+	 * <li>CONSTRUCTEUR RAPIDE <b>(portée route)</b>.</li>
+	 * Le cumul (abscisse cumulée) n'est pas renseigné dans les fichiers 
+	 * de trafic fournis par les gestionnaires.<br/>
+	 * Cette donnée sera alimentée par l'appel au 
+	 * Web Service d'ISIDOR.</li>
+	 * <li>SANS id.</li>
+	 * <li>SANS cumul.</li>
+	 * <li>SANS cote ("I").</li>
+	 * <li>SANS voie (100).</li>
+	 * </ul>
+	 *
+	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
+	 * @param pPlo : String : PLO de la localisation.<br/>
+	 * @param pAbs : Float : Abscisse curviligne de la localisation.<br/>
+	 * ATTENTION : cette abscisse peut être négative 
+	 * (contrairement à l'abscisse d'un PR).<br/>
+	 */
+	public LocalisationPloConstruction(
+			final String pRoute
+			, final String pPlo, final Float pAbs) {
+		
+		this(null, pRoute, null, "I", 100, pPlo, pAbs);
+		
+	} // Fin de CONSTRUCTEUR RAPIDE._______________________________________
+
+	
+	
 	 /**
 	 * method CONSTRUCTEUR LocalisationPloConstruction(
 	 * String pRoute, Float pCumul, 
@@ -154,5 +193,6 @@ public class LocalisationPloConstruction extends AbstractLocalisationLineaire {
 	} // Fin de CONSTRUCTEUR COMPLET BASE._________________________________
 
 
+	
 		
 } // FIN DE LA CLASSE LocalisationPloConstruction.---------------------------

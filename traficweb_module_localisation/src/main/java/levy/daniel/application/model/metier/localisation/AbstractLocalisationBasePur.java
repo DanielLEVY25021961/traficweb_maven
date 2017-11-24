@@ -555,11 +555,12 @@ public abstract class AbstractLocalisationBasePur
 	public Object clone() throws CloneNotSupportedException {
 		
 		/* Création du clone. */
-		final AbstractLocalisationBasePur clone 
-			= (AbstractLocalisationBasePur) super.clone();
+		final ILocalisationBasePur clone 
+			= (ILocalisationBasePur) super.clone();
 				
 		/* Passage des attributs au clone. */
 		clone.setId(this.id);
+		
 		clone.setRoute(this.route);
 		clone.setCumul(this.cumul);
 		clone.setCote(this.cote);
@@ -585,7 +586,12 @@ public abstract class AbstractLocalisationBasePur
 		
 		/* Identifiant en base. */
 		stb.append("id : ");
-		stb.append(this.id);
+		if (this.id != null) {
+			stb.append(this.id);
+		} else {
+			stb.append(NULL);
+		}
+		
 		stb.append(SEPARATEUR_MOINS_AERE);
 		
 		/* route. */

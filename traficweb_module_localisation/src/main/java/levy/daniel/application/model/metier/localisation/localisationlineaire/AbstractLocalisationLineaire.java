@@ -131,7 +131,6 @@ public abstract class AbstractLocalisationLineaire
 	 * LOG : Log : 
 	 * Logger pour Log4j (utilisant commons-logging).
 	 */
-	@SuppressWarnings("unused")
 	private static final Log LOG = LogFactory
 			.getLog(AbstractLocalisationLineaire.class);
 	
@@ -242,13 +241,9 @@ public abstract class AbstractLocalisationLineaire
 	} // Fin de CONSTRUCTEUR COMPLET BASE._________________________________
 
 
-
+	
 	/**
-	 * method hashCode() :<br/>
-	 * HashCode.<br/>
-	 * <br/>
-	 *
-	 * @return int.<br/>
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -275,6 +270,7 @@ public abstract class AbstractLocalisationLineaire
 	 * Object pObj) :<br/>
 	 * Egalité métier de deux Localisation.<br/>
 	 * <br/>
+	 * 0 - super-classe.<br/>
 	 * 1 - plo.<br/>
 	 * 2 - abs.<br/>
 	 * <br/>
@@ -434,15 +430,9 @@ public abstract class AbstractLocalisationLineaire
 	 // Object pLocalisation)._____________________________________________
 	
 	
-
+	
 	/**
-	 * method clone() :<br/>
-	 * Clone.<br/>
-	 * <br/>
-	 *
-	 * @return Object.<br/>
-	 * 
-	 * @throws CloneNotSupportedException
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Object clone() 
@@ -454,6 +444,8 @@ public abstract class AbstractLocalisationLineaire
 						
 		/* Passage des attributs au clone. */
 		clone.setId(this.id);
+		
+		clone.setRoute(this.route);
 		clone.setCumul(this.cumul);
 		clone.setCote(this.cote);
 		clone.setVoie(this.voie);
@@ -527,6 +519,7 @@ public abstract class AbstractLocalisationLineaire
 		
 		stb.append(SEPARATEUR_MOINS_AERE);
 		
+		/* plo. */
 		stb.append("plo : ");
 		if (this.plo != null) {
 			stb.append(this.plo);
@@ -536,6 +529,7 @@ public abstract class AbstractLocalisationLineaire
 			
 		stb.append(SEPARATEUR_MOINS_AERE);
 		
+		/* abscisse du plo. */
 		stb.append("abscisse : ");
 		if (this.abs != null) {
 			stb.append(this.abs);
@@ -554,6 +548,7 @@ public abstract class AbstractLocalisationLineaire
 	/**
 	 * {@inheritDoc}
 	 * <br/>
+	 * Pour une Localisation linéaire en PLO :<br/>
 	 * "id;route;cumul;cote;voie;plo;abs;".<br/>
 	 * <br/>
 	 */
@@ -612,6 +607,7 @@ public abstract class AbstractLocalisationLineaire
 
 	/**
 	 * {@inheritDoc} <br/>
+	 * Pour une Localisation linéaire en PLO :<br/>
 	 * "id;route;cumul;cote;voie;plo;abs;".<br/>
 	 * <br/>
 	 */
@@ -651,6 +647,7 @@ public abstract class AbstractLocalisationLineaire
 	
 	/**
 	 * {@inheritDoc} <br/>
+	 * Pour une Localisation linéaire en PLO :<br/>
 	 * "id;route;cumul;cote;voie;plo;abs;".<br/>
 	 * <br/>
 	 */
