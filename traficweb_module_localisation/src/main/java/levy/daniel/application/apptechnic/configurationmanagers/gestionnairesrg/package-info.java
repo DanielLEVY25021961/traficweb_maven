@@ -1,7 +1,15 @@
 /**
  * class package-info :<br/>
- * .<br/>
- * <br/>
+ * <ul>
+ * <li></li>
+ * <li></li>
+ * <li>Les <b>booleans d'activation des contrôles de RG</b> 
+ * (Règles de Gestion) doivent figurer dans 
+ * <b>/ressources_externes/rg_fr_FR.properties</b>.</li>
+ * <li>Les <b>messages utilisateur des contrôles de RG</b> 
+ * (Règles de Gestion) doivent figurer dans 
+ * <b>/ressources_externes/rg_fr_FR.properties</b>.</li>
+ * </ul>
  *
  * - Exemple d'utilisation :<br/>
  *<br/>

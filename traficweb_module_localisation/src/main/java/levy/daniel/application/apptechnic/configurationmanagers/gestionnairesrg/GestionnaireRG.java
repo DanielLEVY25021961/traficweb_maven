@@ -58,6 +58,18 @@ public final class GestionnaireRG {
 
 	
 	/**
+	 * RG_LOCALISATION_ROUTE_01 : String :<br/>
+	 * Règle de Gestion.<br/>
+	 * "RG_LOCALISATION_ROUTE_01 : la route de la localisation 
+	 * doit être renseignée".<br/>
+	 */
+	public static final String RG_LOCALISATION_ROUTE_01 
+		= "RG_LOCALISATION_ROUTE_01 : "
+				+ "la route de la localisation doit être renseignée";
+
+
+	
+	/**
 	 * RG_PROPERTIES : String :<br/>
 	 * fichier properties contenant les booleans d'activation 
 	 * des contrôles des RG.<br/>
@@ -217,8 +229,8 @@ static {
 	 * method fournirCheminRessourceExterneRG() :<br/>
 	 * fournit le chemin (externe au projet) du répertoire 
 	 * contenant le fichier rg.properties.<br/>
-	 * "D:/Donnees/eclipse/eclipseworkspace_neon/
-	 * tuto_maven_sonatype/ressources_externes".<br/>
+	 * "D:/Donnees/eclipse/eclipseworkspace_neon/traficweb_maven/
+	 * traficweb_module_localisation/ressources_externes".<br/>
 	 * Ce chemin doit être écrit EN DUR 
 	 * (surtout pas relatif au projet Eclipse).<br/>
 	 * <br/>
@@ -228,8 +240,8 @@ static {
 	 */
 	private static String fournirCheminRessourceExterneRG() {
 					
-		return "D:/Donnees/eclipse/eclipseworkspace_neon/"
-				+ "tuto_maven_sonatype/ressources_externes";
+		return "D:/Donnees/eclipse/eclipseworkspace_neon/traficweb_maven"
+				+ "/traficweb_module_localisation/ressources_externes";
 					
 	} // Fin de fournirCheminRessourceExterneRG()._________________________
 	
