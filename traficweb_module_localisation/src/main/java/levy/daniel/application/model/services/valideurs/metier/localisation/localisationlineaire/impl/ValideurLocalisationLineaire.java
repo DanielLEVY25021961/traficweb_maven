@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import levy.daniel.application.model.metier.localisation.localisationlineaire.ILocalisationLineaire;
+import levy.daniel.application.model.metier.localisation.localisationlineaire.ILocalisationLineaireString;
 import levy.daniel.application.model.services.valideurs.AbstractValideurGeneric;
 
 /**
@@ -29,7 +29,7 @@ import levy.daniel.application.model.services.valideurs.AbstractValideurGeneric;
  * @since 24 nov. 2017
  *
  */
-public class ValideurLocalisationLineaire extends AbstractValideurGeneric<ILocalisationLineaire> {
+public class ValideurLocalisationLineaire extends AbstractValideurGeneric<ILocalisationLineaireString> {
 
 	// ************************ATTRIBUTS************************************/
 
@@ -44,7 +44,8 @@ public class ValideurLocalisationLineaire extends AbstractValideurGeneric<ILocal
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Map<String, Map<String, String>> validate(ILocalisationLineaire pObject) throws MalformedURLException {
+	public Map<String, Map<String, String>> validate(
+			final ILocalisationLineaireString pObject) throws MalformedURLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

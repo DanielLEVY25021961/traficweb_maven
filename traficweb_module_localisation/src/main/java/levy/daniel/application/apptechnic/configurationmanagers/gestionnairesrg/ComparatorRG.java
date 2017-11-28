@@ -10,10 +10,21 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * class ComparatorRG :<br/>
- * Comparator pour classer les RG par ordre croissant de numéro de RG.<br/>
- * RG_INTERRO_VILLE_04<br/>
- * RG_INTERRO_NBREJOURS_05<br/>
- * ...<br/>
+ * <ul>
+ * <li>
+ * Comparator pour classer les RG par ordre 
+ * croissant de numéro de RG.
+ * </li>
+ * <li>
+ * Le numéro de la RG servant au tri est supposé situé à la fin du 
+ * nom de la RG comme dans RG_INTERRO_VILLE_04.</li>
+ * <li>Le résultat du tri donne par exemple :</li>
+ * <ul>
+ * <li>RG_INTERRO_VILLE_04</li>
+ * <li>RG_INTERRO_NBREJOURS_05</li>
+ * <li>...</li>
+ * </ul>
+ * </ul>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>

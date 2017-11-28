@@ -20,7 +20,18 @@ import levy.daniel.application.apptechnic.configurationmanagers.gestionnairesrg.
 
 /**
  * class AbstractValideurGeneric :<br/>
- * .<br/>
+ * <ul>
+ * <li>
+ * CLASSE <i>ABSTRAITE</i> <b>GENERIQUE</b> factorisant les comportements 
+ * des <b>valideurs</b> des objets métier.
+ * </li>
+ * <li>
+ * Les valideurs sont des <b>SERVICES</b> chargés de contrôler 
+ * la bonne application des <b>Règles de Gestion (RG)</b> 
+ * s'appliquant sur <b>chaque attribut</b> de <b>chaque Objet Métier</b>.
+ * </li>
+ * <li></li>
+ * </ul>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>

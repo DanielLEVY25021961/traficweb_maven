@@ -61,6 +61,7 @@ import levy.daniel.application.apptechnic.exceptions.technical.impl.FichierInexi
  * </li>
  * </ul>
  * </ul>
+ * <br/>
  *
  * - Exemple d'utilisation :<br/>
  *<code>final ResourceBundle bundleApplication 

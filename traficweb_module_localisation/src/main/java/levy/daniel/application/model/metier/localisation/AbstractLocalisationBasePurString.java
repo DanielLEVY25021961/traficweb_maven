@@ -179,9 +179,9 @@ public abstract class AbstractLocalisationBasePurString
 	 * </ul>
 	 *
 	 * @param pRoute : String : Nom ISIDOR de la route.<br/>
-	 * @param pCumul : Float : abscisse cumulée de la localisation.<br/>
+	 * @param pCumul : String : abscisse cumulée de la localisation.<br/>
 	 * @param pCote : String : cote de la route (I, D ou G).<br/>
-	 * @param pVoie : Integer : Voie de la localisation.<br/>
+	 * @param pVoie : String : Voie de la localisation.<br/>
 	 */
 	public AbstractLocalisationBasePurString(
 			final String pRoute

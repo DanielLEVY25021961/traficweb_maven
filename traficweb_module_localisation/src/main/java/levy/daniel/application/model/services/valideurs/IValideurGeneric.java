@@ -34,20 +34,23 @@ public interface IValideurGeneric<T> {
 	 * method validate(
 	 * T pObject) :<br/>
 	 * <ul>
-	 * <li>valide l'Objet métier de type paramétré T pObject.</li>
+	 * <li><b>valide</b> l'Objet Métier de type paramétré T pObject.</li>
+	 * <li>valide <b>chaque RG</b> de <b>chaque attribut</b> 
+	 * de l'Objet Métier de type paramétré T pObject.</li>
+	 * <br/>
 	 * <li>retourne une map&lt;String, map&lt;String, String&gt;&gt; 
-	 * 'this.erreurs' contenant les messages d'erreur avec :
+	 * <b>'this.erreurs'</b> contenant les messages d'erreur avec :
 	 * <ul>
-	 * <li>String : le nom de l'attribut de l'Objet métier concerné 
+	 * <li>String : le nom de l'<b>attribut</b> de l'Objet métier concerné 
 	 * par le message d'erreur.</li>
 	 * <li>map&lt;String, String&gt; : une map contenant la RG violée 
 	 * ainsi que le message d'erreur relatif à la RG.</li>
 	 * </ul>
 	 * <li>alimente une map&lt;String, map&lt;String, 
-	 * LigneRapportValidation&gt;&gt; 'this.controles'
+	 * LigneRapportValidation&gt;&gt; <b>'this.controles'</b>
 	 * contenant les rapports de contrôle (validation) avec :
 	 * <ul>
-	 * <li>String : le nom de l'attribut de l'Objet métier concerné 
+	 * <li>String : le nom de l'<b>attribut</b> de l'Objet métier concerné 
 	 * par le rapport de contrôle (par exemple "prénom").</li>
 	 * <li>map&lt;String, LigneRapportValidation&gt; : une Map avec :
 	 * <ul>

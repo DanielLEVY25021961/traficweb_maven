@@ -19,13 +19,34 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * class GestionnaireRG :<br/>
- * Classe utilitaire chargée de gérer en un point unique 
- * l'implémentation des règles de gestion (RG) 
- * de toute l'application.<br/>
  * <ul>
- * <li>La méthode <b>afficherListeRGImplementeesCsv()</b> 
+ * <li>
+ * Classe utilitaire chargée de gérer en un <b>point unique</b> 
+ * l'implémentation des <b>règles de gestion (RG)</b> 
+ * de toute l'application.
+ * </li>
+ * <li>
+ * Le GestionnaireRG fournit la <b>liste des RG</b> implémentées 
+ * dans l'application ainsi que leur <b>état d'activation</b>. 
+ * </li>
+ * <li>
+ * Le GestionnaireRG fournit à l'ensemble de l'application 
+ * <b>les boolean d'activation de toutes les RG</b> ainsi que 
+ * les <b>messages d'erreurs à l'attention des utilisateurs 
+ * de chaque RG</b>.<br/>
+ * Ces valeurs sont stockées dans
+ * <b>/ressources_externes/rg_fr_FR.properties</b>. 
+ * </li>
+ * <li>
+ * La méthode <b>afficherListeRGImplementeesCsv()</b> 
  * retourne une String pour l'affichage de toutes 
- * les RG implémentées dans l'application.</li>
+ * les RG implémentées dans l'application ainsi 
+ * que leur état d'activation.<br/>
+ * La Maîtrise d'Ouvrage (MOA) peut donc faire 
+ * <b>GestionnaireRG.afficherListeRGImplementeesCsv()</b> 
+ * pour connaitre instantanément la liste en <b>csv</b> des 
+ * RG implémentées et leur état d'activation.
+ * </li>
  * </ul>
  * <br/>
  *
@@ -156,8 +177,11 @@ static {
 
 	/**
 	 * method getBundleExterneRG() :<br/>
-	 * Fournit le ResourceBundle associé au fichier externe rg.properties 
-	 * avec la Locale Locale_fr_FR.<br/>
+	 * <ul>
+	 * <li>Fournit le <b>ResourceBundle</b> associé au fichier <i>externe 
+	 * (hors classpath car paramétrable par la MOA)</i> 
+	 * <b>rg.properties</b> avec la Locale <b>Locale_fr_FR</b>.</li>
+	 * </ul>
 	 * <br/>
 	 *
 	 * @return : ResourceBundle : rg.properties.<br/>
@@ -184,9 +208,11 @@ static {
 	/**
 	 * method getBundleExterneRG(
 	 * Locale pLocale) :<br/>
-	 * Fournit le ResourceBundle associé au fichier externe rg.properties 
-	 * avec la Locale pLocale.<br/>
-	 * <br/>
+	 * <ul>
+	 * Fournit le <b>ResourceBundle</b> associé au fichier <i>externe 
+	 * (hors classpath car paramétrable par la MOA)</i> <b>rg.properties</b> 
+	 * avec la Locale <b>pLocale</b>.<br/>
+	 * </ul>
 	 *
 	 * @param pLocale : Locale.<br/>
 	 * 
@@ -236,7 +262,8 @@ static {
 	 * <br/>
 	 *
 	 * @return : String : "D:/Donnees/eclipse/eclipseworkspace_neon/
-	 * tuto_maven_sonatype/ressources_externes".<br/>
+	 * traficweb_maven//traficweb_module_localisation/
+	 * ressources_externes".<br/>
 	 */
 	private static String fournirCheminRessourceExterneRG() {
 					

@@ -72,28 +72,6 @@ import levy.daniel.application.model.metier.IExportateurJTable;
 public interface ILocalisationBasePurString 
 			extends IExportateurCsv, IExportateurJTable {
 
-	
-	/**
-	 * method getId() :<br/>
-	 * Getter de l'ID en base.<br/>
-	 * <br/>
-	 *
-	 * @return id : Long.<br/>
-	 */
-	Long getId();
-
-
-	
-	/**
-	* method setId(
-	* Long pId) :<br/>
-	* Setter de l'ID en base.<br/>
-	* <br/>
-	*
-	* @param pId : Long : valeur à passer à id.<br/>
-	*/
-	void setId(Long pId);
-
 
 	
 	/**
