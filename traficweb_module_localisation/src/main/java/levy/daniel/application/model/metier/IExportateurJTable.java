@@ -27,11 +27,11 @@ public interface IExportateurJTable {
 	/**
 	* method getEnTeteColonne(
 	* int pI) :<br/>
-	* Fournit l'en-tête de la pIème colonne (0-based) 
-	* pour affichage dans une JTable par exemple.<br/>
-	* <br/>
-	* Suit l'ordre défini dans le csv.<br/>
-	* <br/>
+	* <ul>
+	* <li>Fournit l'en-tête de la pIème colonne (0-based) 
+	* pour affichage dans une JTable par exemple.</li>
+	* <li>Suit l'ordre défini dans le csv.</li>
+	* </ul>
 	*
 	* @param pI : int : pIème colonne (0 - based).<br/>
 	* 
@@ -48,7 +48,7 @@ public interface IExportateurJTable {
 	* <li>Fournit la valeur de la pIème colonne (0-based) 
 	* pour affichage dans une JTable par exemple.</li>
 	* <li>Suit l'ordre défini dans le csv.</li>
-	* <li>Retourne toujours une String si l'objet n'est pas null.</li>
+	* <li>Retourne toujours une <b>String</b> si l'objet n'est pas null.</li>
 	* <li>Retourne null si la valeur dans l'objet est null.</li>
 	* </ul>
 	*
