@@ -2,8 +2,8 @@
  * class package-info :<br/>
  * <ul>
  * <li>Ce package <b>levy.daniel.application.model</b> contient 
- * toute la <b>logique métier</b> 
- * (SERVICES, objets métier (entities), DAOs) 
+ * toute la <b>logique métier</b> ou <b>MODEL</b>
+ * [<b>SERVICES</b>, <b>METIER</b> = Objets métier = Objets du Domaine (entities), <b>DAOs</b>] 
  * de l'application.</li>
  * <li>Cette logique métier doit rester <i>inchangée</i> 
  * quelle que soit la technologie utilisée (Web, Standalone, ...).</li>

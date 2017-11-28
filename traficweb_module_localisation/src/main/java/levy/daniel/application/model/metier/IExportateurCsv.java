@@ -23,17 +23,23 @@ package levy.daniel.application.model.metier;
  */
 public interface IExportateurCsv {
 	
+
 	
 	/**
 	 * method getEnTeteCsv() :<br/>
-	 * Fournit l'en-tête des lignes csv.<br/>
-	 * <br/>
+	 * <ul>
+	 * <li>
+	 * Fournit l'en-tête des lignes csv de l'Objet métier.
+	 * </li>
+	 * <li>
 	 * Pourrait être static dans l'absolu, 
-	 * mais ne pourrait alors plus figurer dans l'interface. 
+	 * mais ne pourrait alors plus figurer dans l'interface.<br/> 
 	 * L'idée est de pouvoir demander à n'importe quel objet métier 
-	 * de fournir son en-tête de fichier csv.<br/>
+	 * de fournir son en-tête de fichier csv.
+	 * </li>
+	 * </ul>
 	 *
-	 * @return : String.<br/>
+	 * @return : String : en-tête CSV de l'Objet métier.<br/>
 	 */
 	String getEnTeteCsv();
 
@@ -42,12 +48,13 @@ public interface IExportateurCsv {
 	/**
 	 * method toStringCsv() :<br/>
 	 * <ul>
-	 * <li>Fournit le ValueObject sous forme de <b>ligne Csv</b>.</li>
-	 * <li>Remplace les valeurs null par "null" comme 
-	 * dans "27;N0186;5896.36;G;null;" avec une voie=null.</li>
+	 * <li>Fournit l'Objet métier sous forme de <b>ligne Csv</b>.</li>
+	 * <li>Java remplace automatiquement les valeurs null par 
+	 * <b>"null"</b> comme dans "27;N0186;5896.36;G;null;" 
+	 * avec une voie=null.</li>
 	 * </ul>
 	 *
-	 * @return : String.<br/>
+	 * @return : String : l'Objet métier sous forme de ligne CSV.<br/>
 	 */
 	String toStringCsv();
 

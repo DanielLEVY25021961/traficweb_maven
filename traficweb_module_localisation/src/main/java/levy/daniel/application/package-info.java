@@ -6,7 +6,8 @@
  * <b>GroupId</b> dans MAVEN.
  * </li>
  * <li>
- * L'architecture applicative retenue est de type SOA.
+ * L'architecture applicative retenue est de type SOA 
+ * (Service Oriented Architecture = Architecture Orientée Services).
  * </li>
  * <br/>
  * <li>

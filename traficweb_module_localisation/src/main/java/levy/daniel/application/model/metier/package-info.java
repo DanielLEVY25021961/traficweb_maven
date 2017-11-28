@@ -1,6 +1,12 @@
 /**
  * class package-info :<br/>
- * .<br/>
+ * <ul>
+ * Ce package contient toutes les classes métier, c'est à dire 
+ * les <b>Objets métier</b> (aussi appelés <i>Objets du Domaine</i>).
+ * <li>Ces objets métier ou objets du domaine <i>transitent dans 
+ * toutes les couches</i> [<b>VUES</b> + <b>CONTROLLERS</b> 
+ * + <b>MODEL</b>(Services + Métier + DAOs)].</li>
+ * </ul>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>

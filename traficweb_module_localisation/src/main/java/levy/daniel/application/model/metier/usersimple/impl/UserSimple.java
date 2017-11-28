@@ -1,16 +1,35 @@
-package levy.daniel.application.model.metier.usersimple;
+package levy.daniel.application.model.metier.usersimple.impl;
 
 import java.io.Serializable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import levy.daniel.application.model.metier.IExportateurCsv;
-import levy.daniel.application.model.metier.IExportateurJTable;
+import levy.daniel.application.model.metier.usersimple.IUserSimple;
 
 /**
  * class UserSimple :<br/>
- * .<br/>
+ * <ul>
+ * <li>Implémentation <b>CONCRETE</b> de IUserSimple.</li>
+ * <li>IMPLEMENTE Serializable.</li>
+ * <li>IMPLEMENTE IUserSimple.</li>
+ * <br/>
+ * <li>Les attributs d'un UserSimple sont : </li>
+ * <ul>
+ * <li><b>id</b> pour la mise en base.</li>
+ * <li><b>civilite</b> (M., Mme, ...).</li>
+ * <li><b>prenom</b>.</li>
+ * <li><b>nom</b>.</li>
+ * <li><b>e-mail</b>.</li>
+ * <li><b>login</b>.</li>
+ * <li><b>mot de passe</b>.</li>
+ * <li><b>profil</b> (Adminstrateur, Utilisateur, ...).</li>
+ * <br/>
+ * <li>
+ * <img src="../../../../../../../../../../javadoc/images/implementation_UserSimple.png" 
+ * alt="implémentation du UserSimple" border="1" align="center" />
+ * </li>
+ * </ul>
  * <br/>
  *
  * - Exemple d'utilisation :<br/>
@@ -29,8 +48,7 @@ import levy.daniel.application.model.metier.IExportateurJTable;
  *
  */
 public class UserSimple 
-	implements Serializable, Comparable<UserSimple>, Cloneable
-		, IExportateurCsv, IExportateurJTable {
+	implements Serializable, IUserSimple {
 
 	// ************************ATTRIBUTS************************************/
 
@@ -49,11 +67,25 @@ public class UserSimple
 	
 	
 	/**
+	 * VIRGULE_ESPACE : String :<br/>
+	 * ", ".<br/>
+	 */
+	public static final String VIRGULE_ESPACE = ", ";
+	
+	
+	/**
 	 * id : Long :<br/>
 	 * ID en base.<br/>
 	 */
 	private Long id;
 
+	
+	/**
+	 * civilite : String :<br/>
+	 * Civilité du UserSimple (M., Mme, Mlle, ...).<br/>
+	 */
+	private String civilite;
+	
 	
 	/**
 	 * prenom : String :<br/>
@@ -67,6 +99,13 @@ public class UserSimple
 	 * Nom du User.<br/>
 	 */
 	private String nom;
+	
+
+	/**
+	 * email : String :<br/>
+	 * E-mail du UserSimple.<br/>
+	 */
+	private String email;
 	
 	
 	/**
@@ -107,36 +146,60 @@ public class UserSimple
 	 * <br/>
 	 */
 	public UserSimple() {
-		this(null, null, null, null);
+		this(null, null, null, null, null, null, null, null);
 	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 	
 	
 	
 	 /**
 	 * method CONSTRUCTEUR UserSimple() :<br/>
-	 * CONSTRUCTEUR COMPLET.<br/>
-	 * SANS ID en Base.<br/>
-	 * <br/>
+	 * <ul>
+	 * <li>CONSTRUCTEUR COMPLET.</li>
+	 * <li>SANS ID en Base.</li>
+	 * </ul>>
 	 *
-	 *@param pLogin : String : Login.<br/>
+	 * @param pCivilite : String : Civilité du UserSimple 
+	 * (M., Mme, Mlle, ...).<br/>
+	 * @param pPrenom : String : Prénom du User.<br/>
+	 * @param pNom : String : Nom du User.<br/>
+	 * @param pEmail : String : E-mail du UserSimple.<br/>
+	 * @param pLogin : String : Login.<br/>
 	 * @param pMdp : String : Mot de passe.<br/>
 	 * @param pProfil : String : Profil du UserSimple 
 	 * (administrateur, modérateur, ...).<br/>
 	 */
-	public UserSimple(final String pLogin, final String pMdp
+	public UserSimple(
+			final String pCivilite
+			, final String pPrenom, final String pNom
+			, final String pEmail
+			, final String pLogin, final String pMdp
 				, final String pProfil) {
-		this(null, pLogin, pMdp, pProfil);
+		
+		this(null
+				, pCivilite
+				, pPrenom, pNom
+				, pEmail
+				, pLogin, pMdp
+				, pProfil);
+		
 	} // Fin de CONSTRUCTEUR COMPLET.______________________________________
 	
 	
 	
 	 /**
-	 * method CONSTRUCTEUR UserSimple(CONSTRUCTEUR COMPLET BASE) :<br/>
-	 * CONSTRUCTEUR COMPLET BASE.<br/>
-	 * AVEC ID EN BASE.<br/>
-	 * <br/>
+	 * method CONSTRUCTEUR UserSimple(
+	 * CONSTRUCTEUR COMPLET BASE) :<br/>
+	 * <ul>
+	 * <li>CONSTRUCTEUR COMPLET BASE.</li>
+	 * <li>AVEC ID EN BASE.</li>
+	 * </ul>
 	 *
 	 * @param pId : Long : ID en base.<br/>
+	 * @param pCivilite : String : Civilité du UserSimple 
+	 * (M., Mme, Mlle, ...).<br/>
+	 * @param pPrenom : String : Prénom du User.<br/>
+	 * @param pNom : String : Nom du User.<br/>
+	 * @param pEmail : String : E-mail du UserSimple.<br/>
 	 * @param pLogin : String : Login.<br/>
 	 * @param pMdp : String : Mot de passe.<br/>
 	 * @param pProfil : String : Profil du UserSimple 
@@ -144,12 +207,19 @@ public class UserSimple
 	 */
 	public UserSimple(
 			final Long pId
+			, final String pCivilite
+			, final String pPrenom, final String pNom
+			, final String pEmail
 			, final String pLogin, final String pMdp
 				, final String pProfil) {
 		
 		super();
 		
 		this.id = pId;
+		this.civilite = pCivilite;
+		this.prenom = pPrenom;
+		this.nom = pNom;
+		this.email = pEmail;
 		this.login = pLogin;
 		this.mdp = pMdp;
 		this.profil = pProfil;
@@ -157,8 +227,7 @@ public class UserSimple
 	} // Fin de CONSTRUCTEUR COMPLET BASE._________________________________
 
 
-	
-	
+		
 	/**
 	 * {@inheritDoc}
 	 */
@@ -182,6 +251,12 @@ public class UserSimple
 
 	/**
 	 * {@inheritDoc}
+	 * <br/>
+	 * <ol>
+	 * equals sur
+	 * <li><b>login</b>.</li>
+	 * <li><b>mot de passe</b>.</li>
+	 * </ol>
 	 */
 	@Override
 	public final boolean equals(
@@ -232,7 +307,7 @@ public class UserSimple
 	 */
 	@Override
 	public final int compareTo(
-			final UserSimple pUserSimple) {
+			final IUserSimple pUserSimple) {
 
 		if (this == pUserSimple) {
 			return 0;
@@ -254,14 +329,16 @@ public class UserSimple
 			if (pUserSimple.getLogin() == null) {
 				return -1;
 			}
-		}
-		
-		compareLogin 
+			
+			compareLogin 
 			= this.getLogin().compareToIgnoreCase(pUserSimple.getLogin());
 		
-		if (compareLogin != 0) {
-			return compareLogin;
+			if (compareLogin != 0) {
+				return compareLogin;
+			}
 		}
+		
+		
 
 		/* Mdp. */
 		if (this.getMdp() == null) {
@@ -288,11 +365,15 @@ public class UserSimple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final UserSimple clone() throws CloneNotSupportedException {
+	public final IUserSimple clone() throws CloneNotSupportedException {
 		
-		final UserSimple userClone = (UserSimple) super.clone();
+		final IUserSimple userClone = (IUserSimple) super.clone();
 		
 		userClone.setId(this.getId());
+		userClone.setCivilite(this.getCivilite());
+		userClone.setPrenom(this.getPrenom());
+		userClone.setNom(this.getNom());
+		userClone.setEmail(this.getEmail());
 		userClone.setLogin(this.getLogin());
 		userClone.setMdp(this.getMdp());
 		userClone.setProfil(this.getProfil());
@@ -313,24 +394,82 @@ public class UserSimple
 		
 		builder.append("UserSimple [");
 		
-		if (this.id != null) {
-			builder.append("id=");
+		/* id. */
+		builder.append("id=");
+		if (this.id != null) {			
 			builder.append(this.id);
-			builder.append(", ");
+		} else {
+			builder.append("null");
 		}
-		if (this.login != null) {
-			builder.append("login=");
+		
+		builder.append(VIRGULE_ESPACE);
+		
+		/* civilite. */
+		builder.append("civilité=");
+		if (this.civilite != null) {
+			builder.append(this.civilite);
+		} else {
+			builder.append("null");
+		}
+		
+		builder.append(VIRGULE_ESPACE);
+		
+		/* prenom. */
+		builder.append("prénom=");
+		if (this.prenom != null) {
+			builder.append(this.prenom);
+		} else {
+			builder.append("null");
+		}
+		
+		builder.append(VIRGULE_ESPACE);
+		
+		/* nom. */
+		builder.append("nom=");
+		if (this.nom != null) {
+			builder.append(this.nom);
+		} else {
+			builder.append("null");
+		}
+		
+		builder.append(VIRGULE_ESPACE);
+
+		/* email. */
+		builder.append("e-mail=");
+		if (this.email != null) {
+			builder.append(this.email);
+		} else {
+			builder.append("null");
+		}
+		
+		builder.append(VIRGULE_ESPACE);
+		
+		/* login. */
+		builder.append("login=");
+		if (this.login != null) {			
 			builder.append(this.login);
-			builder.append(", ");
+		} else {
+			builder.append("null");
 		}
-		if (this.mdp != null) {
-			builder.append("mdp=");
+		
+		builder.append(VIRGULE_ESPACE);
+		
+		/* mdp. */
+		builder.append("mdp=");
+		if (this.mdp != null) {			
 			builder.append(this.mdp);
-			builder.append(", ");
+		} else {
+			builder.append("null");
 		}
-		if (this.profil != null) {
-			builder.append("profil=");
+		
+		builder.append(VIRGULE_ESPACE);
+		
+		/* profil. */
+		builder.append("profil=");
+		if (this.profil != null) {			
 			builder.append(this.profil);
+		} else {
+			builder.append("null");
 		}
 		
 		builder.append(']');
@@ -343,31 +482,44 @@ public class UserSimple
 
 	/**
 	 * {@inheritDoc}
-	 * <br/>
-	 * "id;login;mdp;profil;".<br/>
 	 */
 	@Override
 	public final String getEnTeteCsv() {
-		return "id;login;mdp;profil;";
+		return "id;civilité;prénom;nom;e-mail;login;mdp;profil;";
 	} // Fin de getEnTeteCsv().____________________________________________
 
 
 
 	/**
 	 * {@inheritDoc}
-	 * "id;login;mdp;profil;".<br/>
 	 */
 	@Override
 	public final String toStringCsv() {
 		
 		final StringBuilder stb = new StringBuilder();
 		
+		/* id. */
 		stb.append(this.getId());
 		stb.append(POINT_VIRGULE);
+		/* civilite. */
+		stb.append(this.getCivilite());
+		stb.append(POINT_VIRGULE);
+		/* prenom. */
+		stb.append(this.getPrenom());
+		stb.append(POINT_VIRGULE);
+		/* nom. */
+		stb.append(this.getNom());
+		stb.append(POINT_VIRGULE);
+		/* email. */
+		stb.append(this.getEmail());
+		stb.append(POINT_VIRGULE);
+		/* login. */
 		stb.append(this.getLogin());
 		stb.append(POINT_VIRGULE);
+		/* mdp. */
 		stb.append(this.getMdp());
 		stb.append(POINT_VIRGULE);
+		/* profil. */
 		stb.append(this.getProfil());
 		stb.append(POINT_VIRGULE);
 		
@@ -379,7 +531,6 @@ public class UserSimple
 
 	/**
 	 * {@inheritDoc}
-	 * "id;login;mdp;profil;".<br/>
 	 */
 	@Override
 	public final String getEnTeteColonne(
@@ -392,16 +543,32 @@ public class UserSimple
 		case 0:
 			entete = "id";
 			break;
-
+			
 		case 1:
+			entete = "civilité";
+			break;
+			
+		case 2:
+			entete = "prénom";
+			break;
+			
+		case 3:
+			entete = "nom";
+			break;
+			
+		case 4:
+			entete = "e-mail";
+			break;
+
+		case 5:
 			entete = "login";
 			break;
 
-		case 2:
+		case 6:
 			entete = "mdp";
 			break;
 
-		case 3:
+		case 7:
 			entete = "profil";
 			break;
 
@@ -419,7 +586,6 @@ public class UserSimple
 
 	/**
 	 * {@inheritDoc}
-	 * "id;login;mdp;profil;".<br/>
 	 */
 	@Override
 	public final Object getValeurColonne(
@@ -430,18 +596,37 @@ public class UserSimple
 		switch (pI) {
 
 		case 0:
-			valeur = this.getId();
+			if (this.getId() != null) {
+				valeur = String.valueOf(this.getId());
+			}
+			
 			break;
 
 		case 1:
+			valeur = this.getCivilite();
+			break;
+			
+		case 2:
+			valeur = this.getPrenom();
+			break;
+			
+		case 3:
+			valeur = this.getNom();
+			break;
+			
+		case 4:
+			valeur = this.getEmail();
+			break;
+			
+		case 5:
 			valeur = this.getLogin();
 			break;
 
-		case 2:
+		case 6:
 			valeur = this.getMdp();
 			break;
 
-		case 3:
+		case 7:
 			valeur = this.getProfil();
 			break;
 
@@ -458,12 +643,9 @@ public class UserSimple
 
 	
 	/**
-	 * method getId() :<br/>
-	 * Getter de l'ID en base.<br/>
-	 * <br/>
-	 *
-	 * @return id : Long.<br/>
+	 * {@inheritDoc}
 	 */
+	@Override
 	public Long getId() {	
 		return this.id;
 	} // Fin de getId().___________________________________________________
@@ -471,27 +653,104 @@ public class UserSimple
 
 
 	/**
-	* method setId(
-	* Long pId) :<br/>
-	* Setter de l'ID en base.<br/>
-	* <br/>
-	*
-	* @param pId : Long : valeur à passer à id.<br/>
-	*/
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setId(
 			final Long pId) {	
 		this.id = pId;
 	} // Fin de setId(...).________________________________________________
 
 
+		
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getCivilite() {
+		return this.civilite;
+	} // Fin de getCivilite()._____________________________________________
+
+
 	
 	/**
-	 * method getLogin() :<br/>
-	 * Getter du Login.<br/>
-	 * <br/>
-	 *
-	 * @return login : String.<br/>
+	 * {@inheritDoc}
 	 */
+	@Override
+	public void setCivilite(
+			final String pCivilite) {
+		this.civilite = pCivilite;
+	} // Fin de setCivilite(...).__________________________________________
+
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getPrenom() {
+		return this.prenom;
+	} // Fin de getPrenom()._______________________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setPrenom(
+			final String pPrenom) {
+		this.prenom = pPrenom;
+	} // Fin de setPrenom(...).____________________________________________
+
+
+		
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getNom() {
+		return this.nom;
+	} // Fin de getNom().__________________________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setNom(
+			final String pNom) {
+		this.nom = pNom;
+	} // Fin de setNom(...)._______________________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getEmail() {
+		return this.email;
+	} // Fin de getEmail().________________________________________________
+
+
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setEmail(
+			final String pEmail) {
+		this.email = pEmail;
+	} // Fin de setEmail(...)._____________________________________________
+
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String getLogin() {	
 		return this.login;
 	} // Fin de getLogin().________________________________________________
@@ -499,13 +758,9 @@ public class UserSimple
 
 	
 	/**
-	* method setLogin(
-	* String pLogin) :<br/>
-	* Setter du Login.<br/>
-	* <br/>
-	*
-	* @param pLogin : String : valeur à passer à login.<br/>
-	*/
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setLogin(
 			final String pLogin) {	
 		this.login = pLogin;
@@ -514,12 +769,9 @@ public class UserSimple
 
 	
 	/**
-	 * method getMdp() :<br/>
-	 * Getter du Mot de passe.<br/>
-	 * <br/>
-	 *
-	 * @return mdp : String.<br/>
+	 * {@inheritDoc}
 	 */
+	@Override
 	public String getMdp() {	
 		return this.mdp;
 	} // Fin de getMdp().__________________________________________________
@@ -527,13 +779,9 @@ public class UserSimple
 
 	
 	/**
-	* method setMdp(
-	* String pMdp) :<br/>
-	* Setter du Mot de passe.<br/>
-	* <br/>
-	*
-	* @param pMdp : String : valeur à passer à mdp.<br/>
-	*/
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setMdp(
 			final String pMdp) {	
 		this.mdp = pMdp;
@@ -542,12 +790,9 @@ public class UserSimple
 
 	
 	/**
-	 * method getProfil() :<br/>
-	 * Getter du Profil du UserSimple (administrateur, modérateur, ...).<br/>
-	 * <br/>
-	 *
-	 * @return profil : String.<br/>
+	 * {@inheritDoc}
 	 */
+	@Override
 	public String getProfil() {	
 		return this.profil;
 	} // Fin de getProfil()._______________________________________________
@@ -555,13 +800,9 @@ public class UserSimple
 
 	
 	/**
-	* method setProfil(
-	* String pProfil) :<br/>
-	* Setter du Profil du UserSimple (administrateur, modérateur, ...).<br/>
-	* <br/>
-	*
-	* @param pProfil : String : valeur à passer à profil.<br/>
-	*/
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setProfil(
 			final String pProfil) {	
 		this.profil = pProfil;
