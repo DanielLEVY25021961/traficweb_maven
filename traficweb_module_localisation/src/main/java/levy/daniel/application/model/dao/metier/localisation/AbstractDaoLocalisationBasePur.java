@@ -101,7 +101,7 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Long createReturnId(
+	public final Long createReturnId(
 			final AbstractLocalisationBasePur pObject) 
 					throws AbstractDaoException {
 		
@@ -110,9 +110,14 @@ public abstract class AbstractDaoLocalisationBasePur
 			return null;
 		}
 		
-		/* Crée l'Objet en base. */
+		/* Crée l'Objet en base ou jette une AbstractDaoException. */
 		final AbstractLocalisationBasePur objetPersistant 
 			= this.create(pObject);
+		
+		/* retourne null si l'objet pObject n'a pu être créé en base. */
+		if (objetPersistant == null) {
+			return null;
+		}
 		
 		/* retourne l'ID de l'objet persistant. */
 		return objetPersistant.getId();	
@@ -125,7 +130,7 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public AbstractLocalisationBasePur retrieve(
+	public final AbstractLocalisationBasePur retrieve(
 			final AbstractLocalisationBasePur pObject) 
 						throws AbstractDaoException {
 
@@ -139,18 +144,20 @@ public abstract class AbstractDaoLocalisationBasePur
 		/* REQUETE HQL PARMETREE. */
 		final String requeteString 
 			= SELECT_OBJET
-				+ "where abstractLocalisationBasePur.route = :route "
-				+ "and abstractLocalisationBasePur.cumul = :cumul "
-				+ "and abstractLocalisationBasePur.cote = :cote";
+				+ "where abstractLocalisationBasePur.route = :pRoute "
+				+ "and abstractLocalisationBasePur.cumul = :pCumul "
+				+ "and abstractLocalisationBasePur.cote = :pCote "
+				+ "and abstractLocalisationBasePur.voie = :pVoie";
 		
 		/* Construction de la requête HQL. */
 		final Query requete 
 			= this.entityManager.createQuery(requeteString);
 		
 		/* Passage des paramètres de la requête HQL. */
-		requete.setParameter("route", pObject.getRoute());
-		requete.setParameter("cumul", pObject.getCumul());
-		requete.setParameter("cote", pObject.getCote());
+		requete.setParameter("pRoute", pObject.getRoute());
+		requete.setParameter("pCumul", pObject.getCumul());
+		requete.setParameter("pCote", pObject.getCote());
+		requete.setParameter("pVoie", pObject.getVoie());
 		
 		try {
 			
@@ -186,7 +193,7 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public AbstractLocalisationBasePur retrieveByIdMetier(
+	public final AbstractLocalisationBasePur retrieveByIdMetier(
 			final AbstractLocalisationBasePur pObjet) 
 									throws AbstractDaoException {
 		return this.retrieve(pObjet);
@@ -199,8 +206,9 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deleteById(Long pId) 
-			throws AbstractDaoException {
+	public final void deleteById(
+			final Long pId) 
+						throws AbstractDaoException {
 		
 		/* ne fait rien si pId == null. */
 		if (pId == null) {
@@ -263,7 +271,7 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean deleteByIdBoolean(
+	public final boolean deleteByIdBoolean(
 			final Long pId) throws AbstractDaoException {
 		
 		/* retourne false si pId == null. */
@@ -296,7 +304,6 @@ public abstract class AbstractDaoLocalisationBasePur
 			objetPersistant = null;
 			resultat = false;
 		}
-
 		
 		try {
 			
@@ -325,7 +332,7 @@ public abstract class AbstractDaoLocalisationBasePur
 		
 		return resultat;
 		
-	} // Fin de exists(...)._______________________________________________
+	} // Fin de deleteByIdBoolean(...).____________________________________
 
 
 
@@ -333,7 +340,7 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean exists(
+	public final boolean exists(
 			final AbstractLocalisationBasePur pObject) 
 								throws AbstractDaoException {
 		
@@ -348,18 +355,20 @@ public abstract class AbstractDaoLocalisationBasePur
 		/* REQUETE HQL PARMETREE. */
 		final String requeteString 
 			= SELECT_OBJET
-				+ "where abstractLocalisationBasePur.route = :route "
-				+ "and abstractLocalisationBasePur.cumul = :cumul "
-				+ "and abstractLocalisationBasePur.cote = :cote";
+				+ "where abstractLocalisationBasePur.route = :pRoute "
+				+ "and abstractLocalisationBasePur.cumul = :pCumul "
+				+ "and abstractLocalisationBasePur.cote = :pCote "
+				+ "and abstractLocalisationBasePur.voie = :pVoie";
 		
 		/* Construction de la requête HQL. */
 		final Query requete 
 			= this.entityManager.createQuery(requeteString);
 		
 		/* Passage des paramètres de la requête HQL. */
-		requete.setParameter("route", pObject.getRoute());
-		requete.setParameter("cumul", pObject.getCumul());
-		requete.setParameter("cote", pObject.getCote());
+		requete.setParameter("pRoute", pObject.getRoute());
+		requete.setParameter("pCumul", pObject.getCumul());
+		requete.setParameter("pCote", pObject.getCote());
+		requete.setParameter("pVoie", pObject.getVoie());
 		
 		try {
 			
@@ -400,7 +409,8 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean exists(Long pId) throws AbstractDaoException {
+	public final boolean exists(
+			final Long pId) throws AbstractDaoException {
 		
 		/* retourne false si pId == null . */
 		if (pId == null) {
@@ -422,7 +432,7 @@ public abstract class AbstractDaoLocalisationBasePur
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String afficherListe(
+	public final String afficherListe(
 			final List<AbstractLocalisationBasePur> pListe) {
 		
 		/* retourne null si pListe == null. */
