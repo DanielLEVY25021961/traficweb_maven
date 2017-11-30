@@ -13,7 +13,7 @@ import levy.daniel.application.model.metier.localisation.AbstractLocalisationBas
  * IDaoGenericJPASpring&lt;T, ID extends Serializable&gt;.
  * </li>
  * <li>
- * Définit les méthodes <i>spécifiques</i> aux AbstractLocalisationBasePur
+ * Définit les méthodes <i>spécifiques</i> aux AbstractLocalisationBasePur.
  * </li>
  * <li>
  * Définit en particulier la méthode de recherche 

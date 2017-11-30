@@ -146,10 +146,14 @@ public abstract class AbstractDaoGenericJPASpring<T, ID extends Serializable>
 	
 	/**
 	 * method renseignerClassObjetMetier() :<br/>
-	 * Impose aux DAO concrets de renseigner le .class de l'objet métier 
-	 * concerné par le présent DAO (this.classObjetMetier).<br/>
-	 * Par exemple : Book.class.<br/>
-	 * <br/>
+	 * <ul>
+	 * <li>Impose aux DAO <i>descendants</i> de <b>renseigner le .class</b> 
+	 * de l'<b>objet métier</b> concerné par le présent DAO 
+	 * (this.classObjetMetier).</li>
+	 * <li><b>automatiquement appelé</b> dans le constructeur 
+	 * AbstractDaoGenericJPASpring().</li>
+	 * <li>Par exemple : Book.class ou IUserSimple.class.</li>
+	 * </ul>
 	 */
 	protected abstract void renseignerClassObjetMetier();
 	
