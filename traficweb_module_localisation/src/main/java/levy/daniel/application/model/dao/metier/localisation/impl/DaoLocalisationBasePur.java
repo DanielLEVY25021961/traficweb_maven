@@ -56,6 +56,7 @@ public class DaoLocalisationBasePur extends AbstractDaoLocalisationBasePur {
 
 	// *************************METHODES************************************/
 	
+
 	
 	 /**
 	 * method CONSTRUCTEUR DaoLocalisationBasePur() :<br/>
@@ -66,5 +67,6 @@ public class DaoLocalisationBasePur extends AbstractDaoLocalisationBasePur {
 		super();
 	} // Fin de CONSTRUCTEUR D'ARITE NULLE.________________________________
 
+	
 	
 } // FIN DE LA CLASSE DaoLocalisationBasePur.--------------------------------

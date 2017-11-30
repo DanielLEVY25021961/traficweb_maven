@@ -22,13 +22,15 @@ import levy.daniel.application.model.dao.daoexceptions.GestionnaireDaoException;
 
 
 /**
- * class AbstractDaoGeneric :<br/>
+ * class AbstractDaoGenericJPASpring :<br/>
  * <ul>
- * <li><b>DAO ABSTRAIT GENERIQUE</b> pour SPRING.</li>
+ * <li><b>DAO ABSTRAIT GENERIQUE</b> pour SPRING utilisant JPA.</li>
  * <li>
  * Comporte l'implémentation des méthodes <b>CRUD</b> valables 
  * pour <b>tous les objets métier</b>.
  * </li>
+ * <li>l'attribut JPA <b>EntityManager</b> est injecté par SPRING. 
+ * Il comporte l'annotation SPRING <b>"PersistenceContext"</b>.</li>
  * <li>Les transactions sont gérées par le conteneur SPRING.</li>
  * <li>
  * Certaines méthodes (getOne(ID), ...) sont 
