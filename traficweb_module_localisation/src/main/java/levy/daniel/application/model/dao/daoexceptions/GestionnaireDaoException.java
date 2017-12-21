@@ -167,8 +167,11 @@ public class GestionnaireDaoException {
 					LOG.fatal(messageUtilisateur, pE);
 				}
 				
-				throw daoPSQLExc;						
-			}
+				throw daoPSQLExc;
+				
+			} // Fin de Tables absentes.________________________
+
+			
 			
 			/* Problème de transaction. */
 			if (pE instanceof TransactionRequiredException) {
@@ -191,8 +194,9 @@ public class GestionnaireDaoException {
 					LOG.fatal(messageUtilisateur, pE);
 				}
 				
-				throw daoTransactionExc;			
-			}
+				throw daoTransactionExc;
+				
+			} // Fin de Problème de transaction.________________
 						
 			/* problème de doublon. */
 			gererDoublon(pE, causeMere, causeGrandMere);			
